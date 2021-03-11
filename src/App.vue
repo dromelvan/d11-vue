@@ -8,6 +8,13 @@
       'v-application-xl': $vuetify.breakpoint.xl
     }"
   >
+    <template v-if="$vuetify.breakpoint.smAndDown">
+      <app-bar-sm-and-down />
+      <navigation-drawer />
+    </template>
+
+    <app-bar-md-and-up class="app-bar" v-if="$vuetify.breakpoint.mdAndUp" />
+
     <v-main>
       <router-view />
     </v-main>
@@ -16,7 +23,13 @@
 
 <script>
 export default {
-  name: "App"
+  name: "App",
+
+  components: {
+    AppBarSmAndDown: () => import("@/components/app_bar/AppBarSmAndDown"),
+    NavigationDrawer: () => import("@/components/app_bar/NavigationDrawer"),
+    AppBarMdAndUp: () => import("@/components/app_bar/AppBarMdAndUp")
+  }
 };
 </script>
 
