@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer v-model="show" app dark temporary>
+  <v-navigation-drawer v-model="show" app dark color="menu" temporary>
     <v-list nav flat dense>
       <v-list-item-group
         v-for="navigationGroup in navigationGroups"
@@ -40,8 +40,19 @@ export default {
 };
 </script>
 
-<style scoped>
-.v-subheader {
-  text-transform: uppercase;
+<style lang="scss" scoped>
+.v-navigation-drawer {
+  background-color: $menu-background-color !important;
+
+  .v-subheader,
+  .v-list-item .v-list-item__title {
+    font-size: 0.9rem;
+  }
+  .v-subheader {
+    text-transform: uppercase;
+  }
+  .v-list-item--active {
+    background-color: var(--v-highlight-base);
+  }
 }
 </style>

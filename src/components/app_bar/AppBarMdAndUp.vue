@@ -1,30 +1,29 @@
 <template>
-  <v-app-bar app color="primary" src="@/assets/images/app-bar-background.png">
+  <v-app-bar app color="brand" src="@/assets/images/app-bar-background.png">
     <template v-slot:default>
       <div>
-        <v-img class="d11-logo" alt="D11" src="@/assets/images/d11-logo.png" />
+        <v-img
+          class="d11-logo"
+          height="40"
+          alt="D11"
+          contain
+          src="@/assets/images/d11-logo.png"
+        />
       </div>
 
-      <v-spacer></v-spacer>
-
-      <search-field />
-    </template>
-    <template v-slot:extension>
       <v-menu
-        open-on-hover
         v-for="navigationGroup in navigationGroups"
         :key="navigationGroup.header"
+        :nudge-left="navigationGroup.nudgeLeft"
+        open-on-hover
+        transition="slide-y-transition"
         offset-y
-        dark
-        transition="scale-transition"
-        auto
-        origin="top center"
+        tile
       >
         <template v-slot:activator="{ on }">
-          <a style="color: white; padding-right: 1em" v-on="on">
+          <v-btn v-on="on" :ripple="false" text dark>
             {{ navigationGroup.header }}
-            <v-icon style="color: white">mdi-chevron-down</v-icon>
-          </a>
+          </v-btn>
         </template>
         <v-list>
           <v-list-item
@@ -32,6 +31,7 @@
             :key="link.text"
             exact
             router
+            :ripple="false"
             :to="{ name: link.route }"
           >
             <v-list-item-title>
@@ -40,6 +40,10 @@
           </v-list-item>
         </v-list>
       </v-menu>
+
+      <v-spacer></v-spacer>
+
+      <search-field />
     </template>
   </v-app-bar>
 </template>
@@ -65,5 +69,54 @@ export default {
     width: $d11-app-width;
     margin: auto;
   }
+}
+
+// Tweak the visible menu buttons.
+.v-btn:before {
+  background-color: inherit;
+}
+
+.v-btn.v-btn--text {
+  letter-spacing: 0;
+  font-weight: bold;
+  justify-content: inherit;
+}
+
+// Tweak menu items.
+.v-menu__content {
+  .v-list {
+    padding: 0px;
+    // Have to use this instead of the theme colour since it seems Vuetify truncates
+    // colour variables of the #000000de type
+    background-color: $menu-background-color;
+
+    .v-list-item__title {
+      font-size: 1rem;
+      color: var(--v-menuText-base);
+    }
+
+    .v-list-item:hover {
+      background-color: var(--v-highlight-base);
+    }
+  }
+}
+
+// Adds the arrow at the top of the menu.
+.v-menu__content {
+  contain: initial;
+  overflow: visible;
+  border: 1px solid var(--v-menu-lighten3);
+}
+.v-menu__content::before {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: calc(50% - 5px);
+  transform: translateY(-100%);
+  width: 5px;
+  height: 5px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid var(--v-menu-lighten3);
 }
 </style>

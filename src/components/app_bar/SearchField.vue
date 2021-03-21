@@ -19,11 +19,9 @@
           <v-list-item-avatar>
             <player-image :fileName="data.item.photoFileName" />
           </v-list-item-avatar>
-          <v-list-item-content>
-            <v-list-item-title
-              class="player-name"
-              v-html="data.item.name"
-            ></v-list-item-title>
+          <v-list-item-content dark>
+            <v-list-item-title class="player-name" v-html="data.item.name">
+            </v-list-item-title>
             <v-list-item-subtitle
               class="team-name"
               v-html="data.item.team"
@@ -119,5 +117,34 @@ export default {
 .v-autocomplete__content {
   max-height: unset !important;
   max-width: 100px !important;
+
+  .v-list {
+    background-color: $menu-background-color;
+
+    .v-subheader {
+      padding-left: 16px;
+    }
+
+    .v-subheader,
+    .v-list-item__title {
+      font-size: 1rem;
+    }
+
+    .v-list-item__title {
+      color: var(--v-menuText-base);
+    }
+
+    .v-subheader,
+    .v-list-item__subtitle {
+      color: var(--v-menuText-darken2);
+    }
+
+    .v-list-item.v-list-item--highlighted {
+      background-color: var(--v-highlight-base);
+    }
+    .v-list-item.v-list-item--highlighted:before {
+      opacity: 0 !important;
+    }
+  }
 }
 </style>

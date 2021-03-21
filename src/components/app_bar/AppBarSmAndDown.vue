@@ -1,7 +1,7 @@
 <template>
   <v-app-bar
     app
-    color="primary"
+    color="brand"
     src="@/assets/images/app-bar-background-sm-and-down.png"
   >
     <template v-slot:default>
@@ -44,3 +44,10 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.v-btn::before {
+  // This makes the button look not active when we're on the search page.
+  background-color: inherit;
+}
+</style>

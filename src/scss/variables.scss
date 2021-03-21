@@ -3,7 +3,8 @@ $d11-app-width: 1185px;
 $d11-spacer: 6px;
 $d11-large-spacer: $d11-spacer * 2;
 
-$dark-background-color: rgba(0, 0, 0, 0.87);
+// Do it this way until we figure out how to make #000000de as a theme variable work
+$menu-background-color: rgba(0, 0, 0, 0.87);
 
 $overview-color: white;
 $overview-dark-background-color: rgba(0, 0, 0, 0.7);
