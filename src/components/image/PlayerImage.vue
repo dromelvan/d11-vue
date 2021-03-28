@@ -1,5 +1,5 @@
 <template>
-  <d11-image :type="'player'" :fileName="fileName" />
+  <d11-image :type="'player'" :fileName="fileName" :size="size" />
 </template>
 
 <script>
@@ -15,6 +15,10 @@ export default {
     fileName: {
       type: String,
       default: "missing.png"
+    },
+    size: {
+      type: String,
+      default: "default"
     }
   }
 };

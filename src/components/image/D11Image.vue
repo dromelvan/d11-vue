@@ -39,4 +39,12 @@ img {
 img.small {
   height: 60px;
 }
+
+img.tiny {
+  height: 32px;
+}
+
+img.icon {
+  height: 16px;
+}
 </style>
