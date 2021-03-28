@@ -31,7 +31,7 @@ export default {
     }
 
     .emphasised {
-      background: $d11-blue-gray;
+      background: var(--v-highlight-base);
     }
 
     .previous-btn,
@@ -65,7 +65,7 @@ export default {
       line-height: 2.3em;
       font-size: 1.75em;
       padding: 0 0.25em;
-      background: $d11-blue;
+      background: var(--v-primary-base);
     }
   }
 }
