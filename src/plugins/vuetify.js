@@ -8,6 +8,7 @@ export default new Vuetify({
     options: { customProperties: true },
     themes: {
       light: {
+        primary: "#000A3C",
         brand: "#000A3C",
         anchor: "#000000",
         highlight: "#597090",
@@ -17,6 +18,7 @@ export default new Vuetify({
         menuText: "#FFFFFF"
       },
       dark: {
+        primary: "#000A3C",
         brand: "#000A3C",
         anchor: "#000000",
         menu: "#000000",

@@ -3,6 +3,9 @@ $d11-app-width: 1185px;
 $d11-spacer: 6px;
 $d11-large-spacer: $d11-spacer * 2;
 
+$d11-match-event-icon-width: 18px;
+$d11-match-event-icon-height: $d11-match-event-icon-width;
+
 // Do it this way until we figure out how to make #000000de as a theme variable work
 $menu-background-color: rgba(0, 0, 0, 0.87);
 
@@ -13,6 +16,6 @@ $overview-content-background-color: rgba(0,10,60,.4);
 $overview-spacer-height: 200px;
 
 
-$d11-blue: #000A3C;
-$d11-blue-gray: #597090;
-$d11-gray: #717984;
+//$d11-blue: #000A3C;
+//$d11-blue-gray: #597090;
+//$d11-gray: #717984;

@@ -1,3 +1,13 @@
 .v-application {
   font-family: "Roboto Condensed", Arial, Helvetica, sans-serif;
 }
+
+.v-tabs {
+  .v-tabs-bar {
+    height: 60px;
+
+    .team-image {
+      padding-right: $d11-spacer;
+    }
+  }
+}
