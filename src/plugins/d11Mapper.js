@@ -1,20 +1,20 @@
 export default {
   install(Vue) {
     var d11Mapper = {
-      playerMatchStatsByPosition: function(playerMatchStats) {
-        var playerMatchStatsByPosition = {
+      playerStatsByPosition: function(playerStats) {
+        var playerStatsByPosition = {
           positions: {},
           totalPoints: 0
         };
-        playerMatchStats.forEach(playerMatchStat => {
-          var position = playerMatchStat.position.name;
-          if (!(position in playerMatchStatsByPosition.positions)) {
-            playerMatchStatsByPosition.positions[position] = [];
+        playerStats.forEach(playerStat => {
+          var position = playerStat.position.name;
+          if (!(position in playerStatsByPosition.positions)) {
+            playerStatsByPosition.positions[position] = [];
           }
-          playerMatchStatsByPosition.positions[position].push(playerMatchStat);
-          playerMatchStatsByPosition.totalPoints += playerMatchStat.points;
+          playerStatsByPosition.positions[position].push(playerStat);
+          playerStatsByPosition.totalPoints += playerStat.points;
         });
-        return playerMatchStatsByPosition;
+        return playerStatsByPosition;
       }
     };
     Vue.prototype.$d11Mapper = d11Mapper;
