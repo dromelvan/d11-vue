@@ -28,7 +28,7 @@ export default {
   .list-container-header {
     display: flex;
     padding: 0;
-    padding-bottom: $d11-spacer;
+    //padding-bottom: $d11-spacer;
     line-height: 2.2em;
     font-weight: 600;
   }
@@ -77,11 +77,11 @@ export default {
   }
 }
 
-.list-container.columns {
-  .list-container-header {
-    padding-bottom: 0;
-  }
-}
+//.list-container.columns {
+//  .list-container-header {
+//    padding-bottom: 0;
+//  }
+//}
 
 .v-tabs-items {
   .list-container:first-child {

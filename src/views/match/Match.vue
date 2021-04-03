@@ -3,7 +3,7 @@
     <match-overview-sm-and-up v-if="smAndUp" :match="match" />
 
     <content-section>
-      <v-container class="player-stats-container">
+      <v-container class="player-stats-container tabs-container">
         <v-tabs :grow="xs" class="player-stats-tabs">
           <v-tab class="player-stats-tab">
             <team-image :size="'tiny'" :id="match.homeTeam.id" />
@@ -57,7 +57,7 @@ export default {
 .v-tab {
   letter-spacing: 0;
 }
-.player-stats-container {
-  padding: 0px;
-}
+//.player-stats-container {
+//  padding: 0px;
+//}
 </style>
