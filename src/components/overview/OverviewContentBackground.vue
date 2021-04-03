@@ -12,6 +12,7 @@ export default {
 
 <style lang="scss" scoped>
 .overview-content-background {
+  min-height: 80px;
   padding-bottom: $d11-large-spacer;
   background-color: $overview-content-background-color;
 }

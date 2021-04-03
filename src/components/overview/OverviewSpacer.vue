@@ -1,5 +1,7 @@
 <template>
-  <v-container class="overview-spacer"> </v-container>
+  <v-container class="overview-spacer">
+    <slot></slot>
+  </v-container>
 </template>
 
 <script>
@@ -10,7 +12,8 @@ export default {
 
 <style lang="scss" scoped>
 .overview-spacer {
-  padding: 0px;
   height: $overview-spacer-height;
+  display: flex;
+  align-items: center;
 }
 </style>
