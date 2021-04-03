@@ -50,16 +50,7 @@
               active(playerStat.match.status)
           "
         >
-          <v-progress-circular
-            class="progress"
-            :rotate="-90"
-            :size="35"
-            :width="5"
-            :value="elapsed(playerStat.match.elapsed)"
-            color="#061958"
-          >
-            {{ playerStat.match.elapsed }}
-          </v-progress-circular>
+          <elapsed :elapsedTime="playerStat.match.elapsed" />
         </div>
 
         <template v-if="['d11Match'].includes(view)">
@@ -234,6 +225,7 @@ export default {
     ListContainerItem: () => import("@/components/ListContainerItem"),
     PlayerImage: () => import("@/components/image/PlayerImage"),
     TeamImage: () => import("@/components/image/TeamImage"),
+    Elapsed: () => import("@/components/Elapsed"),
     YellowCardIcon: () => import("@/components/match_event/YellowCardIcon"),
     RedCardIcon: () => import("@/components/match_event/RedCardIcon"),
     SubstitutionOnIcon: () =>
