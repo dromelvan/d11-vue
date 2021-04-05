@@ -23,10 +23,25 @@
             <span
               class="did-not-participate"
               v-else-if="playerStat.lineup === 0"
-              >DNP
+            >
+              DNP
             </span>
           </template>
-          <template v-if="mdAndUp || playerStat.player.name.length < 22">{{
+          <!-- TODO: Clean this up -->
+          <template v-if="mdAndUp">{{ playerStat.player.name }}</template>
+          <template v-else-if="['matchWeek'].includes(view)">
+            <template
+              v-if="
+                playerStat.player.name.length < 17 ||
+                  (!playerStat.manOfTheMatch &&
+                    !playerStat.sharedManOfTheMatch &&
+                    playerStat.player.name.length < 24)
+              "
+              >{{ playerStat.player.name }}</template
+            >
+            <template v-else>{{ playerStat.player.shortName }}</template>
+          </template>
+          <template v-else-if="playerStat.player.name.length < 22">{{
             playerStat.player.name
           }}</template>
           <template v-else>{{ playerStat.player.shortName }}</template>
@@ -53,15 +68,15 @@
           <elapsed :elapsedTime="playerStat.match.elapsed" />
         </div>
 
-        <template v-if="['d11Match'].includes(view)">
+        <template v-if="['d11Match', 'matchWeek'].includes(view)">
           <!-- Team ------------------------>
           <div class="team after-main-item">
             <team-image :size="'icon'" :id="playerStat.team.id" />
           </div>
 
           <!-- Match ----------------------->
-          <div class="match" v-if="['d11Match'].includes(view)">
-            <team-image :size="'icon'" :id="2" />
+          <div class="match" v-if="['d11Match', 'matchWeek'].includes(view)">
+            <team-image :size="'icon'" :id="playerStat.match.homeTeam.id" />
             <template v-if="!pending(playerStat.match.status)">
               {{ playerStat.match.homeTeamGoals }}-{{
                 playerStat.match.awayTeamGoals
@@ -70,7 +85,7 @@
             <template v-else>
               vs
             </template>
-            <team-image :size="'icon'" :id="4" />
+            <team-image :size="'icon'" :id="playerStat.match.awayTeam.id" />
           </div>
         </template>
 
@@ -78,7 +93,9 @@
           <!-- Goals ----------------------->
           <div
             class="goals"
-            :class="{ 'after-main-item': ['match'].includes(view) }"
+            :class="{
+              'after-main-item': ['match'].includes(view)
+            }"
           >
             <template v-if="playerStat.goals > 0">{{
               playerStat.goals
@@ -200,7 +217,7 @@
         </div>
 
         <!-- D11 Team -------------------->
-        <div class="d11-team" v-if="['match'].includes(view)">
+        <div class="d11-team" v-if="['match', 'matchWeek'].includes(view)">
           <template v-if="!playerStat.d11Team.dummy && mdAndUp">{{
             playerStat.d11Team.name
           }}</template>

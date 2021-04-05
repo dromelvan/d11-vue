@@ -8,14 +8,14 @@
 
     <lazy-player-stat-list
       context="Top 5 Players"
-      view="match"
+      view="matchWeek"
       :playerStats="top5PlayerStats"
       @visible="findTop5PlayerMatchStatByMatchWeek"
     />
 
     <lazy-player-stat-list
       context="Bottom 5 Players"
-      view="match"
+      view="matchWeek"
       :playerStats="bottom5PlayerStats"
       @visible="findBottom5PlayerMatchStatByMatchWeek"
     />

@@ -12,7 +12,7 @@
     <template v-if="smAndUp">
       <!-- Position ------------------>
       <div v-if="context" class="context">{{ context }}</div>
-      <template v-if="['d11Match'].includes(view)">
+      <template v-if="['d11Match', 'matchWeek'].includes(view)">
         <!-- Team -------------------->
         <div class="team after-main-item">
           <v-tooltip top>
@@ -109,7 +109,7 @@
         </v-tooltip>
       </div>
       <!-- D11 team ------------------>
-      <div class="d11-team" v-if="['match'].includes(view)">
+      <div class="d11-team" v-if="['match', 'matchWeek'].includes(view)">
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
             <span v-bind="attrs" v-on="on" v-if="mdAndUp">D11 Team</span>
