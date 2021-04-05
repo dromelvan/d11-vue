@@ -77,18 +77,6 @@ export default {
   }
 }
 
-//.list-container.columns {
-//  .list-container-header {
-//    padding-bottom: 0;
-//  }
-//}
-
-.v-tabs-items {
-  .list-container:first-child {
-    padding-top: $d11-large-spacer;
-  }
-}
-
 .v-application-xs {
   .list-container {
     .list-container-header > *,

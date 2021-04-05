@@ -21,11 +21,15 @@ export default {
 <style lang="scss" scoped>
 .v-progress-circular {
   position: absolute;
-  left: 0;
-  right: 0;
+  width: 70px;
+  height: 70px;
+  left: 50%;
   top: 160px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100px; /* Need a specific value to work */
+  margin-left: -35px;
+}
+
+.v-progress-circular.centered {
+  top: 50%;
+  margin-top: -35px;
 }
 </style>

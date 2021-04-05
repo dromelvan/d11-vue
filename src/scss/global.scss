@@ -2,6 +2,11 @@
   font-family: "Roboto Condensed", Arial, Helvetica, sans-serif;
 }
 
+.v-lazy {
+  // Need this to be able to set 'position: absolute' relative to the v-lazy for loading indicators inside it.
+  position: relative;
+}
+
 .tabs-container {
   padding: 0px;
 }
@@ -12,6 +17,14 @@
 
     .team-image {
       padding-right: $d11-spacer;
+    }
+  }
+
+  .v-tabs-items {
+    padding-top: $d11-spacer;
+
+    .h1-container {
+      padding-top: $d11-spacer;
     }
   }
 }
