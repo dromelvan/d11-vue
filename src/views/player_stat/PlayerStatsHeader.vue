@@ -3,7 +3,7 @@
     <!-- XS device header --------------------------------------------------->
 
     <template v-if="xs">
-      <div class="position main-item">{{ position }}s</div>
+      <div class="position main-item">{{ context }}</div>
       <div class="points">P.</div>
     </template>
 
@@ -11,7 +11,7 @@
 
     <template v-if="smAndUp">
       <!-- Position ------------------>
-      <div v-if="position" class="position">{{ position }}s</div>
+      <div v-if="context" class="context">{{ context }}</div>
       <template v-if="['d11Match'].includes(view)">
         <!-- Team -------------------->
         <div class="team after-main-item">
@@ -126,7 +126,7 @@
 export default {
   name: "PlayerStatsHeader",
   props: {
-    position: String,
+    context: String,
     view: String
   }
 };

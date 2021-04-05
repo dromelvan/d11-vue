@@ -7,24 +7,13 @@
     <loading-indicator v-if="!playerStatsByPosition" />
 
     <div class="player-stats" v-else>
-      <list-container
-        columns
-        class="position-stats"
+      <player-stat-list
         v-for="position in Object.keys(playerStatsByPosition.positions)"
         :key="position"
-      >
-        <template v-slot:header>
-          <player-stats-header :position="position" :view="view" />
-        </template>
-
-        <div
-          v-for="playerStat in playerStatsByPosition.positions[position]"
-          :key="playerStat.id"
-        >
-          <player-stat :view="view" :playerStat="playerStat" />
-          <v-divider />
-        </div>
-      </list-container>
+        :context="position + 's'"
+        :view="view"
+        :playerStats="playerStatsByPosition.positions[position]"
+      />
       <v-container class="total-points" v-if="showTotalPoints">
         Total: {{ playerStatsByPosition.totalPoints }}
       </v-container>
@@ -50,9 +39,7 @@ export default {
   },
   components: {
     LoadingIndicator: () => import("@/components/LoadingIndicator"),
-    ListContainer: () => import("@/components/ListContainer"),
-    PlayerStatsHeader: () => import("@/views/player_stat/PlayerStatsHeader"),
-    PlayerStat: () => import("@/views/player_stat/PlayerStat")
+    PlayerStatList: () => import("@/views/player_stat/PlayerStatList")
   },
   methods: {
     getPlayerStats() {
