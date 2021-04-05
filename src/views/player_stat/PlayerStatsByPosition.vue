@@ -25,12 +25,11 @@
 export default {
   name: "PlayerStatsByPositions",
   data: () => ({
-    visible: false,
-    playerStatsByPosition: null
+    visible: false
   }),
   props: {
-    filterId1: Number,
-    filterId2: Number,
+    findPlayerStatParams: Object,
+    playerStatsByPosition: Object,
     view: String,
     showTotalPoints: {
       type: Boolean,
@@ -41,23 +40,9 @@ export default {
     LoadingIndicator: () => import("@/components/LoadingIndicator"),
     PlayerStatList: () => import("@/views/player_stat/PlayerStatList")
   },
-  methods: {
-    getPlayerStats() {
-      if (this.view === "match") {
-        return new this.$d11BootApi.PlayerMatchStatApi().findActivePlayerMatchStatByMatchIdAndTeamId(
-          this.filterId1,
-          this.filterId2
-        );
-      }
-    }
-  },
   watch: {
     visible: function() {
-      this.getPlayerStats().then(result => {
-        this.playerStatsByPosition = this.$d11Mapper.playerStatsByPosition(
-          result
-        );
-      });
+      this.$emit("visible", this.findPlayerStatParams);
     }
   }
 };

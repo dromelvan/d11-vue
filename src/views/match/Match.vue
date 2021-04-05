@@ -21,9 +21,14 @@
             :key="teamId"
           >
             <player-stats-by-position
-              :filterId1="match.id"
-              :filterId2="teamId"
-              :view="'match'"
+              :findPlayerStatParams="{ matchId: match.id, teamId: teamId }"
+              :playerStatsByPosition="
+                teamId === match.homeTeam.id
+                  ? homeTeamPlayerMatchStatsByPosition
+                  : awayTeamPlayerMatchStatsByPosition
+              "
+              view="match"
+              @visible="findPlayerMatchStats"
             />
           </v-tab-item>
         </v-tabs>
@@ -36,7 +41,9 @@
 export default {
   name: "Match",
   data: () => ({
-    match: null
+    match: null,
+    homeTeamPlayerMatchStatsByPosition: null,
+    awayTeamPlayerMatchStatsByPosition: null
   }),
   components: {
     MatchOverviewSmAndUp: () => import("@/views/match/MatchOverviewSmAndUp"),
@@ -45,6 +52,25 @@ export default {
     PlayerStatsByPosition: () =>
       import("@/views/player_stat/PlayerStatsByPosition")
   },
+  methods: {
+    findPlayerMatchStats(findPlayerStatParams) {
+      new this.$d11BootApi.PlayerMatchStatApi()
+        .findActivePlayerMatchStatByMatchIdAndTeamId(
+          findPlayerStatParams.matchId,
+          findPlayerStatParams.teamId
+        )
+        .then(result => {
+          var playerMatchStatsByPosition = this.$d11Mapper.playerStatsByPosition(
+            result
+          );
+          if (findPlayerStatParams.teamId === this.match.homeTeam.id) {
+            this.homeTeamPlayerMatchStatsByPosition = playerMatchStatsByPosition;
+          } else {
+            this.awayTeamPlayerMatchStatsByPosition = playerMatchStatsByPosition;
+          }
+        });
+    }
+  },
   mounted() {
     new this.$d11BootApi.MatchApi()
       .findMatchById(this.$route.params.id)
@@ -52,12 +78,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.v-tab {
-  letter-spacing: 0;
-}
-//.player-stats-container {
-//  padding: 0px;
-//}
-</style>
