@@ -37,9 +37,13 @@
             </list-container>
           </v-tab-item>
           <v-tab-item>
-            <v-container>
-              TODO
-            </v-container>
+            <!-- This hack with v-for resets the stats tab so it doesn't load stats on route change when it's not
+                 the active tab. Some day we might want to figure out how to do it in a less hacky way. -->
+            <match-week-stats
+              :matchWeekId="matchWeek.id"
+              v-for="matchWeek in [this.matchWeek]"
+              :key="matchWeek.id"
+            />
           </v-tab-item>
         </v-tabs>
       </v-container>
@@ -60,7 +64,8 @@ export default {
     ListContainer: () => import("@/components/ListContainer"),
     ListContainerItem: () => import("@/components/ListContainerItem"),
     MatchWeekMatchSmAndUp: () =>
-      import("@/views/match_week/MatchWeekMatchSmAndUp")
+      import("@/views/match_week/MatchWeekMatchSmAndUp"),
+    MatchWeekStats: () => import("@/views/match_week/MatchWeekStats")
   },
   methods: {
     getMatchWeek: function() {
@@ -79,10 +84,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.match-week-date {
-  //  font-weight: 600;
-  //  padding-bottom: $d11-spacer;
-}
-</style>
