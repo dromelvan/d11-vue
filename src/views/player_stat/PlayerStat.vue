@@ -27,21 +27,7 @@
               DNP
             </span>
           </template>
-          <!-- TODO: Clean this up -->
-          <template v-if="mdAndUp">{{ playerStat.player.name }}</template>
-          <template v-else-if="['matchWeek'].includes(view)">
-            <template
-              v-if="
-                playerStat.player.name.length < 17 ||
-                  (!playerStat.manOfTheMatch &&
-                    !playerStat.sharedManOfTheMatch &&
-                    playerStat.player.name.length < 24)
-              "
-              >{{ playerStat.player.name }}</template
-            >
-            <template v-else>{{ playerStat.player.shortName }}</template>
-          </template>
-          <template v-else-if="playerStat.player.name.length < 22">{{
+          <template v-if="playerStat.player.name.length <= maxNameLength">{{
             playerStat.player.name
           }}</template>
           <template v-else>{{ playerStat.player.shortName }}</template>
@@ -253,6 +239,26 @@ export default {
   methods: {
     participated: function(playerStat) {
       return playerStat.lineup === 2 || playerStat.substitutionOnTime > 0;
+    }
+  },
+  computed: {
+    maxNameLength() {
+      if (this.$vuetify.breakpoint.mdAndUp) {
+        return 100;
+      }
+      var maxNameLength = 22;
+      if (["matchWeek"].includes(this.view)) {
+        if (this.playerStat.lineup === 1) {
+          maxNameLength -= 6;
+        }
+        if (
+          this.playerStat.manOfTheMatch ||
+          this.playerStat.sharedManOfTheMatch
+        ) {
+          maxNameLength -= 6;
+        }
+      }
+      return maxNameLength;
     }
   }
 };
