@@ -1,6 +1,5 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
 
 Vue.use(VueRouter);
 
@@ -8,17 +7,27 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: Home
+    component: () => import("@/views/Home.vue")
   },
   {
     path: "/about",
     name: "about",
-    component: () => import("../views/About.vue")
+    component: () => import("@/views/About.vue")
   },
   {
     path: "/search",
     name: "search",
-    component: () => import("../views/Search.vue")
+    component: () => import("@/views/Search.vue")
+  },
+  {
+    path: "/seasons/:id",
+    name: "season",
+    component: () => import("@/views/season/Season.vue")
+  },
+  {
+    path: "/premier-leagues/:id",
+    name: "premierLeague",
+    component: () => import("@/views/premier_league/PremierLeague.vue")
   },
   {
     path: "/match-weeks/:id",
