@@ -29,7 +29,7 @@ const d11Mixin = {
       return status.toUpperCase() === "ACTIVE";
     },
     fullTime: function(status) {
-      return status.toUpperCase() === "FULL_TIME";
+      return status.toUpperCase().replace(" ", "_") === "FULL_TIME";
     },
     finished: function(status) {
       return status.toUpperCase() === "FINISHED";
