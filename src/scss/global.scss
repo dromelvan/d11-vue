@@ -39,6 +39,10 @@
   padding-bottom: $d11-spacer;
 }
 
+.not-finalized {
+  color: var(--v-error-darken3);
+}
+
 .vertical-align-test {
   background: $d11-50-50-test-background;
 }

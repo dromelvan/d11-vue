@@ -30,9 +30,19 @@
           v-if="this.active(match.status)"
           :elapsedTime="this.match.elapsed"
         />
-        <template
-          v-if="this.fullTime(match.status) || this.finished(match.status)"
-        >
+        <template v-if="this.fullTime(match.status)">
+          Full Time
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <span v-bind="attrs" v-on="on" class="not-finalized">*</span>
+            </template>
+            <span
+              >Match stats for this match have not yet been finalized and are
+              subject to change.
+            </span>
+          </v-tooltip>
+        </template>
+        <template v-if="this.finished(match.status)">
           Full Time
         </template>
       </div>
