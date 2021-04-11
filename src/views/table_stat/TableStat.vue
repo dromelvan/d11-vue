@@ -8,10 +8,17 @@
       <template v-if="smAndUp">
         <!-- Ranking -------------->
         <div class="ranking emphasised">{{ tableStat.ranking }}</div>
+        <div class="image">
+          <template v-if="['team'].includes(view)">
+            <team-image size="tiny" :id="tableStat.team.id" />
+          </template>
+          <template v-else>
+            <d11-team-image size="tiny" :id="tableStat.d11_team.id" />
+          </template>
+        </div>
         <div class="name">
           <!-- Name ----------------->
           <template v-if="['team'].includes(view)">
-            <team-image size="tiny" :id="tableStat.team.id" />
             <template v-if="mdAndUp || tableStat.team.name.length < 20">
               {{ tableStat.team.name }}
             </template>
@@ -20,7 +27,6 @@
             </template>
           </template>
           <template v-else>
-            <d11-team-image size="tiny" :id="tableStat.d11_team.id" />
             {{ tableStat.d11Team.name }}
           </template>
           <!-- Table up indicator --->
@@ -121,10 +127,15 @@ export default {
 .ranking {
   min-width: 3em;
 }
-.team-image,
-.d11-team-image {
-  padding-right: $d11-spacer;
+
+.image {
+  min-width: 38px;
+  .team-image,
+  .d11-team-image {
+    padding-right: $d11-spacer;
+  }
 }
+
 .table-up,
 .table-down,
 .winner {

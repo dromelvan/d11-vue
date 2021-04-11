@@ -96,6 +96,7 @@ export default {
   }
 
   .image {
+    min-width: 44px;
     padding: 0 $d11-spacer;
   }
 

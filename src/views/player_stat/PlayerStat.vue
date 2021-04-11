@@ -271,6 +271,10 @@ export default {
   }
 
   .player-stat {
+    .image {
+      min-width: 44px;
+    }
+
     div.substitute {
       padding-right: $d11-spacer;
     }
