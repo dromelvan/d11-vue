@@ -100,6 +100,15 @@
           <span>Goal difference</span>
         </v-tooltip>
       </div>
+      <!-- Form ----------------->
+      <div class="form" v-if="mdAndUp">
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <span v-bind="attrs" v-on="on">Form</span>
+          </template>
+          <span>Results over the last five games</span>
+        </v-tooltip>
+      </div>
       <!-- Points --------------->
       <div class="points stat">
         <v-tooltip top>
@@ -129,5 +138,9 @@ export default {
 
 .stat {
   min-width: 3.8em;
+}
+
+.form {
+  min-width: 165px;
 }
 </style>

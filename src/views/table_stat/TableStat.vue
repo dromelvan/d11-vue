@@ -89,6 +89,14 @@
           <template v-if="tableStat.goalDifference > 0">+</template>
           {{ tableStat.goalDifference }}
         </div>
+        <!-- Form ------------>
+        <div class="form" v-if="mdAndUp">
+          <result-indicator
+            v-for="formMatchPoint in formMatchPoints"
+            :key="formMatchPoint.index"
+            :formMatchPoint="formMatchPoint"
+          />
+        </div>
         <!-- Points ---------->
         <div class="points stat emphasised">{{ tableStat.points }}</div>
       </template>
@@ -108,7 +116,8 @@ export default {
     TeamImage: () => import("@/components/image/TeamImage"),
     D11TeamImage: () => import("@/components/image/D11TeamImage"),
     TableUpIcon: () => import("@/components/image/TableUpIcon"),
-    TableDownIcon: () => import("@/components/image/TableDownIcon")
+    TableDownIcon: () => import("@/components/image/TableDownIcon"),
+    ResultIndicator: () => import("@/components/ResultIndicator")
   },
   computed: {
     to() {
@@ -118,6 +127,13 @@ export default {
         return { name: "d11Team", params: { id: this.tableStat.d11Team.id } };
       }
       return null;
+    },
+    formMatchPoints() {
+      var formMatchPoints = [];
+      this.tableStat.formMatchPoints.forEach(function(item, index) {
+        formMatchPoints.push({ index: index, points: item });
+      });
+      return formMatchPoints;
     }
   }
 };
@@ -144,6 +160,10 @@ export default {
 }
 .stat {
   min-width: 3.8em;
+}
+
+.form {
+  min-width: 165px;
 }
 
 .status-pending,
