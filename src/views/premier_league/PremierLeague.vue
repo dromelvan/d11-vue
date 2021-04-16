@@ -26,7 +26,11 @@
             />
           </v-tab-item>
           <v-tab-item>
-            Match weeks
+            <premier-league-match-weeks
+              v-for="premierLeague in [this.premierLeague]"
+              :key="premierLeague.id"
+              :premierLeagueId="premierLeague.id"
+            />
           </v-tab-item>
         </v-tabs>
       </v-container>
@@ -45,7 +49,9 @@ export default {
       import("@/views/premier_league/PremierLeagueOverviewSmAndUp"),
     ContentSection: () => import("@/components/ContentSection"),
     PremierLeagueTable: () =>
-      import("@/views/premier_league/PremierLeagueTable")
+      import("@/views/premier_league/PremierLeagueTable"),
+    PremierLeagueMatchWeeks: () =>
+      import("@/views/premier_league/PremierLeagueMatchWeeks")
   },
   methods: {
     getPremierLeague: function() {
