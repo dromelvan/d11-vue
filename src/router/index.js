@@ -38,6 +38,16 @@ const routes = [
     path: "/matches/:id",
     name: "match",
     component: () => import("@/views/match/Match.vue")
+  },
+  {
+    path: "/d11-leagues/:id",
+    name: "d11League",
+    component: () => import("@/views/Home.vue")
+  },
+  {
+    path: "/teams/:id",
+    name: "team",
+    component: () => import("@/views/Home.vue")
   }
 ];
 
