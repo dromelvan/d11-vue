@@ -176,21 +176,29 @@ export default {
 .premier-league {
   .ranking-1 {
     background-color: var(--v-primary-base);
-    color: white;
   }
 
   .ranking-2,
   .ranking-3,
   .ranking-4 {
     background-color: var(--v-highlight-base);
-    color: white;
   }
 
   .ranking-18,
   .ranking-19,
   .ranking-20 {
     background-color: var(--v-secondary-lighten2);
-    color: white;
+  }
+
+  // Have to do this ugly thing because Vuetify changes the color to black when it's a list item to a route.
+  .theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled).ranking-1,
+  .theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled).ranking-2,
+  .theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled).ranking-3,
+  .theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled).ranking-4,
+  .theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled).ranking-18,
+  .theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled).ranking-19,
+  .theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled).ranking-20 {
+    color: white !important;
   }
 }
 </style>
