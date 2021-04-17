@@ -19,3 +19,9 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.progress {
+  margin-right: 100px !important;
+}
+</style>

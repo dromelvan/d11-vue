@@ -33,6 +33,9 @@ const d11Mixin = {
     },
     finished: function(status) {
       return status.toUpperCase() === "FINISHED";
+    },
+    postponed: function(status) {
+      return status.toUpperCase() === "POSTPONED";
     }
   },
   computed: {

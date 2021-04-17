@@ -6,7 +6,11 @@
     transition="fade-transition"
   >
     <v-list-item-title v-if="match" class="match">
-      <div class="kickoff">Kick Off {{ match.datetime | moment("HH:mm") }}</div>
+      <div class="kickoff">
+        <template v-if="!this.postponed(match.status)">
+          Kick Off {{ match.datetime | moment("HH:mm") }}
+        </template>
+      </div>
       <div class="team home">
         {{ match.homeTeam.name }}
       </div>
@@ -14,7 +18,11 @@
         <team-image :type="'team'" :size="'tiny'" :id="match.homeTeam.id" />
       </div>
       <div class="score">
-        <template v-if="this.pending(match.status)">vs</template>
+        <template
+          v-if="this.pending(match.status) || this.postponed(match.status)"
+        >
+          vs
+        </template>
         <template v-else
           >{{ match.homeTeamGoals }}-{{ match.awayTeamGoals }}</template
         >
@@ -82,11 +90,11 @@ export default {
   }
 
   .kickoff {
-    text-align: left;
+    text-align: left !important;
   }
 
   .elapsed {
-    text-align: right;
+    text-align: right !important;
     .progress {
       font-size: 0.6em;
     }

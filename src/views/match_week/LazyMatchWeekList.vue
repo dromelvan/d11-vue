@@ -89,6 +89,7 @@
                   :id="matchWeek.mostValuablePlayer.team.id"
                 />
               </div>
+              <!-- Most valuable player ---->
               <div class="most-valuable-player">
                 <template v-if="!pending(matchWeek.status)">
                   {{ matchWeek.mostValuablePlayer.player.name }}
@@ -201,6 +202,7 @@ export default {
 .v-progress-circular {
   font-weight: 600;
   font-size: 0.9rem;
+  margin-right: $d11-spacer;
 }
 .status {
   min-width: 4rem;

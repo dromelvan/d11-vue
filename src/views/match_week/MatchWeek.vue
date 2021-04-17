@@ -20,7 +20,12 @@
             >
               <template v-slot:header>
                 <div class="match-week-date list-container-header">
-                  {{ date | moment("dddd, MMMM Do YYYY") }}
+                  <template v-if="date === 'Postponed'">
+                    {{ date }}
+                  </template>
+                  <template v-else>
+                    {{ date | moment("dddd, MMMM Do YYYY") }}
+                  </template>
                 </div>
               </template>
               <div v-for="matchId in matchWeek.matches[date]" :key="matchId">
