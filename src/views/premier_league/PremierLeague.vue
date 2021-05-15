@@ -22,7 +22,7 @@
             <premier-league-table
               v-for="premierLeague in [this.premierLeague]"
               :key="premierLeague.id"
-              :premierLeagueId="premierLeague.id"
+              :seasonId="premierLeague.season.id"
             />
           </v-tab-item>
           <v-tab-item>

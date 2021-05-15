@@ -1,8 +1,8 @@
 <template>
-  <lazy-table-stat-list
+  <lazy-league-table
     view="team"
-    :tableStats="teamTableStats"
-    @visible="getTeamTableStats"
+    :seasonStats="teamSeasonStats"
+    @visible="getTeamSeasonStats"
   />
 </template>
 
@@ -10,25 +10,25 @@
 export default {
   name: "PremierLeagueTable",
   props: {
-    premierLeagueId: Number
+    seasonId: Number
   },
   data: () => ({
-    teamTableStats: null
+    teamSeasonStats: null
   }),
   components: {
-    LazyTableStatList: () => import("@/views/table_stat/LazyTableStatList")
+    LazyLeagueTable: () => import("@/views/league_table/LazyLeagueTable")
   },
   methods: {
-    getTeamTableStats: function() {
-      new this.$d11BootApi.TeamTableStatApi()
-        .findTeamTableStatByPremierLeagueId(this.premierLeagueId)
-        .then(result => (this.teamTableStats = result));
+    getTeamSeasonStats: function() {
+      new this.$d11BootApi.TeamSeasonStatApi()
+        .findTeamSeasonStatBySeasonId(this.seasonId)
+        .then(result => (this.teamSeasonStats = result));
     }
   },
   watch: {
     premierLeagueId: function() {
-      this.teamTableStats = null;
-      this.getTeamTableStats();
+      this.teamSeasonStats = null;
+      this.getTeamSeasonStats();
     }
   }
 };

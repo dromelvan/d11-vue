@@ -124,7 +124,7 @@
 
 <script>
 export default {
-  name: "TableStatsHeader",
+  name: "LeagueTableHeader",
   props: {
     view: String
   }

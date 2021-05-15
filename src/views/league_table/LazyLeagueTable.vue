@@ -4,25 +4,25 @@
     :options="{ threshold: 0.5 }"
     transition="fade-transition"
   >
-    <loading-indicator v-if="!tableStats" class="centered" />
+    <loading-indicator v-if="!seasonStats" class="centered" />
 
-    <table-stat-list v-else :view="view" :tableStats="tableStats" />
+    <league-table v-else :view="view" :seasonStats="seasonStats" />
   </v-lazy>
 </template>
 
 <script>
 export default {
-  name: "LazyTableStatList",
+  name: "LazyLeagueTable",
   props: {
     view: String,
-    tableStats: Array
+    seasonStats: Array
   },
   data: () => ({
     visible: false
   }),
   components: {
     LoadingIndicator: () => import("@/components/LoadingIndicator"),
-    TableStatList: () => import("@/views/table_stat/TableStatList")
+    LeagueTable: () => import("./LeagueTable")
   },
   watch: {
     visible: function() {

@@ -2,92 +2,93 @@
   <list-container-item
     class="table-stat-container"
     :to="to"
-    v-bind:class="'ranking-' + tableStat.ranking"
+    v-bind:class="'ranking-' + seasonStat.ranking"
   >
     <v-list-item-title class="table-stat">
       <template v-if="smAndUp">
         <!-- Ranking -------------->
-        <div class="ranking emphasised">{{ tableStat.ranking }}</div>
+        <div class="ranking emphasised">{{ seasonStat.ranking }}</div>
         <div class="image">
           <template v-if="['team'].includes(view)">
-            <team-image size="tiny" :id="tableStat.team.id" />
+            <team-image size="tiny" :id="seasonStat.team.id" />
           </template>
           <template v-else>
-            <d11-team-image size="tiny" :id="tableStat.d11_team.id" />
+            <d11-team-image size="tiny" :id="seasonStat.d11Team.id" />
           </template>
         </div>
         <div class="name">
           <!-- Name ----------------->
           <template v-if="['team'].includes(view)">
-            <template v-if="mdAndUp || tableStat.team.name.length < 20">
-              {{ tableStat.team.name }}
+            <template v-if="mdAndUp || seasonStat.team.name.length < 20">
+              {{ seasonStat.team.name }}
             </template>
             <template v-else>
-              {{ tableStat.team.shortName }}
+              {{ seasonStat.team.shortName }}
             </template>
           </template>
           <template v-else>
-            {{ tableStat.d11Team.name }}
+            {{ seasonStat.d11Team.name }}
           </template>
           <!-- Table up indicator --->
           <div
             class="table-up"
-            v-if="tableStat.ranking < tableStat.previousRanking"
+            v-if="seasonStat.ranking < seasonStat.previousRanking"
           >
             <v-tooltip top>
               <template v-slot:activator="{ on, attrs }">
                 <span v-bind="attrs" v-on="on">
                   <table-up-icon />
-                  +{{ tableStat.previousRanking - tableStat.ranking }}
+                  +{{ seasonStat.previousRanking - seasonStat.ranking }}
                 </span>
               </template>
               <span>
-                Up {{ tableStat.previousRanking - tableStat.ranking }} positions
-                from {{ tableStat.previousRanking }}
+                Up
+                {{ seasonStat.previousRanking - seasonStat.ranking }} positions
+                from {{ seasonStat.previousRanking }}
               </span>
             </v-tooltip>
           </div>
           <!-- Table down indicator -->
           <div
             class="table-down"
-            v-if="tableStat.ranking > tableStat.previousRanking"
+            v-if="seasonStat.ranking > seasonStat.previousRanking"
           >
             <v-tooltip top>
               <template v-slot:activator="{ on, attrs }">
                 <span v-bind="attrs" v-on="on">
                   <table-down-icon />
-                  -{{ tableStat.ranking - tableStat.previousRanking }}
+                  -{{ seasonStat.ranking - seasonStat.previousRanking }}
                 </span>
               </template>
               <span
                 >Down
-                {{ tableStat.ranking - tableStat.previousRanking }} positions
-                from {{ tableStat.previousRanking }}
+                {{ seasonStat.ranking - seasonStat.previousRanking }} positions
+                from {{ seasonStat.previousRanking }}
               </span>
             </v-tooltip>
           </div>
-          <div class="winner emphasised" v-if="tableStat.ranking === 1">
+          <div class="winner emphasised" v-if="seasonStat.ranking === 1">
             Winner
           </div>
         </div>
         <!-- Matches played -->
         <div class="matches-played stat after-main-item">
-          {{ tableStat.matchesPlayed }}
+          {{ seasonStat.matchesPlayed }}
         </div>
         <!-- Matches won ----->
-        <div class="matches-won stat">{{ tableStat.matchesWon }}</div>
+        <div class="matches-won stat">{{ seasonStat.matchesWon }}</div>
         <!-- Matches drawn --->
-        <div class="matches-drawn stat">{{ tableStat.matchesDrawn }}</div>
+        <div class="matches-drawn stat">{{ seasonStat.matchesDrawn }}</div>
         <!-- Matches lost ---->
-        <div class="matches-lost stat">{{ tableStat.matchesLost }}</div>
+        <div class="matches-lost stat">{{ seasonStat.matchesLost }}</div>
         <!-- Goals for ------->
-        <div class="goals-for stat">{{ tableStat.goalsFor }}</div>
+        <div class="goals-for stat">{{ seasonStat.goalsFor }}</div>
         <!-- Goals against --->
-        <div class="goals-against stat">{{ tableStat.goalsAgainst }}</div>
+        <div class="goals-against stat">{{ seasonStat.goalsAgainst }}</div>
         <!-- Goal difference -->
         <div class="goal-difference stat">
-          <template v-if="tableStat.goalDifference > 0">+</template>
-          {{ tableStat.goalDifference }}
+          <template v-if="seasonStat.goalDifference > 0">+</template>
+          {{ seasonStat.goalDifference }}
         </div>
         <!-- Form ------------>
         <div class="form" v-if="mdAndUp">
@@ -98,7 +99,7 @@
           />
         </div>
         <!-- Points ---------->
-        <div class="points stat emphasised">{{ tableStat.points }}</div>
+        <div class="points stat emphasised">{{ seasonStat.points }}</div>
       </template>
     </v-list-item-title>
   </list-container-item>
@@ -106,9 +107,9 @@
 
 <script>
 export default {
-  name: "TableStat",
+  name: "LeagueTableRow",
   props: {
-    tableStat: Object,
+    seasonStat: Object,
     view: String
   },
   components: {
@@ -122,15 +123,15 @@ export default {
   computed: {
     to() {
       if (this.view === "team") {
-        return { name: "team", params: { id: this.tableStat.team.id } };
+        return { name: "team", params: { id: this.seasonStat.team.id } };
       } else if (this.view === "d11Team") {
-        return { name: "d11Team", params: { id: this.tableStat.d11Team.id } };
+        return { name: "d11Team", params: { id: this.seasonStat.d11Team.id } };
       }
       return null;
     },
     formMatchPoints() {
       var formMatchPoints = [];
-      this.tableStat.formMatchPoints.forEach(function(item, index) {
+      this.seasonStat.formMatchPoints.forEach(function(item, index) {
         formMatchPoints.push({ index: index, points: item });
       });
       return formMatchPoints;
