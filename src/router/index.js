@@ -25,7 +25,7 @@ const routes = [
     component: () => import("@/views/season/Season.vue")
   },
   {
-    path: "/premier-leagues/:id",
+    path: "/premier-leagues/:id/:tab?",
     name: "premierLeague",
     component: () => import("@/views/premier_league/PremierLeague.vue")
   },

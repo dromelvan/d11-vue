@@ -34,13 +34,19 @@
       <overview-spacer>
         <navigation-button
           v-if="premierLeague.id > 2"
-          :to="{ name: 'premierLeague', params: { id: premierLeague.id - 1 } }"
+          :to="{
+            name: 'premierLeague',
+            params: { id: premierLeague.id - 1, tab: this.$route.params.tab }
+          }"
           :direction="'left'"
         />
         <v-spacer />
-
         <navigation-button
-          :to="{ name: 'premierLeague', params: { id: premierLeague.id + 1 } }"
+          :to="{
+            name: 'premierLeague',
+            params: { id: premierLeague.id + 1, tab: this.$route.params.tab },
+            query: { ...this.$route.query }
+          }"
           :direction="'right'"
         />
       </overview-spacer>

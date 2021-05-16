@@ -7,7 +7,7 @@
       <overview-navigation
         :link="{
           name: 'premierLeague',
-          params: { id: matchWeek.premierLeague.id }
+          params: { id: matchWeek.premierLeague.id, tab: 'matchWeeks' }
         }"
         :text="'Premier League ' + matchWeek.season.name"
       />
