@@ -35,6 +35,37 @@
   }
 }
 
+.v-card {
+  .v-card__text,
+  .v-card__subtitle {
+    color: unset !important;
+    font-size: unset;
+    line-height: unset;
+  }
+
+  .v-card__subtitle {
+    font-weight: 700;
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+
+  .v-card__title + .v-card__subtitle {
+    margin-top: $d11-spacer;
+  }
+
+  .v-card__text {
+    padding-top: 6px;
+  }
+
+  .v-card__text:not(:last-child) {
+    padding-bottom: 0;
+  }
+}
+
+.v-card-link {
+  text-decoration: none;
+}
+
 .h1-container {
   padding-bottom: $d11-spacer;
 }
