@@ -30,7 +30,11 @@
               />
             </v-tab-item>
             <v-tab-item value="d11-league-table">
-              <p>D11 table</p>
+              <d11-league-table
+                v-for="season in [this.season]"
+                :key="season.id"
+                :seasonId="season.id"
+              />
             </v-tab-item>
           </v-tabs-items>
         </v-tabs>
@@ -50,7 +54,8 @@ export default {
     ContentSection: () => import("@/components/ContentSection"),
     LazyMatchWeekList: () => import("@/views/match_week/LazyMatchWeekList"),
     PremierLeagueTable: () =>
-      import("@/views/premier_league/PremierLeagueTable")
+      import("@/views/premier_league/PremierLeagueTable"),
+    D11LeagueTable: () => import("@/views/d11_league/D11LeagueTable")
   },
   computed: {
     tab: {

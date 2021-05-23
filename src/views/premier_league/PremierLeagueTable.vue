@@ -27,7 +27,7 @@ export default {
     }
   },
   watch: {
-    premierLeagueId: function() {
+    seasonId: function() {
       this.teamSeasonStats = null;
       this.getTeamSeasonStats();
     }

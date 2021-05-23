@@ -207,4 +207,21 @@ export default {
     color: white !important;
   }
 }
+
+.d11-league {
+  .ranking-1 {
+    background-color: var(--v-primary-base);
+  }
+
+  .ranking-2,
+  .ranking-3 {
+    background-color: var(--v-highlight-base);
+  }
+
+  .theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled).ranking-1,
+  .theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled).ranking-2,
+  .theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled).ranking-3 {
+    color: white !important;
+  }
+}
 </style>
