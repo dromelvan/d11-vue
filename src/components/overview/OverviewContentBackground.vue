@@ -14,6 +14,5 @@ export default {
 .overview-content-background {
   min-height: 80px;
   padding-bottom: $d11-large-spacer;
-  background-color: $overview-content-background-color;
 }
 </style>

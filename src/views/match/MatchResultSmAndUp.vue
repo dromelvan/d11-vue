@@ -9,7 +9,7 @@
         <team-image :size="'small'" :id="match.homeTeam.id" />
         {{ match.homeTeam.shortName }}
       </div>
-      <div class="emphasised" v-if="!pending(match.status)">
+      <div class="highlight" v-if="!pending(match.status)">
         <div class="score">
           {{ match.homeTeamGoals }} - {{ match.awayTeamGoals }}
         </div>

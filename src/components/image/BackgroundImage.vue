@@ -32,7 +32,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$background-picture-height: 400px;
+$background-picture-height: 390px;
 $background-picture-height-xs: 285px;
 
 .background-picture {

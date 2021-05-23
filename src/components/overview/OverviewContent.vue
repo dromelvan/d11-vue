@@ -22,7 +22,6 @@ export default {
 .overview-content-container {
   .overview-content {
     padding: $d11-spacer;
-    background: rgb(0, 0, 0, 0.5);
     display: flex;
 
     .name {
@@ -30,7 +29,7 @@ export default {
       font-weight: 600;
     }
 
-    .emphasised {
+    .highlight {
       background: var(--v-highlight-base);
     }
 
@@ -64,8 +63,8 @@ export default {
       font-weight: 600;
       line-height: 2.3em;
       font-size: 1.75em;
-      padding: 0 0.25em;
-      background: var(--v-primary-base);
+      padding: 0 0.5em;
+      background: $overview-content-background-color;
     }
   }
 }
