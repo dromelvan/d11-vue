@@ -67,7 +67,12 @@
               </span>
             </v-tooltip>
           </div>
-          <div class="winner emphasised" v-if="seasonStat.ranking === 1">
+          <div
+            class="winner emphasised"
+            v-if="
+              seasonStat.ranking === 1 && finished(seasonStat.season.status)
+            "
+          >
             Winner
           </div>
         </div>

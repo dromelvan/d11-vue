@@ -6,7 +6,10 @@
       <v-container class="tabs-container">
         <v-tabs>
           <v-tab class="matches-tab">
-            Fixtures and Results
+            Premier League Matches
+          </v-tab>
+          <v-tab class="matches-tab">
+            D11 Matches
           </v-tab>
           <v-tab class="stats-tab">
             Statistics
@@ -40,6 +43,9 @@
                 <v-divider />
               </div>
             </list-container>
+          </v-tab-item>
+          <v-tab-item>
+            D11 Matches
           </v-tab-item>
           <v-tab-item>
             <!-- This hack with v-for resets the stats tab so it doesn't load stats on route change when it's not

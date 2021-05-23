@@ -4,7 +4,7 @@
 
     <p>Winners and runners up of the current and previous seasons.</p>
 
-    <season
+    <season-summary
       v-for="seasonId in seasonIds"
       :key="seasonId"
       :seasonId="seasonId"
@@ -19,7 +19,7 @@ export default {
     seasonIds: null
   }),
   components: {
-    Season: () => import("@/views/season/Season")
+    SeasonSummary: () => import("@/views/season/SeasonSummary")
   },
   mounted() {
     new this.$d11BootApi.SeasonApi()

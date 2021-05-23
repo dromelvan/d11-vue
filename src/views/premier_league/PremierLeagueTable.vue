@@ -1,5 +1,6 @@
 <template>
   <lazy-league-table
+    class="premier-league"
     view="team"
     :seasonStats="teamSeasonStats"
     @visible="getTeamSeasonStats"

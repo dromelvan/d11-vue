@@ -25,7 +25,7 @@ const routes = [
     component: () => import("@/views/season/Seasons.vue")
   },
   {
-    path: "/seasons/:id",
+    path: "/seasons/:id/:tab?",
     name: "season",
     component: () => import("@/views/season/Season.vue")
   },
