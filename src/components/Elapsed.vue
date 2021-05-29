@@ -22,6 +22,6 @@ export default {
 
 <style lang="scss">
 .progress {
-  margin-right: 100px !important;
+  margin-right: $d11-spacer !important;
 }
 </style>

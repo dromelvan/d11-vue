@@ -5,13 +5,29 @@
     :options="{ threshold: 0.5 }"
     transition="fade-transition"
   >
-    <v-list-item-title v-if="match" class="match">
+    <v-list-item-title
+      v-if="match"
+      class="match"
+      v-bind:class="{
+        'full-time': this.fullTime(match.status),
+        finished: this.finished(match.status)
+      }"
+    >
       <div class="kickoff">
         <template v-if="!this.postponed(match.status)">
           Kick Off {{ match.datetime | moment("HH:mm") }}
         </template>
       </div>
-      <div class="team home">
+      <div
+        class="team home"
+        v-bind:class="{ winner: winner(match, match.homeTeam.id) }"
+      >
+        <result-change
+          v-if="match.homeTeamGoals != match.previousHomeTeamGoals"
+          team="home"
+          :current="match.homeTeamGoals"
+          :previous="match.previousHomeTeamGoals"
+        />
         {{ match.homeTeam.name }}
       </div>
       <div class="image home">
@@ -23,15 +39,24 @@
         >
           vs
         </template>
-        <template v-else
-          >{{ match.homeTeamGoals }}-{{ match.awayTeamGoals }}</template
-        >
+        <template v-else>
+          {{ match.homeTeamGoals }}-{{ match.awayTeamGoals }}
+        </template>
       </div>
       <div class="image home">
         <team-image :type="'team'" :size="'tiny'" :id="match.awayTeam.id" />
       </div>
-      <div class="team away">
+      <div
+        class="team away"
+        v-bind:class="{ winner: winner(match, match.awayTeam.id) }"
+      >
         {{ match.awayTeam.name }}
+        <result-change
+          v-if="match.awayTeamGoals != match.previousawayTeamGoals"
+          team="away"
+          :current="match.awayTeamGoals"
+          :previous="match.previousAwayTeamGoals"
+        />
       </div>
       <div class="elapsed">
         <elapsed
@@ -60,14 +85,15 @@
 
 <script>
 export default {
-  name: "MatchWeekMatchSmAndUp",
+  name: "LazyMatch",
   data: () => ({
     match: null,
     visible: false
   }),
   components: {
     TeamImage: () => import("@/components/image/TeamImage"),
-    Elapsed: () => import("@/components/Elapsed")
+    Elapsed: () => import("@/components/Elapsed"),
+    ResultChange: () => import("@/components/ResultChange")
   },
   props: {
     matchId: Number
@@ -86,7 +112,7 @@ export default {
 .match {
   .kickoff,
   .elapsed {
-    min-width: 7em;
+    min-width: 4.5em;
   }
 
   .kickoff {
@@ -99,9 +125,8 @@ export default {
       font-size: 0.6em;
     }
   }
-
   .team {
-    min-width: 11.5em;
+    min-width: 16.5em;
   }
   .team.home {
     margin-left: auto;
@@ -113,6 +138,11 @@ export default {
     text-align: left;
   }
 
+  .result-change,
+  .team.winner {
+    font-weight: 600;
+  }
+
   .image {
     min-width: 44px;
     padding: 0 $d11-spacer;
@@ -120,6 +150,21 @@ export default {
 
   .score {
     min-width: 2em;
+  }
+}
+
+.match.full-time,
+.match.finished {
+  .score {
+    font-weight: 600;
+  }
+}
+
+.v-application-sm {
+  .match {
+    .team {
+      min-width: 13.5em;
+    }
   }
 }
 </style>

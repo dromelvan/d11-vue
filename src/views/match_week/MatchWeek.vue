@@ -16,36 +16,20 @@
           </v-tab>
 
           <v-tab-item>
-            <list-container
-              class="date-match-list"
+            <lazy-match-list
               v-for="date in Object.keys(matchWeek.matches)"
               :key="date"
-            >
-              <template v-slot:header>
-                <div class="match-week-date list-container-header">
-                  <template v-if="date === 'Postponed'">
-                    {{ date }}
-                  </template>
-                  <template v-else>
-                    {{ date | moment("dddd, MMMM Do YYYY") }}
-                  </template>
-                </div>
-              </template>
-              <div v-for="matchId in matchWeek.matches[date]" :key="matchId">
-                <list-container-item
-                  :to="{ name: 'match', params: { id: matchId } }"
-                >
-                  <match-week-match-sm-and-up
-                    v-if="smAndUp"
-                    :matchId="matchId"
-                  />
-                </list-container-item>
-                <v-divider />
-              </div>
-            </list-container>
+              :date="date"
+              :matchIds="matchWeek.matches[date]"
+            />
           </v-tab-item>
           <v-tab-item>
-            D11 Matches
+            <lazy-d11-match-list
+              v-for="date in Object.keys(matchWeek.d11Matches)"
+              :key="date"
+              :date="date"
+              :d11MatchIds="matchWeek.d11Matches[date]"
+            />
           </v-tab-item>
           <v-tab-item>
             <!-- This hack with v-for resets the stats tab so it doesn't load stats on route change when it's not
@@ -72,10 +56,8 @@ export default {
     MatchWeekOverviewSmAndUp: () =>
       import("@/views/match_week/MatchWeekOverviewSmAndUp"),
     ContentSection: () => import("@/components/ContentSection"),
-    ListContainer: () => import("@/components/ListContainer"),
-    ListContainerItem: () => import("@/components/ListContainerItem"),
-    MatchWeekMatchSmAndUp: () =>
-      import("@/views/match_week/MatchWeekMatchSmAndUp"),
+    LazyMatchList: () => import("@/views/match/LazyMatchList"),
+    LazyD11MatchList: () => import("@/views/d11_match/LazyD11MatchList"),
     MatchWeekStats: () => import("@/views/match_week/MatchWeekStats")
   },
   methods: {

@@ -36,6 +36,28 @@ const d11Mixin = {
     },
     postponed: function(status) {
       return status.toUpperCase() === "POSTPONED";
+    },
+    winner: function(match, teamId) {
+      if (this.fullTime(match.status) || this.finished(match.status)) {
+        if (match.homeTeamGoals > match.awayTeamGoals) {
+          return match.homeTeam.id === teamId;
+        }
+        if (match.awayTeamGoals > match.homeTeamGoals) {
+          return match.awayTeam.id === teamId;
+        }
+      }
+      return false;
+    },
+    d11Winner: function(d11Match, d11TeamId) {
+      if (this.fullTime(d11Match.status) || this.finished(d11Match.status)) {
+        if (d11Match.homeTeamGoals > d11Match.awayTeamGoals) {
+          return d11Match.homeD11Team.id === d11TeamId;
+        }
+        if (d11Match.awayTeamGoals > d11Match.homeTeamGoals) {
+          return d11Match.awayD11Team.id === d11TeamId;
+        }
+      }
+      return false;
     }
   },
   computed: {
