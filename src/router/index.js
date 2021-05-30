@@ -35,7 +35,7 @@ const routes = [
     component: () => import("@/views/premier_league/PremierLeague.vue")
   },
   {
-    path: "/match-weeks/:id",
+    path: "/match-weeks/:id/:tab?",
     name: "matchWeek",
     component: () => import("@/views/match_week/MatchWeek.vue")
   },
@@ -43,6 +43,11 @@ const routes = [
     path: "/matches/:id",
     name: "match",
     component: () => import("@/views/match/Match.vue")
+  },
+  {
+    path: "/d11-matches/:id",
+    name: "d11-match",
+    component: () => import("@/views/d11_match/D11Match.vue")
   },
   {
     path: "/d11-leagues/:id",

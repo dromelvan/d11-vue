@@ -4,42 +4,43 @@
 
     <content-section>
       <v-container class="tabs-container">
-        <v-tabs>
-          <v-tab class="matches-tab">
+        <v-tabs v-model="tab">
+          <v-tab class="matches-tab" href="#matches">
             Premier League Matches
           </v-tab>
-          <v-tab class="matches-tab">
+          <v-tab class="matches-tab" href="#d11-matches">
             D11 Matches
           </v-tab>
-          <v-tab class="stats-tab">
+          <v-tab class="stats-tab" href="#stats">
             Statistics
           </v-tab>
-
-          <v-tab-item>
-            <lazy-match-list
-              v-for="date in Object.keys(matchWeek.matches)"
-              :key="date"
-              :date="date"
-              :matchIds="matchWeek.matches[date]"
-            />
-          </v-tab-item>
-          <v-tab-item>
-            <lazy-d11-match-list
-              v-for="date in Object.keys(matchWeek.d11Matches)"
-              :key="date"
-              :date="date"
-              :d11MatchIds="matchWeek.d11Matches[date]"
-            />
-          </v-tab-item>
-          <v-tab-item>
-            <!-- This hack with v-for resets the stats tab so it doesn't load stats on route change when it's not
-                 the active tab. Some day we might want to figure out how to do it in a less hacky way. -->
-            <match-week-stats
-              :matchWeekId="matchWeek.id"
-              v-for="matchWeek in [this.matchWeek]"
-              :key="matchWeek.id"
-            />
-          </v-tab-item>
+          <v-tabs-items :value="tab">
+            <v-tab-item value="matches">
+              <lazy-match-list
+                v-for="date in Object.keys(matchWeek.matches)"
+                :key="date"
+                :date="date"
+                :matchIds="matchWeek.matches[date]"
+              />
+            </v-tab-item>
+            <v-tab-item value="d11-matches">
+              <lazy-d11-match-list
+                v-for="date in Object.keys(matchWeek.d11Matches)"
+                :key="date"
+                :date="date"
+                :d11MatchIds="matchWeek.d11Matches[date]"
+              />
+            </v-tab-item>
+            <v-tab-item value="stats">
+              <!-- This hack with v-for resets the stats tab so it doesn't load stats on route change when it's not
+                  the active tab. Some day we might want to figure out how to do it in a less hacky way. -->
+              <match-week-stats
+                :matchWeekId="matchWeek.id"
+                v-for="matchWeek in [this.matchWeek]"
+                :key="matchWeek.id"
+              />
+            </v-tab-item>
+          </v-tabs-items>
         </v-tabs>
       </v-container>
     </content-section>
@@ -59,6 +60,16 @@ export default {
     LazyMatchList: () => import("@/views/match/LazyMatchList"),
     LazyD11MatchList: () => import("@/views/d11_match/LazyD11MatchList"),
     MatchWeekStats: () => import("@/views/match_week/MatchWeekStats")
+  },
+  computed: {
+    tab: {
+      set(tab) {
+        this.$router.replace({ params: { ...this.$route.params.tab, tab } });
+      },
+      get() {
+        return this.$route.params.tab;
+      }
+    }
   },
   methods: {
     getMatchWeek: function() {
