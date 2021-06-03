@@ -23,13 +23,19 @@
       <overview-spacer>
         <navigation-button
           v-if="matchWeek.id > 2"
-          :to="{ name: 'matchWeek', params: { id: matchWeek.id - 1 } }"
+          :to="{
+            name: 'matchWeek',
+            params: { id: matchWeek.id - 1, tab: this.$route.params.tab }
+          }"
           :direction="'left'"
         />
         <v-spacer />
 
         <navigation-button
-          :to="{ name: 'matchWeek', params: { id: matchWeek.id + 1 } }"
+          :to="{
+            name: 'matchWeek',
+            params: { id: matchWeek.id + 1, tab: this.$route.params.tab }
+          }"
           :direction="'right'"
         />
       </overview-spacer>

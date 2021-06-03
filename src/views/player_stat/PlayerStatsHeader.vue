@@ -13,17 +13,8 @@
       <!-- Position ------------------>
       <div v-if="context" class="context">{{ context }}</div>
       <template v-if="['d11Match', 'matchWeek'].includes(view)">
-        <!-- Team -------------------->
-        <div class="team after-main-item">
-          <v-tooltip top>
-            <template v-slot:activator="{ on, attrs }">
-              <span v-bind="attrs" v-on="on">Team</span>
-            </template>
-            <span>The team the player played for this match week</span>
-          </v-tooltip>
-        </div>
         <!-- Match ------------------->
-        <div class="match">
+        <div class="match after-main-item">
           <v-tooltip top>
             <template v-slot:activator="{ on, attrs }">
               <span v-bind="attrs" v-on="on">Match</span>
@@ -108,6 +99,15 @@
           <span>D11 points scored</span>
         </v-tooltip>
       </div>
+      <!-- Team -------------------->
+      <div class="team" v-if="['d11Match'].includes(view)">
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <span v-bind="attrs" v-on="on">Team</span>
+          </template>
+          <span>The team the player played for this match week</span>
+        </v-tooltip>
+      </div>
       <!-- D11 team ------------------>
       <div class="d11-team" v-if="['match', 'matchWeek'].includes(view)">
         <v-tooltip top>
@@ -134,9 +134,6 @@ export default {
 
 <style lang="scss" scoped>
 .list-container-header {
-  .team {
-    width: 3em;
-  }
   .match {
     width: 4.5em;
   }
@@ -172,6 +169,7 @@ export default {
     width: 3.4em;
   }
 
+  .team,
   .d11-team {
     padding-left: 6px;
     text-align: left;
@@ -184,6 +182,7 @@ export default {
     .points {
       width: 2.4em;
     }
+    .team,
     .d11-team {
       width: 9.8em;
     }
@@ -195,6 +194,7 @@ export default {
     .points {
       width: 2.4em;
     }
+    .team,
     .d11-team {
       width: 3.5em;
     }
