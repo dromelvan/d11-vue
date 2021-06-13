@@ -128,7 +128,13 @@ export default {
   computed: {
     to() {
       if (this.view === "team") {
-        return { name: "team", params: { id: this.seasonStat.team.id } };
+        return {
+          name: "team",
+          params: {
+            id: this.seasonStat.team.id,
+            seasonId: this.seasonStat.season.id
+          }
+        };
       } else if (this.view === "d11Team") {
         return { name: "d11Team", params: { id: this.seasonStat.d11Team.id } };
       }
@@ -197,13 +203,13 @@ export default {
   }
 
   // Have to do this ugly thing because Vuetify changes the color to black when it's a list item to a route.
-  .theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled).ranking-1,
-  .theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled).ranking-2,
-  .theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled).ranking-3,
-  .theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled).ranking-4,
-  .theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled).ranking-18,
-  .theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled).ranking-19,
-  .theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled).ranking-20 {
+  .theme--light.v-list-item:not(.v-list-item--disabled).ranking-1,
+  .theme--light.v-list-item:not(.v-list-item--disabled).ranking-2,
+  .theme--light.v-list-item:not(.v-list-item--disabled).ranking-3,
+  .theme--light.v-list-item:not(.v-list-item--disabled).ranking-4,
+  .theme--light.v-list-item:not(.v-list-item--disabled).ranking-18,
+  .theme--light.v-list-item:not(.v-list-item--disabled).ranking-19,
+  .theme--light.v-list-item:not(.v-list-item--disabled).ranking-20 {
     color: white !important;
   }
 }
