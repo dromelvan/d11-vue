@@ -1,0 +1,195 @@
+<template>
+  <div class="list-container-header">
+    <!-- XS device header --------------------------------------------------->
+
+    <template v-if="xs">
+      <div class="position main-item">{{ context }}</div>
+      <div class="points">P.</div>
+    </template>
+
+    <!-- Sm and up device header -------------------------------------------->
+
+    <template v-if="smAndUp">
+      <!-- Position ------------------>
+      <div v-if="context" class="context">{{ context }}</div>
+      <!-- Ranking ------------------->
+      <div class="ranking after-main-item">
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <span v-bind="attrs" v-on="on">#</span>
+          </template>
+          <span>
+            The position of the player in the player season stats list
+          </span>
+        </v-tooltip>
+      </div>
+      <!-- Appearances ------------------->
+      <div class="appearances">
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <span v-bind="attrs" v-on="on">Apps</span>
+          </template>
+          <span>
+            Number of games started/coming on as a substitute
+          </span>
+        </v-tooltip>
+      </div>
+      <!-- Goals --------------------->
+      <div class="goals">
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <span v-bind="attrs" v-on="on">Goals</span>
+          </template>
+          <span>Goals scored</span>
+        </v-tooltip>
+      </div>
+      <!-- Own goals ----------------->
+      <div class="own-goals">
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <span v-bind="attrs" v-on="on">OGs</span>
+          </template>
+          <span>Own goals scored</span>
+        </v-tooltip>
+      </div>
+      <!-- Goal assists -------------->
+      <div class="goal-assists">
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <span v-bind="attrs" v-on="on">Ass.</span>
+          </template>
+          <span>Goal assists</span>
+        </v-tooltip>
+      </div>
+      <!-- Cards --------------------->
+      <div class="cards">
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <span v-bind="attrs" v-on="on">Cards</span>
+          </template>
+          <span>Yellow and red cards recieved</span>
+        </v-tooltip>
+      </div>
+      <!-- MoM ---------------------->
+      <div class="man-of-the-match">
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <span v-bind="attrs" v-on="on">MoM</span>
+          </template>
+          <span>Full and shared man of the match awards</span>
+        </v-tooltip>
+      </div>
+      <!-- Rating ------------------->
+      <div class="rating">
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <span v-bind="attrs" v-on="on">Rating</span>
+          </template>
+          <span>Average rating</span>
+        </v-tooltip>
+      </div>
+    </template>
+
+    <!-- Form ----------------->
+    <div class="form" v-if="mdAndUp">
+      <v-tooltip top>
+        <template v-slot:activator="{ on, attrs }">
+          <span v-bind="attrs" v-on="on">Form</span>
+        </template>
+        <span>Points over the last five games</span>
+      </v-tooltip>
+    </div>
+
+    <!-- Points ------------------->
+    <div class="points">
+      <v-tooltip top>
+        <template v-slot:activator="{ on, attrs }">
+          <span v-bind="attrs" v-on="on">Pts</span>
+        </template>
+        <span>Points</span>
+      </v-tooltip>
+    </div>
+
+    <!-- D11 team ------------------>
+    <div class="d11-team" v-if="['team'].includes(view)">
+      <v-tooltip top>
+        <template v-slot:activator="{ on, attrs }">
+          <span v-bind="attrs" v-on="on" v-if="mdAndUp">D11 Team</span>
+          <span v-bind="attrs" v-on="on" v-else>D11</span>
+        </template>
+        <span>D11 team the player belongs to</span>
+      </v-tooltip>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "PlayerSeasonStatsHeader",
+  props: {
+    context: String,
+    view: String
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.ranking,
+.appearances,
+.goals,
+.own-goals,
+.goal-assists {
+  width: 3em;
+}
+
+.cards {
+  width: 4.5em;
+}
+
+.rating,
+.man-of-the-match {
+  width: 3.2em;
+}
+
+.form {
+  min-width: 11em;
+}
+
+.points {
+  width: 2.5em;
+  text-align: right !important;
+  padding-right: $d11-spacer;
+  padding-left: $d11-spacer;
+}
+
+.team,
+.d11-team {
+  padding-left: 6px;
+  text-align: left;
+  width: 15em;
+}
+
+.v-application-md {
+  .list-container-header {
+    .points {
+      width: 2.4em;
+    }
+    .team,
+    .d11-team {
+      width: 9.8em;
+    }
+  }
+}
+
+.v-application-sm {
+  .list-container-header {
+    .points {
+      width: 2.4em;
+    }
+    .team,
+    .d11-team {
+      width: 3.5em;
+    }
+  }
+}
+</style>
