@@ -55,9 +55,9 @@ const routes = [
     component: () => import("@/views/Home.vue")
   },
   {
-    path: "/teams/:id",
+    path: "/teams/:id/:seasonId/:tab?",
     name: "team",
-    component: () => import("@/views/Home.vue")
+    component: () => import("@/views/team/Team.vue")
   }
 ];
 
