@@ -156,22 +156,10 @@ export default {
   },
   computed: {
     maxNameLength() {
-      if (this.$vuetify.breakpoint.mdAndUp) {
+      if (this.$vuetify.breakpoint.lgAndUp) {
         return 100;
       }
-      var maxNameLength = 22;
-      if (["matchWeek"].includes(this.view)) {
-        if (this.playerStat.lineup === 1) {
-          maxNameLength -= 6;
-        }
-        if (
-          this.playerStat.manOfTheMatch ||
-          this.playerStat.sharedManOfTheMatch
-        ) {
-          maxNameLength -= 6;
-        }
-      }
-      return maxNameLength;
+      return 22;
     },
     formMatchPoints() {
       var formMatchPoints = [];
@@ -261,6 +249,9 @@ export default {
       .team,
       .d11-team {
         width: 3.5em;
+      }
+      .did-not-participate {
+        width: 22.9em;
       }
     }
   }
