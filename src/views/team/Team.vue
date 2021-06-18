@@ -1,5 +1,5 @@
 <template>
-  <div class="match" v-if="team && season">
+  <div class="team" v-if="team && season">
     <team-overview-sm-and-up
       v-if="smAndUp"
       :team="team"
@@ -35,7 +35,12 @@
               </div>
             </v-tab-item>
             <v-tab-item value="matches" v-if="teamSeasonStat">
-              Matches
+              <lazy-match-list
+                v-for="team in [this.team]"
+                :key="team.id"
+                :view="'team'"
+                :matchIds="matchIds"
+              />
             </v-tab-item>
             <v-tab-item value="matches" v-else>
               <div class="no-data">
@@ -57,13 +62,15 @@ export default {
     team: null,
     season: null,
     teamSeasonStat: null,
-    playerSeasonStatsByPosition: null
+    playerSeasonStatsByPosition: null,
+    matchIds: null
   }),
   components: {
     TeamOverviewSmAndUp: () => import("@/views/team/TeamOverviewSmAndUp"),
     ContentSection: () => import("@/components/ContentSection"),
     PlayerSeasonStatsByPosition: () =>
-      import("@/views/player_season_stat/PlayerSeasonStatsByPosition")
+      import("@/views/player_season_stat/PlayerSeasonStatsByPosition"),
+    LazyMatchList: () => import("@/views/match/LazyMatchList")
   },
   computed: {
     tab: {
@@ -102,6 +109,22 @@ export default {
                     throw error;
                   }
                 });
+
+              this.matchIds = null;
+              new this.$d11BootApi.MatchApi()
+                .findMatchByTeamIdAndSeasonId(
+                  this.$route.params.id,
+                  this.$route.params.seasonId
+                )
+                .then(result => {
+                  this.matchIds = result;
+                })
+                .catch(error => {
+                  this.teamSeasonStat = null;
+                  if (error.status != 404) {
+                    throw error;
+                  }
+                });
             });
         });
     },
@@ -121,7 +144,13 @@ export default {
   },
   watch: {
     $route() {
-      this.getData();
+      if (
+        this.teamSeasonStat == null ||
+        this.$route.params.id != this.teamSeasonStat.team.id ||
+        this.$route.params.seasonId != this.teamSeasonStat.season.id
+      ) {
+        this.getData();
+      }
     }
   }
 };

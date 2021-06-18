@@ -13,11 +13,47 @@
         finished: this.finished(match.status)
       }"
     >
-      <div class="kickoff">
-        <template v-if="!this.postponed(match.status)">
-          Kick Off {{ match.datetime | moment("HH:mm") }}
-        </template>
-      </div>
+      <template v-if="['team'].includes(view)">
+        <!-- Date -------------------->
+        <div class="match-date" v-if="['team'].includes(view)">
+          <template v-if="!this.postponed(match.status)">
+            <template v-if="mdAndUp">
+              {{ match.datetime | moment("DD.MM YYYY") }}
+            </template>
+            <template v-else>
+              {{ match.datetime | moment("DD.MM") }}
+            </template>
+          </template>
+          <template v-else-if="mdAndUp">
+            Postponed
+          </template>
+          <template v-else>
+            PP
+          </template>
+        </div>
+        <!-- Kickoff ----------------->
+        <div class="kickoff">
+          <template v-if="!this.postponed(match.status)">
+            {{ match.datetime | moment("HH:mm") }}
+          </template>
+        </div>
+        <!-- Match Week -------------->
+        <div class="match-week">
+          <template v-if="mdAndUp">
+            Match Week
+          </template>
+          {{ match.matchWeek.matchWeekNumber }}
+        </div>
+      </template>
+      <template v-else>
+        <!-- Kickoff ----------------->
+        <div class="kickoff">
+          <template v-if="!this.postponed(match.status)">
+            Kick Off {{ match.datetime | moment("HH:mm") }}
+          </template>
+        </div>
+      </template>
+      <!-- Home team --------------->
       <div
         class="team home"
         v-bind:class="{ winner: winner(match, match.homeTeam.id) }"
@@ -33,6 +69,7 @@
       <div class="image home">
         <team-image :type="'team'" :size="'tiny'" :id="match.homeTeam.id" />
       </div>
+      <!-- Score ------------------>
       <div class="score">
         <template
           v-if="this.pending(match.status) || this.postponed(match.status)"
@@ -43,7 +80,8 @@
           {{ match.homeTeamGoals }}-{{ match.awayTeamGoals }}
         </template>
       </div>
-      <div class="image home">
+      <!-- Away team -------------->
+      <div class="image away">
         <team-image :type="'team'" :size="'tiny'" :id="match.awayTeam.id" />
       </div>
       <div
@@ -58,6 +96,7 @@
           :previous="match.previousAwayTeamGoals"
         />
       </div>
+      <!-- Elapsed ----------------->
       <div class="elapsed">
         <elapsed
           v-if="this.active(match.status)"
@@ -96,6 +135,7 @@ export default {
     ResultChange: () => import("@/components/ResultChange")
   },
   props: {
+    view: String,
     matchId: Number
   },
   watch: {
@@ -110,13 +150,24 @@ export default {
 
 <style lang="scss" scoped>
 .match {
-  .kickoff,
+  .match-date {
+    min-width: 5.8em;
+    text-align: left !important;
+  }
+  .kickoff {
+    min-width: 3.8em;
+  }
+
   .elapsed {
     min-width: 4.5em;
   }
 
   .kickoff {
     text-align: left !important;
+  }
+
+  .match-week {
+    min-width: 6.4em;
   }
 
   .elapsed {
@@ -160,10 +211,25 @@ export default {
   }
 }
 
+.v-application-md,
+.v-application-lg,
+.v-application.xl {
+  .match-week {
+    text-align: left !important;
+  }
+}
+
 .v-application-sm {
-  .match {
+  .match,
+  .team {
+    .match-date {
+      min-width: 3em;
+    }
+    .match-week {
+      min-width: 1.5em;
+    }
     .team {
-      min-width: 13.5em;
+      min-width: 10.5em;
     }
   }
 }
