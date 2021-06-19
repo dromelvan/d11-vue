@@ -1,5 +1,8 @@
 const d11Mixin = {
   methods: {
+    playerValue(value) {
+      return (value / 10).toFixed(1);
+    },
     elapsed: function(input) {
       var elapsed = input;
       if (elapsed === "HT") {
