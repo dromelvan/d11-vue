@@ -23,6 +23,9 @@
         <div class="ranking after-main-item">
           {{ playerSeasonStat.ranking }}
         </div>
+        <div class="fee" v-if="['d11Team'].includes(view)">
+          {{ playerValue(playerSeasonStat.value) }}
+        </div>
         <template v-if="this.participated(playerSeasonStat)">
           <!-- Appearances ----------------------->
           <div class="appearances">
@@ -128,6 +131,17 @@
         </template>
         <template v-else>&nbsp;</template>
       </div>
+      <!-- Team -------------------->
+      <div class="team" v-if="['d11Team'].includes(view)">
+        <template v-if="!playerSeasonStat.team.dummy && mdAndUp">
+          <team-image size="tiny" :id="playerSeasonStat.team.id" />
+          {{ playerSeasonStat.team.name }}
+        </template>
+        <template v-else-if="!playerSeasonStat.team.dummy && smAndDown">
+          {{ playerSeasonStat.team.code }}
+        </template>
+        <template v-else>&nbsp;</template>
+      </div>
     </v-list-item-title>
   </list-container-item>
 </template>
@@ -144,7 +158,8 @@ export default {
     PlayerImage: () => import("@/components/image/PlayerImage"),
     YellowCardIcon: () => import("@/components/match_event/YellowCardIcon"),
     RedCardIcon: () => import("@/components/match_event/RedCardIcon"),
-    FormMatchPoint: () => import("@/components/FormMatchPoint")
+    FormMatchPoint: () => import("@/components/FormMatchPoint"),
+    TeamImage: () => import("@/components/image/TeamImage")
   },
   methods: {
     participated: function(playerSeasonStat) {
@@ -188,6 +203,11 @@ export default {
   .did-not-participate {
     width: 33.8em;
     opacity: 0.6;
+  }
+
+  .fee {
+    text-align: right !important;
+    min-width: 2.3em;
   }
 
   .ranking,

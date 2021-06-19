@@ -136,7 +136,13 @@ export default {
           }
         };
       } else if (this.view === "d11Team") {
-        return { name: "d11Team", params: { id: this.seasonStat.d11Team.id } };
+        return {
+          name: "d11Team",
+          params: {
+            id: this.seasonStat.d11Team.id,
+            seasonId: this.seasonStat.season.id
+          }
+        };
       }
       return null;
     },

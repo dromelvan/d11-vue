@@ -1,7 +1,7 @@
 <template>
   <lazy-league-table
     class="d11-league"
-    view="d11-team"
+    view="d11Team"
     :seasonStats="d11TeamSeasonStats"
     @visible="getD11TeamSeasonStats"
   />

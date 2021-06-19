@@ -23,6 +23,17 @@
           </span>
         </v-tooltip>
       </div>
+      <!-- Value ------------------->
+      <div class="fee" v-if="['d11Team'].includes(view)">
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <span v-bind="attrs" v-on="on">Fee</span>
+          </template>
+          <span>
+            The fee payed for the player by the D11 team
+          </span>
+        </v-tooltip>
+      </div>
       <!-- Appearances ------------------->
       <div class="appearances">
         <v-tooltip top>
@@ -120,6 +131,16 @@
         <span>D11 team the player belongs to</span>
       </v-tooltip>
     </div>
+
+    <!-- Team ------------------>
+    <div class="team" v-if="['d11Team'].includes(view)">
+      <v-tooltip top>
+        <template v-slot:activator="{ on, attrs }">
+          <span v-bind="attrs" v-on="on">Team</span>
+        </template>
+        <span>Team the player belongs to</span>
+      </v-tooltip>
+    </div>
   </div>
 </template>
 
@@ -140,6 +161,12 @@ export default {
 .own-goals,
 .goal-assists {
   width: 3em;
+}
+
+.fee {
+  padding-right: $d11-spacer;
+  text-align: right !important;
+  min-width: 2.3em;
 }
 
 .cards {

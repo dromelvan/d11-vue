@@ -58,6 +58,11 @@ const routes = [
     path: "/teams/:id/:seasonId/:tab?",
     name: "team",
     component: () => import("@/views/team/Team.vue")
+  },
+  {
+    path: "/d11-teams/:id/:seasonId/:tab?",
+    name: "d11Team",
+    component: () => import("@/views/d11_team/D11Team.vue")
   }
 ];
 
