@@ -1,5 +1,5 @@
 <template>
-  <div class="d11Team" v-if="d11Team && season">
+  <div class="d11-team" v-if="d11Team && season">
     <d11-team-overview-sm-and-up
       v-if="smAndUp"
       :d11Team="d11Team"
@@ -35,7 +35,12 @@
               </div>
             </v-tab-item>
             <v-tab-item value="matches" v-if="d11TeamSeasonStat">
-              Matches
+              <lazy-d11-match-list
+                v-for="d11Team in [this.d11Team]"
+                :key="d11Team.id"
+                :view="'d11Team'"
+                :d11MatchIds="d11MatchIds"
+              />
             </v-tab-item>
             <v-tab-item value="matches" v-else>
               <div class="no-data">
@@ -65,7 +70,8 @@ export default {
       import("@/views/d11_team/D11TeamOverviewSmAndUp"),
     ContentSection: () => import("@/components/ContentSection"),
     PlayerSeasonStatsByPosition: () =>
-      import("@/views/player_season_stat/PlayerSeasonStatsByPosition")
+      import("@/views/player_season_stat/PlayerSeasonStatsByPosition"),
+    LazyD11MatchList: () => import("@/views/d11_match/LazyD11MatchList")
   },
   computed: {
     tab: {

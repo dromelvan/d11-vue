@@ -13,11 +13,34 @@
         finished: this.finished(d11Match.status)
       }"
     >
-      <div class="kickoff">
-        <template>
+      <template v-if="['d11Team'].includes(view)">
+        <!-- Date -------------------->
+        <div class="match-date" v-if="['d11Team'].includes(view)">
+          <template v-if="mdAndUp">
+            {{ d11Match.datetime | moment("DD.MM YYYY") }}
+          </template>
+          <template v-else>
+            {{ d11Match.datetime | moment("DD.MM") }}
+          </template>
+        </div>
+        <!-- Kickoff ----------------->
+        <div class="kickoff">
+          {{ d11Match.datetime | moment("HH:mm") }}
+        </div>
+        <!-- Match Week -------------->
+        <div class="match-week">
+          <template v-if="mdAndUp">
+            Match Week
+          </template>
+          {{ d11Match.matchWeek.matchWeekNumber }}
+        </div>
+      </template>
+      <template v-else>
+        <!-- Kickoff ----------------->
+        <div class="kickoff">
           Kick Off {{ d11Match.datetime | moment("HH:mm") }}
-        </template>
-      </div>
+        </div>
+      </template>
       <div
         class="team home"
         v-bind:class="{ winner: d11Winner(d11Match, d11Match.homeD11Team.id) }"
@@ -128,6 +151,7 @@ export default {
     ResultChange: () => import("@/components/ResultChange")
   },
   props: {
+    view: String,
     d11MatchId: Number
   },
   watch: {
@@ -142,16 +166,22 @@ export default {
 
 <style lang="scss" scoped>
 .d11-match {
-  .kickoff,
-  .elapsed {
-    min-width: 5em;
-  }
-
-  .kickoff {
+  .match-date {
+    min-width: 5.8em;
     text-align: left !important;
   }
 
+  .kickoff {
+    min-width: 3.8em;
+    text-align: left !important;
+  }
+
+  .match-week {
+    min-width: 6.4em;
+  }
+
   .elapsed {
+    min-width: 4.5em;
     text-align: right !important;
     .progress {
       font-size: 0.6em;
@@ -159,7 +189,7 @@ export default {
   }
 
   .team {
-    min-width: 20em;
+    min-width: 16.5em;
   }
   .team.home {
     margin-left: auto;
@@ -193,6 +223,14 @@ export default {
   }
 }
 
+.v-application-md,
+.v-application-lg,
+.v-application.xl {
+  .match-week {
+    text-align: left !important;
+  }
+}
+
 .d11-match.full-time,
 .d11-match.finished {
   .goals {
@@ -204,6 +242,18 @@ export default {
   .d11-match {
     .team {
       min-width: 11.5em;
+    }
+  }
+
+  .d11-team {
+    .match-date {
+      min-width: 3em;
+    }
+    .match-week {
+      min-width: 1.5em;
+    }
+    .team {
+      min-width: 10.5em;
     }
   }
 }
