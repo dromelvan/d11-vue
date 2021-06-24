@@ -1,5 +1,13 @@
+import store from "@/store/index";
+
 const d11Mixin = {
   methods: {
+    loggedIn: function() {
+      return store.state.status.loggedIn;
+    },
+    currentSeason: function() {
+      return store.getters.currentSeason;
+    },
     playerValue(value) {
       return (value / 10).toFixed(1);
     },

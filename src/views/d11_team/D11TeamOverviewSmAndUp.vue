@@ -33,6 +33,7 @@
         />
         <v-spacer />
         <navigation-button
+          v-if="season.id < this.currentSeason().id"
           :to="{
             name: 'd11Team',
             params: {

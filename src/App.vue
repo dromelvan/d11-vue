@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import InitializationService from "@/services/initialization.service";
+
 export default {
   name: "App",
 
@@ -29,6 +31,9 @@ export default {
     AppBarSmAndDown: () => import("@/components/app_bar/AppBarSmAndDown"),
     NavigationDrawer: () => import("@/components/app_bar/NavigationDrawer"),
     AppBarMdAndUp: () => import("@/components/app_bar/AppBarMdAndUp")
+  },
+  mounted() {
+    InitializationService.initialize();
   }
 };
 </script>
