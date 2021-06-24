@@ -19,19 +19,70 @@
           <v-list-item-title>{{ link.text }}</v-list-item-title>
         </v-list-item>
       </v-list-item-group>
+
+      <v-list-item-group>
+        <v-subheader>Account</v-subheader>
+        <v-list-item v-if="!loggedIn() || loggingIn">
+          <v-list-item-icon>
+            <v-icon>mdi-account</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>
+            <login-dialog @logging-in="onLoggingIn" />
+          </v-list-item-title>
+        </v-list-item>
+        <!--
+        <v-list-item v-if="!loggedIn() || loggingIn">
+          <v-list-item-icon>
+            <v-icon>mdi-table</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>
+            Sign Up
+          </v-list-item-title>
+        </v-list-item>
+        -->
+        <v-list-item
+          v-if="loggedIn()"
+          @click="
+            logout();
+            show = false;
+          "
+        >
+          <v-list-item-icon>
+            <v-icon>mdi-account-cancel</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>
+            Sign Out
+          </v-list-item-title>
+        </v-list-item>
+      </v-list-item-group>
     </v-list>
   </v-navigation-drawer>
 </template>
 
 <script>
 import navigationGroups from "./navigation";
+import AuthenticationService from "@/services/authentication.service";
 
 export default {
   name: "NavigationDrawer",
   data: () => ({
     show: false,
-    navigationGroups: navigationGroups
+    navigationGroups: navigationGroups,
+    loggingIn: false
   }),
+  components: {
+    LoginDialog: () => import("@/views/authentication/LoginDialog")
+  },
+  methods: {
+    onLoggingIn: function(value) {
+      this.loggingIn = value;
+      this.show = false;
+    },
+    logout: function() {
+      AuthenticationService.logout();
+    }
+  },
+
   mounted() {
     this.$parent.$on("navigationDrawer.show", show => {
       this.show = show;

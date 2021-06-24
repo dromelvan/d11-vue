@@ -43,22 +43,49 @@
 
       <v-spacer></v-spacer>
 
+      <login-dialog @logging-in="onLoggingIn" v-if="!loggedIn() || loggingIn" />
+      <!--
+      <a class="menu-link" v-if="!loggedIn() || loggingIn" @click="login()">
+        Sign Up
+      </a>
+      -->
+      <a class="menu-link" v-if="loggedIn() && !loggingIn" @click="logout()">
+        Sign Out
+      </a>
+
       <search-field />
     </template>
   </v-app-bar>
 </template>
 
 <script>
+import AuthenticationService from "@/services/authentication.service";
 import navigationGroups from "./navigation";
 
 export default {
   name: "AppBarMdAndUp",
   components: {
+    LoginDialog: () => import("@/views/authentication/LoginDialog"),
     SearchField: () => import("@/components/app_bar/SearchField")
   },
   data: () => ({
-    navigationGroups: navigationGroups
-  })
+    navigationGroups: navigationGroups,
+    loggingIn: false
+  }),
+  methods: {
+    onLoggingIn: function(value) {
+      this.loggingIn = value;
+    },
+    login: function() {
+      AuthenticationService.login({
+        username: "dromelvan@aland.net",
+        password: "mj521jmw0w"
+      });
+    },
+    logout: function() {
+      AuthenticationService.logout();
+    }
+  }
 };
 </script>
 
