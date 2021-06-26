@@ -12,7 +12,34 @@
     <template v-if="smAndUp">
       <!-- Position ------------------>
       <div v-if="context" class="context">{{ context }}</div>
-      <template v-if="['d11Match', 'matchWeek'].includes(view)">
+      <!-- Match date ---------------->
+      <div class="match-date" v-if="['player'].includes(view)">
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <span v-bind="attrs" v-on="on">Date</span>
+          </template>
+          <span>The date of the match</span>
+        </v-tooltip>
+      </div>
+      <!-- Kickoff time -------------->
+      <div class="kickoff" v-if="['player'].includes(view)">
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <span v-bind="attrs" v-on="on">Kickoff</span>
+          </template>
+          <span>The time the match kicks off</span>
+        </v-tooltip>
+      </div>
+      <!-- Match week -------------->
+      <div class="match-week" v-if="['player'].includes(view)">
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <span v-bind="attrs" v-on="on">MW</span>
+          </template>
+          <span>The match week the match belongs to</span>
+        </v-tooltip>
+      </div>
+      <template v-if="['d11Match', 'matchWeek', 'player'].includes(view)">
         <!-- Match ------------------->
         <div class="match after-main-item">
           <v-tooltip top>
@@ -23,6 +50,15 @@
           </v-tooltip>
         </div>
       </template>
+      <!-- Team ------------------->
+      <div class="player-team">
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <span v-bind="attrs" v-on="on">Team</span>
+          </template>
+          <span>The team the player played for this match</span>
+        </v-tooltip>
+      </div>
       <!-- Goals --------------------->
       <div
         class="goals"
@@ -109,7 +145,10 @@
         </v-tooltip>
       </div>
       <!-- D11 team ------------------>
-      <div class="d11-team" v-if="['match', 'matchWeek'].includes(view)">
+      <div
+        class="d11-team"
+        v-if="['match', 'matchWeek', 'player'].includes(view)"
+      >
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
             <span v-bind="attrs" v-on="on" v-if="mdAndUp">D11 Team</span>
@@ -134,8 +173,27 @@ export default {
 
 <style lang="scss" scoped>
 .list-container-header {
+  .match-date {
+    padding-left: $d11-spacer;
+    min-width: 5.8em;
+    text-align: left !important;
+  }
+
   .match {
-    width: 4.5em;
+    min-width: 4.5em;
+  }
+
+  .player-team {
+    min-width: 2.5em;
+  }
+
+  .kickoff {
+    min-width: 3.8em;
+  }
+
+  .match-week {
+    min-width: 2.5em;
+    text-align: center;
   }
 
   .goals,
@@ -191,6 +249,10 @@ export default {
 
 .v-application-sm {
   .list-container-header {
+    .match-date {
+      min-width: 3em;
+    }
+
     .points {
       width: 2.4em;
     }

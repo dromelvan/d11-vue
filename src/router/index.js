@@ -63,6 +63,11 @@ const routes = [
     path: "/d11-teams/:id/:seasonId/:tab?",
     name: "d11Team",
     component: () => import("@/views/d11_team/D11Team.vue")
+  },
+  {
+    path: "/players/:id/:seasonId/:tab?",
+    name: "player",
+    component: () => import("@/views/player/Player.vue")
   }
 ];
 

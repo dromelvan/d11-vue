@@ -9,15 +9,47 @@
   >
     <v-list-item-title class="player-stat">
       <template v-if="smAndUp">
+        <!-- Match date ------------------>
+        <div class="match-date" v-if="['player'].includes(view)">
+          <template v-if="!this.postponed(playerStat.match.status)">
+            <template v-if="mdAndUp">
+              {{ playerStat.match.datetime | moment("DD.MM YYYY") }}
+            </template>
+            <template v-else>
+              {{ playerStat.match.datetime | moment("DD.MM") }}
+            </template>
+          </template>
+          <template v-else-if="mdAndUp">
+            Postponed
+          </template>
+          <template v-else>
+            PP
+          </template>
+        </div>
+        <!-- Kickoff ----------------->
+        <div class="kickoff" v-if="['player'].includes(view)">
+          <template
+            v-if="
+              !this.postponed(playerStat.match.status) &&
+                ['player'].includes(view)
+            "
+          >
+            {{ playerStat.match.datetime | moment("HH:mm") }}
+          </template>
+        </div>
+        <!-- Match week ------------------>
+        <div class="match-week" v-if="['player'].includes(view)">
+          {{ playerStat.match.matchWeek.matchWeekNumber }}
+        </div>
         <!-- Player image ---------------->
-        <div class="image">
+        <div class="image" v-if="['match', 'd11Match'].includes(view)">
           <player-image
             :size="'tiny'"
             :fileName="playerStat.player.photoFileName"
           />
         </div>
         <!-- Player name ----------------->
-        <div class="player">
+        <div class="player" v-if="['match', 'd11Match'].includes(view)">
           <template v-if="!pending(playerStat.match.status)">
             <span class="substitute" v-if="playerStat.lineup === 1">SUB </span>
             <span
@@ -36,7 +68,10 @@
         <!-- Man of the match ------------>
         <div
           class="man-of-the-match"
-          v-if="playerStat.manOfTheMatch || playerStat.sharedManOfTheMatch"
+          v-if="
+            ['match', 'd11Match', 'player'].includes(view) &&
+              (playerStat.manOfTheMatch || playerStat.sharedManOfTheMatch)
+          "
         >
           <span v-if="mdAndUp">Man of the Match</span>
           <span v-if="smAndDown">MoM</span>
@@ -46,7 +81,7 @@
         <div
           class="elapsed"
           v-if="
-            ['d11Match'].includes(view) &&
+            ['d11Match', 'player'].includes(view) &&
               playerStat.lineup >= 1 &&
               active(playerStat.match.status)
           "
@@ -54,11 +89,11 @@
           <elapsed :elapsedTime="playerStat.match.elapsed" />
         </div>
 
-        <template v-if="['d11Match', 'matchWeek'].includes(view)">
+        <template v-if="['d11Match', 'matchWeek', 'player'].includes(view)">
           <!-- Match ----------------------->
           <div
             class="match after-main-item"
-            v-if="['d11Match', 'matchWeek'].includes(view)"
+            v-if="['d11Match', 'matchWeek', 'player'].includes(view)"
           >
             <team-image :size="'icon'" :id="playerStat.match.homeTeam.id" />
             <template v-if="!pending(playerStat.match.status)">
@@ -72,7 +107,10 @@
             <team-image :size="'icon'" :id="playerStat.match.awayTeam.id" />
           </div>
         </template>
-
+        <!-- Team -------------------------->
+        <div class="player-team" v-if="['player'].includes(view)">
+          <team-image :size="'icon'" :id="playerStat.team.id" />
+        </div>
         <template v-if="participated(playerStat)">
           <!-- Goals ----------------------->
           <div
@@ -212,8 +250,12 @@
         </div>
 
         <!-- D11 Team -------------------->
-        <div class="d11-team" v-if="['match', 'matchWeek'].includes(view)">
+        <div
+          class="d11-team"
+          v-if="['match', 'matchWeek', 'player'].includes(view)"
+        >
           <template v-if="!playerStat.d11Team.dummy && mdAndUp">
+            <d11-team-image size="tiny" :id="playerStat.d11Team.id" />
             {{ playerStat.d11Team.name }}
           </template>
           <template v-else-if="!playerStat.d11Team.dummy && smAndDown">
@@ -243,7 +285,8 @@ export default {
     SubstitutionOnIcon: () =>
       import("@/components/match_event/SubstitutionOnIcon"),
     SubstitutionOffIcon: () =>
-      import("@/components/match_event/SubstitutionOffIcon")
+      import("@/components/match_event/SubstitutionOffIcon"),
+    D11TeamImage: () => import("@/components/image/D11TeamImage")
   },
   methods: {
     participated: function(playerStat) {
@@ -280,6 +323,20 @@ export default {
   }
 
   .player-stat {
+    .match-date {
+      min-width: 5.8em;
+      text-align: left !important;
+    }
+
+    .kickoff {
+      min-width: 3.8em;
+    }
+
+    .match-week {
+      min-width: 2.5em;
+      text-align: center;
+    }
+
     .image {
       min-width: 44px;
     }
@@ -301,7 +358,11 @@ export default {
     }
 
     .match {
-      width: 4.5em;
+      min-width: 4.5em;
+    }
+
+    .player-team {
+      min-width: 2.5em;
     }
 
     .goals,
@@ -379,12 +440,20 @@ export default {
 .v-application-sm {
   .player-stat-container {
     .player-stat {
+      .match-date {
+        min-width: 3em;
+      }
       .points {
         width: 2.4em;
       }
       .team,
       .d11-team {
         width: 3.5em;
+      }
+      .match-not-played,
+      .did-not-participate,
+      .unused-substitute {
+        width: 19.4em;
       }
     }
   }

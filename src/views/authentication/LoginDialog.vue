@@ -68,7 +68,7 @@
 <script>
 import { validationMixin } from "vuelidate";
 import { required, email } from "vuelidate/lib/validators";
-import AuthenticationService from "../../services/authentication.service";
+import AuthenticationService from "@/services/authentication.service";
 
 export default {
   name: "LoginDialog",
