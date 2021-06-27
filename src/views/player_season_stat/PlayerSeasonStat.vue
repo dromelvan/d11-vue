@@ -5,15 +5,30 @@
   >
     <v-list-item-title class="player-season-stat">
       <template v-if="smAndUp">
+        <!-- Season ---------------------->
+        <div class="season" v-if="isView(['player'])">
+          {{ playerSeasonStat.season.name }}
+        </div>
+        <!-- Team -------------------->
+        <div class="team" v-if="isView(['player'])">
+          <template v-if="!playerSeasonStat.team.dummy && mdAndUp">
+            <team-image size="tiny" :id="playerSeasonStat.team.id" />
+            {{ playerSeasonStat.team.name }}
+          </template>
+          <template v-else-if="!playerSeasonStat.team.dummy && smAndDown">
+            {{ playerSeasonStat.team.code }}
+          </template>
+          <template v-else>&nbsp;</template>
+        </div>
         <!-- Player image ---------------->
-        <div class="image">
+        <div class="image" v-if="isView(['team', 'd11Team'])">
           <player-image
             :size="'tiny'"
             :fileName="playerSeasonStat.player.photoFileName"
           />
         </div>
         <!-- Player name ----------------->
-        <div class="player">
+        <div class="player" v-if="isView(['team', 'd11Team'])">
           <template v-if="playerSeasonStat.player.name.length <= maxNameLength">
             {{ playerSeasonStat.player.name }}
           </template>
@@ -23,8 +38,14 @@
         <div class="ranking after-main-item">
           {{ playerSeasonStat.ranking }}
         </div>
-        <div class="fee" v-if="['d11Team'].includes(view)">
-          {{ playerValue(playerSeasonStat.value) }}
+        <!-- Fee --------------------------->
+        <div class="fee" v-if="isView(['d11Team', 'player'])">
+          <template v-if="playerSeasonStat.value > 0">
+            {{ playerValue(playerSeasonStat.value) }}
+          </template>
+          <template v-else>
+            &nbsp;
+          </template>
         </div>
         <template v-if="this.participated(playerSeasonStat)">
           <!-- Appearances ----------------------->
@@ -122,8 +143,9 @@
       </div>
 
       <!-- D11 Team -------------------->
-      <div class="d11-team" v-if="['team'].includes(view)">
+      <div class="d11-team" v-if="isView(['team', 'player'])">
         <template v-if="!playerSeasonStat.d11Team.dummy && mdAndUp">
+          <d11-team-image size="tiny" :id="playerSeasonStat.d11Team.id" />
           {{ playerSeasonStat.d11Team.name }}
         </template>
         <template v-else-if="!playerSeasonStat.d11Team.dummy && smAndDown">
@@ -132,7 +154,7 @@
         <template v-else>&nbsp;</template>
       </div>
       <!-- Team -------------------->
-      <div class="team" v-if="['d11Team'].includes(view)">
+      <div class="team" v-if="isView(['d11Team'])">
         <template v-if="!playerSeasonStat.team.dummy && mdAndUp">
           <team-image size="tiny" :id="playerSeasonStat.team.id" />
           {{ playerSeasonStat.team.name }}
@@ -159,7 +181,8 @@ export default {
     YellowCardIcon: () => import("@/components/match_event/YellowCardIcon"),
     RedCardIcon: () => import("@/components/match_event/RedCardIcon"),
     FormMatchPoint: () => import("@/components/FormMatchPoint"),
-    TeamImage: () => import("@/components/image/TeamImage")
+    TeamImage: () => import("@/components/image/TeamImage"),
+    D11TeamImage: () => import("@/components/image/D11TeamImage")
   },
   methods: {
     participated: function(playerSeasonStat) {
@@ -203,6 +226,11 @@ export default {
   .did-not-participate {
     width: 33.8em;
     opacity: 0.6;
+  }
+
+  .season {
+    text-align: left !important;
+    min-width: 5em;
   }
 
   .fee {

@@ -12,6 +12,26 @@
     <template v-if="smAndUp">
       <!-- Position ------------------>
       <div v-if="context" class="context">{{ context }}</div>
+      <!-- Season ------------------->
+      <div class="season" v-if="isView('player')">
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <span v-bind="attrs" v-on="on">Season</span>
+          </template>
+          <span>
+            A season the player participated in
+          </span>
+        </v-tooltip>
+      </div>
+      <!-- Team ------------------>
+      <div class="team" v-if="isView('player')">
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <span v-bind="attrs" v-on="on">Team</span>
+          </template>
+          <span>Team the player belongs to</span>
+        </v-tooltip>
+      </div>
       <!-- Ranking ------------------->
       <div class="ranking after-main-item">
         <v-tooltip top>
@@ -24,7 +44,7 @@
         </v-tooltip>
       </div>
       <!-- Value ------------------->
-      <div class="fee" v-if="['d11Team'].includes(view)">
+      <div class="fee" v-if="isView(['d11Team', 'player'])">
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
             <span v-bind="attrs" v-on="on">Fee</span>
@@ -122,7 +142,7 @@
     </div>
 
     <!-- D11 team ------------------>
-    <div class="d11-team" v-if="['team'].includes(view)">
+    <div class="d11-team" v-if="isView(['team', 'player'])">
       <v-tooltip top>
         <template v-slot:activator="{ on, attrs }">
           <span v-bind="attrs" v-on="on" v-if="mdAndUp">D11 Team</span>
@@ -155,6 +175,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.season {
+  padding-left: $d11-spacer;
+  text-align: left !important;
+  min-width: 5em;
+}
+
 .ranking,
 .appearances,
 .goals,

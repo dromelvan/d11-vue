@@ -14,7 +14,7 @@
             Matches {{ season.name }}
           </v-tab>
           <v-tab class="seasons-tab" href="#seasons">
-            Season Stats
+            Season History
           </v-tab>
           <v-tabs-items :value="tab">
             <v-tab-item value="matches" v-if="playerSeasonStat">
@@ -37,7 +37,11 @@
               </div>
             </v-tab-item>
             <v-tab-item value="seasons">
-              Season stats
+              <player-season-stats
+                :playerSeasonStats="playerSeasonStats"
+                view="player"
+                @findPlayerSeasonStats="getPlayerSeasonStats"
+              />
             </v-tab-item>
           </v-tabs-items>
         </v-tabs>
@@ -48,18 +52,23 @@
 
 <script>
 import PlayerService from "@/services/player.service";
+import PlayerSeasonStatService from "@/services/playerSeasonStat.service";
+
 export default {
   name: "Player",
   data: () => ({
     player: null,
     season: null,
     playerSeasonStat: null,
-    playerMatchStats: null
+    playerMatchStats: null,
+    playerSeasonStats: null
   }),
   components: {
     PlayerOverviewSmAndUp: () => import("@/views/player/PlayerOverviewSmAndUp"),
     ContentSection: () => import("@/components/ContentSection"),
-    PlayerMatchStats: () => import("@/views/player_stat/PlayerMatchStats")
+    PlayerMatchStats: () => import("@/views/player_stat/PlayerMatchStats"),
+    PlayerSeasonStats: () =>
+      import("@/views/player_season_stat/PlayerSeasonStats")
   },
   computed: {
     tab: {
@@ -73,6 +82,7 @@ export default {
   },
   methods: {
     getData: function() {
+      this.playerMatchStats = null;
       PlayerService.getPlayerSeasonData(
         this.$route.params.id,
         this.$route.params.seasonId
@@ -80,13 +90,18 @@ export default {
         this.player = result.player;
         this.season = result.season;
         this.playerSeasonStat = result.playerSeasonStat;
-        this.playerMatchStats = null;
       });
     },
     getPlayerMatchStats: function() {
-      PlayerService.getPlayerMatchStats(this.player.id, this.season.id).then(
-        result => (this.playerMatchStats = result)
-      );
+      PlayerService.getPlayerMatchStats(
+        this.$route.params.id,
+        this.$route.params.seasonId
+      ).then(result => (this.playerMatchStats = result));
+    },
+    getPlayerSeasonStats: function() {
+      PlayerSeasonStatService.getPlayerSeasonStatsByPlayerId(
+        this.player.id
+      ).then(result => (this.playerSeasonStats = result));
     }
   },
   mounted() {
