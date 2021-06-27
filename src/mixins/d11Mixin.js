@@ -2,6 +2,9 @@ import store from "@/store/index";
 
 const d11Mixin = {
   methods: {
+    isView: function(views) {
+      return views.includes(this.view);
+    },
     loggedIn: function() {
       return store.state.status.loggedIn;
     },
