@@ -1,52 +1,96 @@
 <template>
-  <v-lazy
-    v-model="visible"
-    :options="{ threshold: 0.5 }"
-    transition="fade-transition"
-  >
-    <loading-indicator v-if="!playerSeasonStats" />
+  <div class="player-season-stats" v-if="season">
+    <player-season-stats-overview-sm-and-up v-if="smAndUp" :season="season" />
 
-    <div class="player-season-stats" v-else>
-      <player-season-stat-list
-        v-for="key in ['key']"
-        :key="key"
-        :view="view"
-        :playerSeasonStats="playerSeasonStats"
-      />
-    </div>
-  </v-lazy>
+    <content-section>
+      <v-container class="tabs-container">
+        <v-tabs v-model="tab">
+          <v-tab class="stats-tab" href="#stats">
+            Player Stats {{ season.name }}
+          </v-tab>
+          <v-tabs-items :value="tab">
+            <v-tab-item value="stats">
+              <v-pagination
+                v-model="page"
+                :length="Math.ceil(season.playerSeasonStatCount / 25)"
+                :total-visible="15"
+              />
+
+              <lazy-player-season-stat-list
+                :context="'Player'"
+                :playerSeasonStats="playerSeasonStats"
+                view="team"
+                @findPlayerSeasonStats="getPlayerSeasonStats"
+              />
+
+              <v-pagination
+                v-model="page"
+                :length="Math.ceil(season.playerSeasonStatCount / 25)"
+                :total-visible="15"
+              />
+            </v-tab-item>
+          </v-tabs-items>
+        </v-tabs>
+      </v-container>
+    </content-section>
+  </div>
 </template>
 
 <script>
+import SeasonService from "@/services/season.service";
+import PlayerSeasonStatService from "@/services/playerSeasonStat.service";
+
 export default {
   name: "PlayerSeasonStats",
   data: () => ({
-    visible: false
+    season: null,
+    page: 1,
+    playerSeasonStats: null
   }),
-  props: {
-    playerSeasonStats: Array,
-    view: String
-  },
   components: {
-    LoadingIndicator: () => import("@/components/LoadingIndicator"),
-    PlayerSeasonStatList: () =>
-      import("@/views/player_season_stat/PlayerSeasonStatList")
+    PlayerSeasonStatsOverviewSmAndUp: () =>
+      import("@/views/player_season_stat/PlayerSeasonStatsOverviewSmAndUp"),
+    ContentSection: () => import("@/components/ContentSection"),
+    LazyPlayerSeasonStatList: () =>
+      import("@/views/player_season_stat/LazyPlayerSeasonStatList")
+  },
+  methods: {
+    getSeason: function() {
+      SeasonService.getSeason(this.$route.params.seasonId).then(result => {
+        this.season = result;
+      });
+    },
+    getPlayerSeasonStats: function() {
+      PlayerSeasonStatService.getPlayerSeasonStatsBySeasonIdAndPage(
+        this.$route.params.seasonId,
+        this.page - 1
+      ).then(result => (this.playerSeasonStats = result));
+    }
+  },
+  computed: {
+    tab: {
+      set(tab) {
+        this.$router.replace({ params: { ...this.$route.params.tab, tab } });
+      },
+      get() {
+        return this.$route.params.tab;
+      }
+    }
+  },
+  mounted() {
+    this.getSeason();
   },
   watch: {
-    visible: function() {
-      this.$emit("findPlayerSeasonStats");
+    $route() {
+      this.playerSeasonStats = null;
+      this.page = 1;
+      this.getSeason();
+      this.getPlayerSeasonStats();
     },
-    playerSeasonStatsByPosition: function() {
-      if (this.visible && this.playerSeasonStats == null) {
-        this.$emit("findPlayerSeasonStats");
-      }
+    page() {
+      this.playerSeasonStats = null;
+      this.getPlayerSeasonStats();
     }
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.v-lazy {
-  min-height: 250px;
-}
-</style>

@@ -68,6 +68,11 @@ const routes = [
     path: "/players/:id/:seasonId/:tab?",
     name: "player",
     component: () => import("@/views/player/Player.vue")
+  },
+  {
+    path: "/player-season-stats/:seasonId/:tab?",
+    name: "playerSeasonStats",
+    component: () => import("@/views/player_season_stat/PlayerSeasonStats.vue")
   }
 ];
 

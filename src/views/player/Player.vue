@@ -37,7 +37,7 @@
               </div>
             </v-tab-item>
             <v-tab-item value="seasons">
-              <player-season-stats
+              <lazy-player-season-stat-list
                 :playerSeasonStats="playerSeasonStats"
                 view="player"
                 @findPlayerSeasonStats="getPlayerSeasonStats"
@@ -67,8 +67,8 @@ export default {
     PlayerOverviewSmAndUp: () => import("@/views/player/PlayerOverviewSmAndUp"),
     ContentSection: () => import("@/components/ContentSection"),
     PlayerMatchStats: () => import("@/views/player_stat/PlayerMatchStats"),
-    PlayerSeasonStats: () =>
-      import("@/views/player_season_stat/PlayerSeasonStats")
+    LazyPlayerSeasonStatList: () =>
+      import("@/views/player_season_stat/LazyPlayerSeasonStatList")
   },
   computed: {
     tab: {
