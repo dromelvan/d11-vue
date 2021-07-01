@@ -65,6 +65,11 @@ const routes = [
     component: () => import("@/views/d11_team/D11Team.vue")
   },
   {
+    path: "/d11-teams/:seasonId",
+    name: "d11Teams",
+    component: () => import("@/views/d11_team/D11Teams.vue")
+  },
+  {
     path: "/players/:id/:seasonId/:tab?",
     name: "player",
     component: () => import("@/views/player/Player.vue")
