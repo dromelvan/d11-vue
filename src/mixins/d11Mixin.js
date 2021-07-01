@@ -14,6 +14,15 @@ const d11Mixin = {
     playerValue(value) {
       return (value / 10).toFixed(1);
     },
+    playerName(player, maxLength) {
+      if (player.shortName.length > maxLength) {
+        return player.lastName;
+      } else if (player.name.length > maxLength) {
+        return player.shortName;
+      } else {
+        return player.name;
+      }
+    },
     elapsed: function(input) {
       var elapsed = input;
       if (elapsed === "HT") {
