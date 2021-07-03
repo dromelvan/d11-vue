@@ -52,6 +52,16 @@
             Kick Off {{ match.datetime | moment("HH:mm") }}
           </template>
         </div>
+        <!-- Match Week -------------->
+        <div class="match-week" v-if="isView(['current'])">
+          <template v-if="mdAndUp">
+            Match Week
+          </template>
+          <template v-else>
+            MW
+          </template>
+          {{ match.matchWeek.matchWeekNumber }}
+        </div>
       </template>
       <!-- Home team --------------->
       <div
@@ -201,6 +211,14 @@ export default {
 
   .score {
     min-width: 2em;
+  }
+}
+
+.current {
+  .match {
+    .kickoff {
+      min-width: 7em;
+    }
   }
 }
 

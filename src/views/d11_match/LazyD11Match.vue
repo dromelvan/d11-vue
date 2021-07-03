@@ -41,6 +41,16 @@
           Kick Off {{ d11Match.datetime | moment("HH:mm") }}
         </div>
       </template>
+      <!-- Match Week -------------->
+      <div class="match-week" v-if="isView(['current'])">
+        <template v-if="mdAndUp">
+          Match Week
+        </template>
+        <template v-else>
+          MW
+        </template>
+        {{ d11Match.matchWeek.matchWeekNumber }}
+      </div>
       <div
         class="team home"
         v-bind:class="{ winner: d11Winner(d11Match, d11Match.homeD11Team.id) }"
@@ -223,6 +233,14 @@ export default {
   }
 }
 
+.current {
+  .d11-match {
+    .kickoff {
+      min-width: 7em;
+    }
+  }
+}
+
 .v-application-md,
 .v-application-lg,
 .v-application.xl {
@@ -245,7 +263,8 @@ export default {
     }
   }
 
-  .d11-team {
+  .d11-team,
+  .current {
     .match-date {
       min-width: 3em;
     }

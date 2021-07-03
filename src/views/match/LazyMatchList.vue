@@ -2,7 +2,7 @@
   <list-container>
     <template v-slot:header>
       <div class="list-container-header">
-        <div class="match-date" v-if="['matchWeek'].includes(view)">
+        <div class="match-date" v-if="isView(['matchWeek', 'current'])">
           <template v-if="date === 'Postponed'">
             {{ date }}
           </template>
