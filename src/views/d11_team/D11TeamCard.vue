@@ -49,7 +49,7 @@
               />
             </div>
             <div class="player">
-              {{ playerName(playerSeasonStat.player, 19) }}
+              {{ playerName(playerSeasonStat.player, 17) }}
             </div>
             <div class="fee">
               {{ playerValue(playerSeasonStat.value) }}
