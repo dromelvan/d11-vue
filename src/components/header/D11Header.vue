@@ -17,7 +17,7 @@
 
       <v-container class="header-container">
         <div class="header-background">
-          <div class="navigation-button-container">
+          <div class="navigation-button-container previous">
             <navigation-button
               v-if="previousLink"
               :to="previousLink"
@@ -27,7 +27,7 @@
           <div class="header-content">
             <slot />
           </div>
-          <div class="navigation-button-container">
+          <div class="navigation-button-container next">
             <navigation-button
               v-if="nextLink"
               :to="nextLink"
@@ -97,19 +97,23 @@ export default {
       line-height: 1.8em;
       height: 100%;
       background-color: $header-content-background-color;
-      //background-color: yellow;
       display: flex;
 
       .navigation-button-container {
-        //background: gray;
         display: flex;
         align-items: center;
-        padding-right: 6px;
+      }
+
+      .navigation-button-container.previous {
+        padding-right: $d11-spacer;
+      }
+
+      .navigation-button-container.next {
+        padding-left: $d11-spacer;
       }
 
       .header-content {
         width: 100%;
-        //background: green;
         .header-title {
           font-size: 1.5em;
         }
