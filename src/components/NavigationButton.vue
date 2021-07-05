@@ -41,3 +41,10 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.theme--dark.v-btn--active:hover::before,
+.theme--dark.v-btn--active::before {
+  opacity: 0;
+}
+</style>

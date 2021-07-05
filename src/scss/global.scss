@@ -85,6 +85,18 @@
   text-decoration: none;
 }
 
+.horizontal {
+  display: flex;
+}
+
+.emphasised {
+  font-weight: 600;
+}
+
+.active-message {
+  color: var(--v-error-base);
+}
+
 .h1-container {
   padding-bottom: $d11-spacer;
 }

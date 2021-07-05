@@ -9,6 +9,10 @@ $d11-match-event-icon-height: $d11-match-event-icon-width;
 // Do it this way until we figure out how to make #000000de as a theme variable work
 $menu-background-color: rgba(0, 0, 0, 0.87);
 
+$header-height: 390px;
+$header-color: white;
+$header-content-background-color: rgba(0, 0, 0, 0.5);
+
 $overview-color: white;
 $overview-dark-background-color: rgba(0, 0, 0, 0.7);
 $overview-context-background-color: rgba(0, 10, 60, .6);
