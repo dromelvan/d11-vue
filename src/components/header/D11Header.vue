@@ -7,10 +7,11 @@
     />
 
     <section class="header-section">
-      <div class="header-navigation">
+      <div class="header-navigation" v-if="parentLink">
         <v-container>
           <router-link :to="parentLink">
-            <v-icon>mdi-chevron-left</v-icon><span>{{ parentLink.text }}</span>
+            <v-icon v-if="parentLink.txt">mdi-chevron-left</v-icon>
+            <span>{{ parentLink.text }}</span>
           </router-link>
         </v-container>
       </div>
@@ -70,6 +71,7 @@ export default {
 
   .header-navigation {
     background: $overview-dark-background-color;
+    min-height: 3.563em;
 
     span {
       vertical-align: middle;

@@ -104,6 +104,14 @@ const d11Mixin = {
     },
     lgAndUp: function() {
       return this.$vuetify.breakpoint.lgAndUp;
+    },
+    tab: {
+      set(tab) {
+        this.$router.replace({ params: { ...this.$route.params.tab, tab } });
+      },
+      get() {
+        return this.$route.params.tab;
+      }
     }
   }
 };
