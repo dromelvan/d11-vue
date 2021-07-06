@@ -87,7 +87,11 @@ export default {
             name: player.name,
             id: player.id,
             team: player.teamId === 1 ? "" : player.teamName,
-            photoFileName: player.photoFileName
+            photoFileName: player.photoFileName,
+            route: {
+              name: "player",
+              params: { id: player.id, seasonId: this.currentSeason().id }
+            }
           });
         }
 
@@ -105,10 +109,7 @@ export default {
       }
     },
     selected(selected) {
-      this.$router.push({
-        name: "player",
-        params: { id: selected.id, seasonId: this.currentSeason().id }
-      });
+      this.$router.push(selected.route);
       this.search = null;
     }
   }
