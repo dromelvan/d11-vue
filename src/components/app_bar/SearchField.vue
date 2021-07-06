@@ -105,7 +105,10 @@ export default {
       }
     },
     selected(selected) {
-      console.log("Redirect to " + selected.name);
+      this.$router.push({
+        name: "player",
+        params: { id: selected.id, seasonId: this.currentSeason().id }
+      });
       this.search = null;
     }
   }
