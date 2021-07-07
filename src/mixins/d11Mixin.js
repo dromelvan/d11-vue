@@ -23,6 +23,19 @@ const d11Mixin = {
         return player.name;
       }
     },
+    playerAge(dateOfBirth) {
+      return this.$moment().from(dateOfBirth, true);
+    },
+    playerRating(rating) {
+      return (rating / 100).toFixed(2);
+    },
+    teamName(team, maxLength) {
+      if (team.name.length < maxLength) {
+        return team.name;
+      } else {
+        return team.shortName;
+      }
+    },
     elapsed: function(input) {
       var elapsed = input;
       if (elapsed === "HT") {
