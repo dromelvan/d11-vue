@@ -10,7 +10,7 @@
       <div class="header-navigation" v-if="parentLink">
         <v-container>
           <router-link :to="parentLink">
-            <v-icon v-if="parentLink.txt">mdi-chevron-left</v-icon>
+            <v-icon v-if="parentLink.text">mdi-chevron-left</v-icon>
             <span>{{ parentLink.text }}</span>
           </router-link>
         </v-container>
