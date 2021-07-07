@@ -36,6 +36,10 @@ img {
   vertical-align: middle;
 }
 
+img.large {
+  height: 200px;
+}
+
 img.small {
   height: 60px;
 }
