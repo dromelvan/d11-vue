@@ -1,20 +1,108 @@
 <template>
-  <div class="team" v-if="team && season">
-    <team-overview-sm-and-up
-      v-if="smAndUp"
-      :team="team"
-      :season="season"
-      :teamSeasonStat="teamSeasonStat"
-    />
+  <div class="team">
+    <!-- Header -------------------------------->
+    <d11-header
+      :backgroundPictureType="'stadium'"
+      :backgroundPictureId="19"
+      :backgroundPictureAlt="'TODO'"
+      :parentLink="{
+        text: season ? 'Season ' + season.name : '',
+        name: 'season',
+        params: { id: season ? season.id : 0 }
+      }"
+      :previousLink="{
+        name: 'team',
+        params: {
+          id: team ? team.id : 0,
+          seasonId: season ? season.id - 1 : 0,
+          tab: tab
+        },
+        show: season && season.id > minSeasonId()
+      }"
+      :nextLink="{
+        name: 'team',
+        params: {
+          id: team ? team.id : 0,
+          seasonId: season ? season.id + 1 : 0,
+          tab: tab
+        },
+        show: season && season.id < maxSeasonId()
+      }"
+    >
+      <template v-if="team && season">
+        <div class="header-title">
+          <h1>{{ team.name }}</h1>
+          <div class="external-link">
+            <a class="team-link" target="_blank" :href="team.url">
+              Official Site
+            </a>
+            <v-icon medium class="mdi-icon">mdi-chevron-right</v-icon>
+          </div>
+        </div>
+        <div class="header-subtitle">
+          <h4>Season {{ season.name }}</h4>
+        </div>
+        <div class="horizontal">
+          <div class="team-image">
+            <team-image :size="'large'" :id="team.id" />
+          </div>
 
+          <div class="team-season-stats" v-if="teamSeasonStat">
+            <div class="points-ranking">
+              <span class="points">{{ teamSeasonStat.points }}</span>
+              pts
+              <span class="ranking">#{{ teamSeasonStat.ranking }}</span>
+              ranking
+            </div>
+            <div v-if="teamSeasonStat.winCount && finished(season.status)">
+              {{ teamSeasonStat.winCount | ordinal({ includeNumber: true }) }}
+              league victory
+            </div>
+            <div class="goals-for">
+              {{ teamSeasonStat.goalsFor }} goals scored
+            </div>
+            <div class="goals-against">
+              {{ teamSeasonStat.goalsAgainst }} goals conceded
+            </div>
+            <div class="goal-difference">
+              <template v-if="teamSeasonStat.goalDifference > 0">
+                +{{ teamSeasonStat.goalDifference }}
+              </template>
+              <template v-else>
+                {{ teamSeasonStat.goalDifference }}
+              </template>
+              goal difference
+            </div>
+            <div class="team-form">
+              <result-indicator
+                v-for="formMatchPoint in formMatchPoints"
+                :key="formMatchPoint.index"
+                :formMatchPoint="formMatchPoint"
+              />
+            </div>
+          </div>
+
+          <div class="team-info">
+            <div class="established">Established {{ team.established }}</div>
+            <div class="stadium">
+              <v-icon medium class="mdi-icon">mdi-stadium</v-icon>
+              {{ team.stadium.name }}, {{ team.stadium.city }}
+            </div>
+            <div class="nickname">"{{ team.nickname }}"</div>
+          </div>
+        </div>
+      </template>
+    </d11-header>
+
+    <!-- Content ------------------------------->
     <content-section>
       <v-container class="tabs-container">
         <v-tabs v-model="tab">
           <v-tab class="squad-tab" href="#squad">
-            Team Squad {{ season.name }}
+            <template v-if="season"> Squad {{ season.name }} </template>
           </v-tab>
           <v-tab class="matches-tab" href="#matches">
-            Matches {{ season.name }}
+            <template v-if="season"> Matches {{ season.name }} </template>
           </v-tab>
           <v-tabs-items :value="tab">
             <v-tab-item value="squad" v-if="teamSeasonStat">
@@ -29,7 +117,7 @@
               />
             </v-tab-item>
             <v-tab-item value="squad" v-else>
-              <div class="no-data">
+              <div class="no-data" v-if="team && season">
                 {{ team.name }} did not participate in the
                 {{ season.name }} season.
               </div>
@@ -43,7 +131,7 @@
               />
             </v-tab-item>
             <v-tab-item value="matches" v-else>
-              <div class="no-data">
+              <div class="no-data" v-if="team && season">
                 {{ team.name }} did not participate in the
                 {{ season.name }} season.
               </div>
@@ -56,6 +144,9 @@
 </template>
 
 <script>
+import TeamService from "@/services/team.service";
+import PlayerSeasonStatService from "@/services/playerSeasonStat.service";
+
 export default {
   name: "Team",
   data: () => ({
@@ -66,90 +157,59 @@ export default {
     matchIds: null
   }),
   components: {
-    TeamOverviewSmAndUp: () => import("@/views/team/TeamOverviewSmAndUp"),
+    D11Header: () => import("@/components/header/D11Header"),
+    TeamImage: () => import("@/components/image/TeamImage"),
+    ResultIndicator: () => import("@/components/ResultIndicator"),
     ContentSection: () => import("@/components/ContentSection"),
     PlayerSeasonStatsByPosition: () =>
       import("@/views/player_season_stat/PlayerSeasonStatsByPosition"),
     LazyMatchList: () => import("@/views/match/LazyMatchList")
   },
   computed: {
-    tab: {
-      set(tab) {
-        this.$router.replace({ params: { ...this.$route.params.tab, tab } });
-      },
-      get() {
-        return this.$route.params.tab;
-      }
+    formMatchPoints() {
+      var formMatchPoints = [];
+      this.teamSeasonStat.formMatchPoints.forEach(function(item, index) {
+        formMatchPoints.push({ index: index, points: item });
+      });
+      return formMatchPoints;
     }
   },
   methods: {
-    getData: function() {
-      new this.$d11BootApi.TeamApi()
-        .findTeamById(this.$route.params.id)
-        .then(team => {
-          this.team = team;
-          new this.$d11BootApi.SeasonApi()
-            .findSeasonById(this.$route.params.seasonId)
-            .then(season => {
-              this.season = season;
-              this.playerSeasonStatsByPosition = null;
-              new this.$d11BootApi.TeamSeasonStatApi()
-                .findTeamSeasonStatByTeamIdAndSeasonId(
-                  this.$route.params.id,
-                  this.$route.params.seasonId
-                )
-                .then(result => {
-                  this.teamSeasonStat = result;
-                })
-                .catch(error => {
-                  this.teamSeasonStat = null;
-                  // If this is a 404 it just means we're trying to look at team season stats
-                  // for a season where the team didn't participate in the Premier League. Just ignore.
-                  if (error.status != 404) {
-                    throw error;
-                  }
-                });
-
-              this.matchIds = null;
-              new this.$d11BootApi.MatchApi()
-                .findMatchByTeamIdAndSeasonId(
-                  this.$route.params.id,
-                  this.$route.params.seasonId
-                )
-                .then(result => {
-                  this.matchIds = result;
-                })
-                .catch(error => {
-                  this.teamSeasonStat = null;
-                  if (error.status != 404) {
-                    throw error;
-                  }
-                });
-            });
-        });
+    loadData: function() {
+      TeamService.getTeamSeasonData(
+        this.$route.params.id,
+        this.$route.params.seasonId
+      ).then(result => {
+        this.team = result.team;
+        this.season = result.season;
+        this.teamSeasonStat = result.teamSeasonStat;
+        this.matchIds = result.matchIds;
+        this.playerSeasonStatsByPosition = null;
+      });
     },
-    findPlayerSeasonStats() {
-      new this.$d11BootApi.PlayerSeasonStatApi()
-        .findPlayerSeasonStatByTeamIdAndSeasonId(this.team.id, this.season.id)
-        .then(
-          result =>
-            (this.playerSeasonStatsByPosition = this.$d11Mapper.playerStatsByPosition(
-              result
-            ))
-        );
+    findPlayerSeasonStats: function() {
+      PlayerSeasonStatService.getPlayerSeasonStatsByTeamIdAndSeasonId(
+        this.$route.params.id,
+        this.$route.params.seasonId
+      ).then(
+        result =>
+          (this.playerSeasonStatsByPosition = this.$d11Mapper.playerStatsByPosition(
+            result
+          ))
+      );
     }
   },
   mounted() {
-    this.getData();
+    this.loadData();
   },
   watch: {
     $route() {
       if (
         this.teamSeasonStat == null ||
-        this.$route.params.id != this.teamSeasonStat.team.id ||
-        this.$route.params.seasonId != this.teamSeasonStat.season.id
+        this.$route.params.id != this.team.id ||
+        this.$route.params.seasonId != this.season.id
       ) {
-        this.getData();
+        this.loadData();
       }
     }
   }
@@ -157,6 +217,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.team-season-stats {
+  margin-top: -0.4em;
+  padding-right: 24px;
+
+  .points {
+    font-size: 2em;
+  }
+
+  .ranking {
+    font-size: 1.8em;
+  }
+
+  .team-form {
+    padding-top: $d11-spacer;
+  }
+}
+
 .no-data {
   padding-top: $d11-spacer;
 }
