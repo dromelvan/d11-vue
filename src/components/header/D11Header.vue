@@ -118,6 +118,15 @@ export default {
         width: 100%;
         .header-title {
           font-size: 1.5em;
+          display: flex;
+
+          h1 {
+            margin-right: auto;
+          }
+
+          .external-link {
+            font-size: 0.65em;
+          }
         }
 
         .header-subtitle + .active-message {
@@ -126,6 +135,20 @@ export default {
 
         .header-subtitle + .horizontal {
           padding-top: $d11-large-spacer;
+        }
+
+        .mdi-icon {
+          color: $header-color;
+          margin-top: -3px;
+        }
+
+        a {
+          color: $header-color;
+          text-decoration: none;
+        }
+
+        a + .mdi-icon {
+          margin-top: -1px;
         }
       }
     }

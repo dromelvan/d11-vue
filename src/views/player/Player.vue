@@ -32,6 +32,18 @@
       <template v-if="player && season">
         <div class="header-title">
           <h1>{{ player.name }}</h1>
+          <div class="external-link">
+            <a
+              class="team-link"
+              target="_blank"
+              :href="
+                'https://www.whoscored.com/Players/' + player.whoscoredId + '/'
+              "
+            >
+              View on Whoscored
+            </a>
+            <v-icon medium class="mdi-icon">mdi-chevron-right</v-icon>
+          </div>
         </div>
         <div class="header-subtitle">
           <h4>Season {{ season.name }}</h4>
