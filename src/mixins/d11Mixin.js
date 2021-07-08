@@ -11,6 +11,12 @@ const d11Mixin = {
     currentSeason: function() {
       return store.getters.currentSeason;
     },
+    maxSeasonId: function() {
+      return this.currentSeason().id;
+    },
+    minSeasonId: function() {
+      return 2;
+    },
     playerValue(value) {
       return (value / 10).toFixed(1);
     },

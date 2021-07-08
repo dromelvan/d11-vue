@@ -20,7 +20,7 @@
         <div class="header-background">
           <div class="navigation-button-container previous">
             <navigation-button
-              v-if="previousLink"
+              v-if="previousLink && previousLink.show"
               :to="previousLink"
               :direction="'left'"
             />
@@ -30,7 +30,7 @@
           </div>
           <div class="navigation-button-container next">
             <navigation-button
-              v-if="nextLink"
+              v-if="nextLink && nextLink.show"
               :to="nextLink"
               :direction="'right'"
             />
@@ -126,18 +126,6 @@ export default {
 
         .header-subtitle + .horizontal {
           padding-top: $d11-large-spacer;
-        }
-
-        .header-info-list {
-          .header-info-item {
-            display: flex;
-            div {
-              line-height: 1.5em;
-            }
-            .header-info-item-description {
-              font-weight: 600;
-            }
-          }
         }
       }
     }

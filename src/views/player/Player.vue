@@ -16,7 +16,8 @@
           id: player ? player.id : 0,
           seasonId: season ? season.id - 1 : 0,
           tab: tab
-        }
+        },
+        show: season && season.id > minSeasonId()
       }"
       :nextLink="{
         name: 'player',
@@ -24,7 +25,8 @@
           id: player ? player.id : 0,
           seasonId: season ? season.id + 1 : 0,
           tab: tab
-        }
+        },
+        show: season && season.id < maxSeasonId()
       }"
     >
       <template v-if="player && season">
