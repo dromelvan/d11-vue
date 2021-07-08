@@ -11,6 +11,17 @@ const PlayerSeasonStatService = {
       return Promise.reject(error);
     }
   },
+  async getPlayerSeasonStatsByTeamIdAndSeasonId(teamId, seasonId) {
+    try {
+      let response = new D11BootApi.PlayerSeasonStatApi().findPlayerSeasonStatByTeamIdAndSeasonId(
+        teamId,
+        seasonId
+      );
+      return Promise.resolve(response);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  },
   async getPlayerSeasonStatByD11TeamIdAndSeasonId(d11TeamId, seasonId) {
     try {
       let response = new D11BootApi.PlayerSeasonStatApi().findPlayerSeasonStatByD11TeamIdAndSeasonId(
