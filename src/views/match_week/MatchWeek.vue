@@ -12,11 +12,13 @@
       }"
       :previousLink="{
         name: 'matchWeek',
-        params: { id: matchWeek ? matchWeek.id - 1 : 0, tab: tab }
+        params: { id: matchWeek ? matchWeek.id - 1 : 0, tab: tab },
+        show: matchWeek && matchWeek.id > 1
       }"
       :nextLink="{
         name: 'matchWeek',
-        params: { id: matchWeek ? matchWeek.id + 1 : 0, tab: tab }
+        params: { id: matchWeek ? matchWeek.id + 1 : 0, tab: tab },
+        show: matchWeek
       }"
     >
       <template v-if="matchWeek">
