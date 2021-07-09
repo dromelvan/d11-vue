@@ -1,7 +1,85 @@
 <template>
-  <div class="season" v-if="season">
-    <season-overview-sm-and-up v-if="smAndUp" :season="season" />
+  <div class="season">
+    <!-- Header -------------------------------->
+    <d11-header
+      :backgroundPictureType="'stadium'"
+      :backgroundPictureId="19"
+      :backgroundPictureAlt="'TODO'"
+      :parentLink="{
+        text: 'Season History',
+        name: 'seasons'
+      }"
+      :previousLink="{
+        name: 'season',
+        params: {
+          id: season ? season.id - 1 : 0,
+          tab: tab
+        },
+        show: season && season.id > minSeasonId()
+      }"
+      :nextLink="{
+        name: 'season',
+        params: {
+          id: season ? season.id + 1 : 0,
+          tab: tab
+        },
+        show: season && season.id < maxSeasonId()
+      }"
+    >
+      <template v-if="season">
+        <div class="header-title">
+          <h1>Season</h1>
+        </div>
+        <div class="header-subtitle">
+          <h4>{{ season.name }}</h4>
+        </div>
 
+        <div class="horizontal">
+          <div class="season-summary" v-if="seasonSummary">
+            <div class="most-valuable-player" v-if="seasonSummary">
+              <team-image
+                :size="'tiny'"
+                :id="seasonSummary.top3PlayerSeasonStats[0].team.id"
+              />
+              {{ seasonSummary.top3PlayerSeasonStats[0].player.name }}
+              <template
+                v-if="seasonSummary.top3PlayerSeasonStats[0].d11Team.id > 1"
+              >
+                ({{ seasonSummary.top3PlayerSeasonStats[0].d11Team.name }})
+              </template>
+              {{ seasonSummary.top3PlayerSeasonStats[0].points }} pts, most
+              valuable player
+            </div>
+
+            <div class="premier-league-winner">
+              <team-image
+                :size="'tiny'"
+                :id="seasonSummary.top3TeamSeasonStats[0].team.id"
+              />
+              {{ seasonSummary.top3TeamSeasonStats[0].team.name }}
+              {{ seasonSummary.top3TeamSeasonStats[0].points }} pts, Premier
+              League
+              <template v-if="finished(season.status)">winner</template>
+              <template v-else>leader</template>
+            </div>
+
+            <div class="d11-league-winner">
+              <d11-team-image
+                :size="'tiny'"
+                :id="seasonSummary.top3D11TeamSeasonStats[0].d11Team.id"
+              />
+              {{ seasonSummary.top3D11TeamSeasonStats[0].d11Team.name }}
+              {{ seasonSummary.top3D11TeamSeasonStats[0].points }} pts, D11
+              League
+              <template v-if="finished(season.status)">winner</template>
+              <template v-else>leader</template>
+            </div>
+          </div>
+        </div>
+      </template>
+    </d11-header>
+
+    <!-- Content -------------------------------->
     <content-section>
       <v-container class="tabs-container">
         <v-tabs v-model="tab">
@@ -15,21 +93,21 @@
             D11 League Table
           </v-tab>
           <v-tabs-items :value="tab">
-            <v-tab-item value="match-weeks">
+            <v-tab-item value="match-weeks" v-if="season">
               <lazy-match-week-list
                 v-for="season in [this.season]"
                 :key="season.id"
                 :matchWeekIds="season.matchWeeks"
               />
             </v-tab-item>
-            <v-tab-item value="premier-league-table">
+            <v-tab-item value="premier-league-table" v-if="season">
               <premier-league-table
                 v-for="season in [this.season]"
                 :key="season.id"
                 :seasonId="season.id"
               />
             </v-tab-item>
-            <v-tab-item value="d11-league-table">
+            <v-tab-item value="d11-league-table" v-if="season">
               <d11-league-table
                 v-for="season in [this.season]"
                 :key="season.id"
@@ -44,42 +122,45 @@
 </template>
 
 <script>
+import SeasonService from "@/services/season.service";
+
 export default {
   name: "Season",
   data: () => ({
-    season: null
+    season: null,
+    seasonSummary: null
   }),
   components: {
-    SeasonOverviewSmAndUp: () => import("@/views/season/SeasonOverviewSmAndUp"),
+    //SeasonOverviewSmAndUp: () => import("@/views/season/SeasonOverviewSmAndUp"),
+    D11Header: () => import("@/components/header/D11Header"),
+    TeamImage: () => import("@/components/image/TeamImage"),
+    D11TeamImage: () => import("@/components/image/D11TeamImage"),
     ContentSection: () => import("@/components/ContentSection"),
     LazyMatchWeekList: () => import("@/views/match_week/LazyMatchWeekList"),
     PremierLeagueTable: () =>
       import("@/views/premier_league/PremierLeagueTable"),
     D11LeagueTable: () => import("@/views/d11_league/D11LeagueTable")
   },
-  computed: {
-    tab: {
-      set(tab) {
-        this.$router.replace({ params: { ...this.$route.params.tab, tab } });
-      },
-      get() {
-        return this.$route.params.tab;
-      }
-    }
-  },
   methods: {
-    getSeason: function() {
-      new this.$d11BootApi.SeasonApi()
-        .findSeasonById(this.$route.params.id)
-        .then(result => (this.season = result));
+    loadData: function() {
+      SeasonService.getSeasonData(this.$route.params.id).then(result => {
+        (this.season = result.season),
+          (this.seasonSummary = result.seasonSummary);
+      });
+    },
+
+    loadDataa: function() {
+      SeasonService.getSeasonSummaryById(this.$route.params.id).then(result => {
+        this.season = result;
+      });
     }
   },
   mounted() {
-    this.getSeason();
+    this.loadData();
   },
   watch: {
     $route() {
-      this.getSeason();
+      this.loadData();
     }
   }
 };
