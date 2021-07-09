@@ -30,11 +30,6 @@ const routes = [
     component: () => import("@/views/season/Season.vue")
   },
   {
-    path: "/premier-leagues/:id/:tab?",
-    name: "premierLeague",
-    component: () => import("@/views/premier_league/PremierLeague.vue")
-  },
-  {
     path: "/match-weeks/:id/:tab?",
     name: "matchWeek",
     component: () => import("@/views/match_week/MatchWeek.vue")
