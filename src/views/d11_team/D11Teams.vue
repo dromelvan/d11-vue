@@ -1,6 +1,38 @@
 <template>
-  <div class="d11-teams" v-if="season">
-    <d11-teams-overview-sm-and-up v-if="smAndUp" :season="season" />
+  <div class="d11-teams">
+    <!-- Header -------------------------------->
+    <d11-header
+      :backgroundPictureType="'stadium'"
+      :backgroundPictureId="19"
+      :backgroundPictureAlt="'TODO'"
+      :parentLink="{
+        text: 'Season History',
+        name: 'seasons'
+      }"
+      :previousLink="{
+        name: 'd11Teams',
+        params: {
+          seasonId: season ? season.id - 1 : 0
+        },
+        show: season && season.id > minSeasonId()
+      }"
+      :nextLink="{
+        name: 'd11Teams',
+        params: {
+          seasonId: season ? season.id + 1 : 0
+        },
+        show: season && season.id < maxSeasonId()
+      }"
+    >
+      <template v-if="season">
+        <div class="header-title">
+          <h1>D11 Teams</h1>
+        </div>
+        <div class="header-subtitle">
+          <h4>Season {{ season.name }}</h4>
+        </div>
+      </template>
+    </d11-header>
 
     <content-section>
       <v-container class="d11-teams-container">
@@ -28,8 +60,7 @@ export default {
     d11Teams: null
   }),
   components: {
-    D11TeamsOverviewSmAndUp: () =>
-      import("@/views/d11_team/D11TeamsOverviewSmAndUp"),
+    D11Header: () => import("@/components/header/D11Header"),
     ContentSection: () => import("@/components/ContentSection"),
     D11TeamCard: () => import("@/views/d11_team/D11TeamCard")
   },
