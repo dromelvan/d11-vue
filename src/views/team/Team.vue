@@ -235,6 +235,6 @@ export default {
 }
 
 .no-data {
-  padding-top: $d11-spacer;
+  padding: $d11-spacer;
 }
 </style>
