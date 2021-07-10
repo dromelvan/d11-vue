@@ -24,11 +24,16 @@
   }
 }
 
-.dialog-btn {
-  background-color: rgba(0, 10, 60) !important;
-  letter-spacing: 0 !important;
-  font-weight: bold !important;
-  font-size: 0.875rem !important;
+.v-main,
+.v-dialog {
+  .v-btn {
+    background-color: rgba(0, 10, 60) !important;
+    letter-spacing: 0 !important;
+    font-weight: bold !important;
+    font-size: 0.875rem !important;
+    min-height: 44px;
+    min-width: 193px !important;
+  }
 }
 
 .v-tabs {

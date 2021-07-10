@@ -35,7 +35,7 @@
                 :error-messages="emailErrors"
                 outlined
                 autofocus
-              ></v-text-field>
+              />
               <v-text-field
                 label="Password*"
                 name="password"
@@ -48,7 +48,7 @@
                 :error-messages="passwordErrors"
                 :type="'password'"
                 outlined
-              ></v-text-field>
+              />
 
               <v-btn dark class="dialog-btn" type="submit">Sign In</v-btn>
             </form>
