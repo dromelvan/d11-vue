@@ -1,6 +1,22 @@
 <template>
-  <div class="current">
-    <current-overview-sm-and-up v-if="smAndUp" />
+  <div class="home">
+    <!-- Header -------------------------------->
+    <d11-header
+      :backgroundPictureType="'stadium'"
+      :backgroundPictureId="19"
+      :backgroundPictureAlt="'TODO'"
+    >
+      <div class="hero-unit">
+        <div>
+          <h1>This is Drömelvan</h1>
+          <p>
+            The competition for those whose knowledge of football is vastly
+            greater than that of the average person.
+          </p>
+          <v-btn dark :to="{ name: 'rules' }">Learn More »</v-btn>
+        </div>
+      </div>
+    </d11-header>
 
     <content-section>
       <v-container class="tabs-container">
@@ -53,8 +69,7 @@ export default {
     }
   }),
   components: {
-    CurrentOverviewSmAndUp: () =>
-      import("@/views/current/CurrentOverviewSmAndUp"),
+    D11Header: () => import("@/components/header/D11Header"),
     ContentSection: () => import("@/components/ContentSection"),
     LazyMatchList: () => import("@/views/match/LazyMatchList"),
     LazyD11MatchList: () => import("@/views/d11_match/LazyD11MatchList")
@@ -69,3 +84,44 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.home {
+  .hero-unit {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    text-shadow: 2px 2px black;
+
+    h1 {
+      font-size: 63px;
+      font-weight: 500;
+      font-family: Arial, Helvetica, sans-serif;
+      vertical-align: middle;
+    }
+
+    p {
+      margin-top: $d11-large-spacer;
+      margin-left: $d11-large-spacer;
+    }
+  }
+}
+</style>
+
+<style lang="scss">
+.home {
+  .background-picture {
+    .background-img {
+      height: 270px !important;
+    }
+  }
+
+  .background-picture:after {
+    height: 270px !important;
+  }
+
+  .header-section {
+    height: 270px !important;
+  }
+}
+</style>
