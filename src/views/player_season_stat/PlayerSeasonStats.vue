@@ -154,8 +154,6 @@
       </template>
     </d11-header>
 
-    <!-- <player-season-stats-overview-sm-and-up v-if="smAndUp" :season="season" /> -->
-
     <content-section>
       <v-container class="tabs-container">
         <v-tabs v-model="tab">
@@ -203,8 +201,6 @@ export default {
     playerSeasonStats: null
   }),
   components: {
-    //    PlayerSeasonStatsOverviewSmAndUp: () =>
-    //      import("@/views/player_season_stat/PlayerSeasonStatsOverviewSmAndUp"),
     D11Header: () => import("@/components/header/D11Header"),
     PlayerImage: () => import("@/components/image/PlayerImage"),
     TeamImage: () => import("@/components/image/TeamImage"),
