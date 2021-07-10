@@ -26,7 +26,7 @@
 
 .v-main,
 .v-dialog {
-  .v-btn {
+  .v-btn:not(.navigation-btn) {
     background-color: rgba(0, 10, 60) !important;
     letter-spacing: 0 !important;
     font-weight: bold !important;

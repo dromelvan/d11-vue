@@ -233,7 +233,7 @@ export default {
   }
 }
 
-.current {
+.home {
   .d11-match {
     .kickoff {
       min-width: 7em;
@@ -264,7 +264,7 @@ export default {
   }
 
   .d11-team,
-  .current {
+  .home {
     .match-date {
       min-width: 3em;
     }

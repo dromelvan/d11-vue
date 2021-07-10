@@ -214,7 +214,7 @@ export default {
   }
 }
 
-.current {
+.home {
   .match {
     .kickoff {
       min-width: 7em;
