@@ -35,12 +35,12 @@
 
         <template v-if="!this.pending(matchWeek.status)">
           <div class="horizontal">
-            <div class="emphasised">
+            <div class="description">
               Most valuable player:
             </div>
             <div>
               <team-image
-                :size="'icon'"
+                :size="'tiny'"
                 :id="matchWeek.mostValuablePlayer.team.id"
               />
               {{ matchWeek.mostValuablePlayer.player.name }}
@@ -52,12 +52,12 @@
           </div>
 
           <div class="horizontal">
-            <div class="emphasised">
+            <div class="description">
               Premier League leader:
             </div>
             <div>
               <team-image
-                :size="'icon'"
+                :size="'tiny'"
                 :id="matchWeek.premierLeagueLeader.team.id"
               />
               {{ matchWeek.premierLeagueLeader.team.name }}
@@ -66,12 +66,12 @@
           </div>
 
           <div class="horizontal">
-            <div class="emphasised">
+            <div class="description">
               D11 League leader:
             </div>
             <div>
               <d11-team-image
-                :size="'icon'"
+                :size="'tiny'"
                 :id="matchWeek.d11LeagueLeader.d11Team.id"
               />
               {{ matchWeek.d11LeagueLeader.d11Team.name }}
@@ -164,7 +164,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.emphasised {
+.description {
   min-width: 10em;
+}
+.horizontal {
+  line-height: 2em;
 }
 </style>

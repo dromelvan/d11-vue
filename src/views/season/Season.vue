@@ -36,43 +36,79 @@
 
         <div class="horizontal">
           <div class="season-summary" v-if="seasonSummary">
-            <div class="most-valuable-player" v-if="seasonSummary">
-              <team-image
-                :size="'tiny'"
-                :id="seasonSummary.top3PlayerSeasonStats[0].team.id"
-              />
-              {{ seasonSummary.top3PlayerSeasonStats[0].player.name }}
-              <template
-                v-if="seasonSummary.top3PlayerSeasonStats[0].d11Team.id > 1"
-              >
-                ({{ seasonSummary.top3PlayerSeasonStats[0].d11Team.name }})
-              </template>
-              {{ seasonSummary.top3PlayerSeasonStats[0].points }} pts, most
-              valuable player
+            <div class="horizontal most-valuable-player" v-if="seasonSummary">
+              <div class="description">
+                Most valuable player:
+              </div>
+              <div>
+                <team-image
+                  :size="'tiny'"
+                  :id="seasonSummary.top3PlayerSeasonStats[0].team.id"
+                />
+                {{ seasonSummary.top3PlayerSeasonStats[0].player.name }}
+                <template
+                  v-if="seasonSummary.top3PlayerSeasonStats[0].d11Team.id > 1"
+                >
+                  ({{ seasonSummary.top3PlayerSeasonStats[0].d11Team.name }})
+                </template>
+                {{ seasonSummary.top3PlayerSeasonStats[0].points }} pts
+                <template v-if="finished(season.status)">
+                  -
+                  {{
+                    seasonSummary.top3PlayerSeasonStats[0].winCount
+                      | ordinal({ includeNumber: true })
+                  }}
+                  win
+                </template>
+              </div>
             </div>
 
-            <div class="premier-league-winner">
-              <team-image
-                :size="'tiny'"
-                :id="seasonSummary.top3TeamSeasonStats[0].team.id"
-              />
-              {{ seasonSummary.top3TeamSeasonStats[0].team.name }}
-              {{ seasonSummary.top3TeamSeasonStats[0].points }} pts, Premier
-              League
-              <template v-if="finished(season.status)">winner</template>
-              <template v-else>leader</template>
+            <div class="horizontal premier-league-winner">
+              <div class="description">
+                Premier league
+                <template v-if="finished(season.status)">winner:</template>
+                <template v-else>leader:</template>
+              </div>
+              <div>
+                <team-image
+                  :size="'tiny'"
+                  :id="seasonSummary.top3TeamSeasonStats[0].team.id"
+                />
+                {{ seasonSummary.top3TeamSeasonStats[0].team.name }}
+                {{ seasonSummary.top3TeamSeasonStats[0].points }} pts
+                <template v-if="finished(season.status)">
+                  -
+                  {{
+                    seasonSummary.top3TeamSeasonStats[0].winCount
+                      | ordinal({ includeNumber: true })
+                  }}
+                  victory
+                </template>
+              </div>
             </div>
 
-            <div class="d11-league-winner">
-              <d11-team-image
-                :size="'tiny'"
-                :id="seasonSummary.top3D11TeamSeasonStats[0].d11Team.id"
-              />
-              {{ seasonSummary.top3D11TeamSeasonStats[0].d11Team.name }}
-              {{ seasonSummary.top3D11TeamSeasonStats[0].points }} pts, D11
-              League
-              <template v-if="finished(season.status)">winner</template>
-              <template v-else>leader</template>
+            <div class="horizontal d11-league-winner">
+              <div class="description">
+                D11 league
+                <template v-if="finished(season.status)">winner:</template>
+                <template v-else>leader:</template>
+              </div>
+              <div>
+                <d11-team-image
+                  :size="'tiny'"
+                  :id="seasonSummary.top3D11TeamSeasonStats[0].d11Team.id"
+                />
+                {{ seasonSummary.top3D11TeamSeasonStats[0].d11Team.name }}
+                {{ seasonSummary.top3D11TeamSeasonStats[0].points }} pts
+                <template v-if="finished(season.status)">
+                  -
+                  {{
+                    seasonSummary.top3D11TeamSeasonStats[0].winCount
+                      | ordinal({ includeNumber: true })
+                  }}
+                  victory
+                </template>
+              </div>
             </div>
           </div>
         </div>
@@ -131,7 +167,6 @@ export default {
     seasonSummary: null
   }),
   components: {
-    //SeasonOverviewSmAndUp: () => import("@/views/season/SeasonOverviewSmAndUp"),
     D11Header: () => import("@/components/header/D11Header"),
     TeamImage: () => import("@/components/image/TeamImage"),
     D11TeamImage: () => import("@/components/image/D11TeamImage"),
@@ -165,3 +200,12 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.description {
+  min-width: 10em;
+}
+.horizontal {
+  line-height: 2em;
+}
+</style>

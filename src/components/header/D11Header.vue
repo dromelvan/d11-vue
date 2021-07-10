@@ -130,11 +130,11 @@ export default {
         }
 
         .header-subtitle + .active-message {
-          padding-bottom: $d11-large-spacer;
+          margin-bottom: $d11-large-spacer;
         }
 
         .header-subtitle + .horizontal {
-          padding-top: $d11-large-spacer;
+          margin-top: $d11-large-spacer;
         }
 
         .mdi-icon {
