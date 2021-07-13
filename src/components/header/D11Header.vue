@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="d11-header">
     <background-picture
       :type="backgroundPictureType"
       :id="backgroundPictureId"
@@ -18,22 +18,20 @@
 
       <v-container class="header-container">
         <div class="header-background">
-          <div class="navigation-button-container previous">
-            <navigation-button
-              v-if="previousLink && previousLink.show"
-              :to="previousLink"
-              :direction="'left'"
-            />
+          <div
+            class="navigation-button-container previous"
+            v-if="previousLink && previousLink.show"
+          >
+            <navigation-button :to="previousLink" :direction="'left'" />
           </div>
           <div class="header-content">
             <slot />
           </div>
-          <div class="navigation-button-container next">
-            <navigation-button
-              v-if="nextLink && nextLink.show"
-              :to="nextLink"
-              :direction="'right'"
-            />
+          <div
+            class="navigation-button-container next"
+            v-if="nextLink && nextLink.show"
+          >
+            <navigation-button :to="nextLink" :direction="'right'" />
           </div>
         </div>
       </v-container>
@@ -60,95 +58,100 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.header-section {
-  position: relative;
-  overflow: hidden;
-  color: $header-color;
-  height: 390px;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-
-  .header-navigation {
-    background: $overview-dark-background-color;
-    min-height: 3.563em;
-
-    span {
-      vertical-align: middle;
-      font-size: 22px;
-      font-weight: 700;
-    }
-
-    .v-icon {
-      font-size: 1.8em;
-      color: $header-color;
-    }
-
-    a {
-      color: $header-color;
-      text-decoration: none;
-    }
-  }
-
-  .header-container {
-    flex: 1;
+.d11-header {
+  background-color: black;
+  .header-section {
     position: relative;
+    overflow: hidden;
+    color: $header-color;
+    min-height: 390px;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
 
-    .header-background {
-      padding: 0.75em;
-      line-height: 1.8em;
-      height: 100%;
-      background-color: $header-content-background-color;
-      display: flex;
+    .header-navigation {
+      background: $overview-dark-background-color;
+      min-height: 3.563em;
 
-      .navigation-button-container {
+      span {
+        vertical-align: middle;
+        font-size: 22px;
+        font-weight: 700;
+      }
+
+      .v-icon {
+        font-size: 1.8em;
+        color: $header-color;
+      }
+
+      a {
+        color: $header-color;
+        text-decoration: none;
+      }
+    }
+
+    .header-container {
+      flex: 1;
+      position: relative;
+
+      .header-background {
+        padding: 0.75em;
+        line-height: 1.8em;
+        min-height: 308px;
+        background-color: $header-content-background-color;
         display: flex;
-        align-items: center;
-      }
-
-      .navigation-button-container.previous {
-        padding-right: $d11-spacer;
-      }
-
-      .navigation-button-container.next {
-        padding-left: $d11-spacer;
-      }
-
-      .header-content {
-        width: 100%;
-        .header-title {
-          font-size: 1.5em;
+        .navigation-button-container {
           display: flex;
+          align-items: center;
+        }
 
-          h1 {
-            margin-right: auto;
+        .navigation-button-container.previous {
+          padding-right: $d11-spacer;
+        }
+
+        .navigation-button-container.next {
+          padding-left: $d11-spacer;
+        }
+
+        .header-content {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+
+          .header-title {
+            font-size: 1.5em;
+            display: flex;
+
+            h1 {
+              margin-right: auto;
+            }
+
+            .external-link {
+              font-size: 0.65em;
+            }
           }
 
-          .external-link {
-            font-size: 0.65em;
+          .header-subtitle + .active-message {
+            margin-bottom: $d11-large-spacer;
           }
-        }
 
-        .header-subtitle + .active-message {
-          margin-bottom: $d11-large-spacer;
-        }
+          .header-subtitle + .horizontal {
+            margin-top: $d11-large-spacer;
+          }
 
-        .header-subtitle + .horizontal {
-          margin-top: $d11-large-spacer;
-        }
+          .mdi-icon {
+            color: $header-color;
+            margin-top: -3px;
+          }
 
-        .mdi-icon {
-          color: $header-color;
-          margin-top: -3px;
-        }
+          a {
+            color: $header-color;
+            text-decoration: none;
+          }
 
-        a {
-          color: $header-color;
-          text-decoration: none;
-        }
-
-        a + .mdi-icon {
-          margin-top: -1px;
+          a + .mdi-icon {
+            margin-top: -1px;
+          }
         }
       }
     }
