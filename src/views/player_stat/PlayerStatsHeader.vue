@@ -51,7 +51,7 @@
         </div>
       </template>
       <!-- Team ------------------->
-      <div class="player-team">
+      <div class="player-team" v-if="isView(['player'])">
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
             <span v-bind="attrs" v-on="on">Team</span>

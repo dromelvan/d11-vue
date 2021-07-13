@@ -96,7 +96,7 @@
 
         <!-- Elapsed ---------------->
         <v-container
-          class="time"
+          class="elapsed"
           v-bind:class="{ active: this.active(match.status) }"
           v-if="!pending(match.status) && !postponed(match.status)"
         >
@@ -218,12 +218,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.stadium {
-  margin-bottom: 85px;
-}
 .time {
   display: flex;
   padding: 0;
+  margin-top: 85px;
 
   span {
     margin: 0 auto;
@@ -269,6 +267,15 @@ export default {
   }
   .goals.away {
     padding-left: 3.5em;
+  }
+}
+
+.elapsed {
+  display: flex;
+  padding: 0;
+
+  span {
+    margin: 0 auto;
   }
 }
 
