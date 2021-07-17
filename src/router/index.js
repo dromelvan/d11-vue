@@ -73,6 +73,16 @@ const routes = [
     path: "/player-season-stats/:seasonId/:tab?",
     name: "playerSeasonStats",
     component: () => import("@/views/player_season_stat/PlayerSeasonStats.vue")
+  },
+  {
+    path: "/transfer-windows/:id/:tab?",
+    name: "transferWindow",
+    component: () => import("@/views/transfer_window/TransferWindow.vue")
+  },
+  {
+    path: "/transfer-day/:id",
+    name: "transferDay",
+    component: () => import("@/views/transfer_day/TransferDay.vue")
   }
 ];
 
