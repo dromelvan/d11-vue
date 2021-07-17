@@ -74,14 +74,21 @@
           </div>
           <!-- D11 leader ------------>
           <div class="image" v-if="!pending(matchWeek.status)">
-            <d11-team-image
-              :type="'d11Team'"
-              :size="'tiny'"
-              :id="matchWeek.d11LeagueLeader.d11Team.id"
-            />
+            <template v-if="matchWeek.d11LeagueLeader.points > 0">
+              <d11-team-image
+                :type="'d11Team'"
+                :size="'tiny'"
+                :id="matchWeek.d11LeagueLeader.d11Team.id"
+              />
+            </template>
           </div>
           <div class="d11-league-leader">
-            <template v-if="!pending(matchWeek.status)">
+            <template
+              v-if="
+                !pending(matchWeek.status) &&
+                  matchWeek.d11LeagueLeader.points > 0
+              "
+            >
               <template v-if="smAndDown">
                 {{ matchWeek.d11LeagueLeader.d11Team.code }}
               </template>
@@ -162,6 +169,7 @@ export default {
   vertical-align: right;
 }
 .image {
+  min-width: 38px;
   padding-right: $d11-spacer;
 }
 
