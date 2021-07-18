@@ -10,11 +10,8 @@
       <list-container>
         <template v-slot:header>
           <div class="list-container-header">
-            <div class="transfer-day">
-              Transfer day {{ transferDay.transferDayNumber }} -
-              {{
-                transferDay.datetime | moment("dddd, MMMM Do YYYY [at] HH:mm")
-              }}
+            <div class="player">
+              Player
             </div>
 
             <div class="fee after-main-item">
@@ -107,8 +104,6 @@ export default {
 
 .fee {
   min-width: 4em;
-  text-align: right !important;
-  padding-right: $d11-large-spacer;
 }
 
 .d11-team {

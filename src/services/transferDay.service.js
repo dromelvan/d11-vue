@@ -15,7 +15,7 @@ const TransferDayService = {
   },
   async findTransferDayById(transferDayId) {
     try {
-      const response = transferDayApi.findTransferWindowById(transferDayId);
+      const response = transferDayApi.findTransferDayById(transferDayId);
       return Promise.resolve(response);
     } catch (error) {
       return Promise.reject(error);

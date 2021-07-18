@@ -43,6 +43,15 @@
           </span>
         </v-tooltip>
       </div>
+      <!-- Team ------------------->
+      <div class="team-image-container" v-if="isView(['transferListing'])">
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <span v-bind="attrs" v-on="on">Team</span>
+          </template>
+          <span>Team the player belongs to</span>
+        </v-tooltip>
+      </div>
       <!-- Value ------------------->
       <div class="fee" v-if="isView(['d11Team', 'player'])">
         <v-tooltip top>
@@ -142,7 +151,7 @@
     </div>
 
     <!-- D11 team ------------------>
-    <div class="d11-team" v-if="isView(['team', 'player'])">
+    <div class="d11-team" v-if="isView(['team', 'player', 'transferListing'])">
       <v-tooltip top>
         <template v-slot:activator="{ on, attrs }">
           <span v-bind="attrs" v-on="on" v-if="mdAndUp">D11 Team</span>
@@ -220,6 +229,10 @@ export default {
   padding-left: 6px;
   text-align: left;
   width: 15em;
+}
+
+.team-image-container {
+  min-width: 2.6em;
 }
 
 .v-application-md {

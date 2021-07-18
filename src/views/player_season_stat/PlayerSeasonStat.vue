@@ -21,14 +21,20 @@
           <template v-else>&nbsp;</template>
         </div>
         <!-- Player image ---------------->
-        <div class="image" v-if="isView(['team', 'd11Team'])">
+        <div
+          class="image"
+          v-if="isView(['team', 'd11Team', 'transferListing'])"
+        >
           <player-image
             :size="'tiny'"
             :fileName="playerSeasonStat.player.photoFileName"
           />
         </div>
         <!-- Player name ----------------->
-        <div class="player" v-if="isView(['team', 'd11Team'])">
+        <div
+          class="player"
+          v-if="isView(['team', 'd11Team', 'transferListing'])"
+        >
           <template v-if="playerSeasonStat.player.name.length <= maxNameLength">
             {{ playerSeasonStat.player.name }}
           </template>
@@ -37,6 +43,10 @@
         <!-- Ranking ----------------------->
         <div class="ranking after-main-item">
           {{ playerSeasonStat.ranking }}
+        </div>
+        <!-- Team -------------------------->
+        <div class="team-image-container" v-if="isView(['transferListing'])">
+          <team-image size="tiny" :id="playerSeasonStat.team.id" />
         </div>
         <!-- Fee --------------------------->
         <div class="fee" v-if="isView(['d11Team', 'player'])">
@@ -129,6 +139,7 @@
           <!-- Did not participate --------->
           <div class="did-not-participate">
             {{
+              playerSeasonStat.season &&
               this.finished(playerSeasonStat.season.status)
                 ? "Did not participate"
                 : "Has not participated"
@@ -143,7 +154,10 @@
       </div>
 
       <!-- D11 Team -------------------->
-      <div class="d11-team" v-if="isView(['team', 'player'])">
+      <div
+        class="d11-team"
+        v-if="isView(['team', 'player', 'transferListing'])"
+      >
         <template v-if="!playerSeasonStat.d11Team.dummy && mdAndUp">
           <d11-team-image size="tiny" :id="playerSeasonStat.d11Team.id" />
           {{ playerSeasonStat.d11Team.name }}
@@ -257,7 +271,7 @@ export default {
   }
 
   .form {
-    min-width: 10.5em;
+    min-width: 11em;
   }
 
   .points {
@@ -271,6 +285,10 @@ export default {
     padding-left: 6px;
     text-align: left !important;
     width: 15em;
+  }
+
+  .team-image-container {
+    min-width: 2.6em;
   }
 }
 
