@@ -8,7 +8,7 @@ const AuthenticationService = {
         credentials.username,
         credentials.password
       );
-      store.dispatch("login", response.jwt);
+      store.dispatch("login", response);
       return Promise.resolve(response);
     } catch (error) {
       store.dispatch("logout");

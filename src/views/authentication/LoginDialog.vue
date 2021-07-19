@@ -133,14 +133,8 @@ export default {
 
         Promise.allSettled([login, timer]).then(() => {
           if (!this.failed) {
-            console.log(
-              "Logged in with token: " + localStorage.getItem("d11-token")
-            );
             this.visible = false;
           } else {
-            console.log(
-              "Failed to login, token: " + localStorage.getItem("d11-token")
-            );
             this.step = 1;
           }
         });

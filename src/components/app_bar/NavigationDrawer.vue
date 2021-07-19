@@ -30,16 +30,23 @@
             <login-dialog @logging-in="onLoggingIn" />
           </v-list-item-title>
         </v-list-item>
-        <!--
-        <v-list-item v-if="!loggedIn() || loggingIn">
+
+        <v-list-item
+          v-if="activeD11Team() && currentSeason()"
+          router
+          :to="{
+            name: 'd11Team',
+            params: { id: activeD11Team().id, seasonId: currentSeason().id }
+          }"
+        >
           <v-list-item-icon>
-            <v-icon>mdi-table</v-icon>
+            <v-icon>mdi-shield-account</v-icon>
           </v-list-item-icon>
           <v-list-item-title>
-            Sign Up
+            {{ activeD11Team().name }}
           </v-list-item-title>
         </v-list-item>
-        -->
+
         <v-list-item
           v-if="loggedIn()"
           @click="

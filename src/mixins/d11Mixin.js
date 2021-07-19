@@ -11,6 +11,9 @@ const d11Mixin = {
     currentSeason: function() {
       return store.getters.currentSeason;
     },
+    activeD11Team: function() {
+      return JSON.parse(localStorage.getItem("d11-team"));
+    },
     maxSeasonId: function() {
       return this.currentSeason().id;
     },

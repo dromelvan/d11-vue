@@ -60,7 +60,6 @@ import D11MatchService from "@/services/d11Match.service";
 export default {
   name: "Home",
   data: () => ({
-    tab: "matches",
     matchesByDate: {
       matches: []
     },

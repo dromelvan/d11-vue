@@ -17,12 +17,14 @@ var initialState = {
 export default new Vuex.Store({
   state: initialState,
   mutations: {
-    loggedIn(state, token) {
-      localStorage.setItem("d11-token", JSON.stringify(token));
+    loggedIn(state, authentication) {
+      localStorage.setItem("d11-token", JSON.stringify(authentication.jwt));
+      localStorage.setItem("d11-team", JSON.stringify(authentication.d11Team));
       state.status.loggedIn = true;
     },
     loggedOut(state) {
       localStorage.removeItem("d11-token");
+      localStorage.removeItem("d11-team");
       state.status.loggedIn = false;
     },
     initialized(state, current) {
@@ -31,8 +33,8 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    login({ commit }, token) {
-      commit("loggedIn", token);
+    login({ commit }, authentication) {
+      commit("loggedIn", authentication);
     },
     logout({ commit }) {
       commit("loggedOut");

@@ -44,14 +44,40 @@
       <v-spacer></v-spacer>
 
       <login-dialog @logging-in="onLoggingIn" v-if="!loggedIn() || loggingIn" />
-      <!--
-      <a class="menu-link" v-if="!loggedIn() || loggingIn" @click="login()">
-        Sign Up
-      </a>
-      -->
-      <a class="menu-link" v-if="loggedIn() && !loggingIn" @click="logout()">
-        Sign Out
-      </a>
+
+      <v-menu
+        open-on-hover
+        transition="slide-y-transition"
+        offset-y
+        tile
+        v-if="loggedIn() && !loggingIn"
+      >
+        <template v-slot:activator="{ on }">
+          <v-btn v-on="on" :ripple="false" text dark>
+            <d11-team-image size="tiny" :id="activeD11Team().id" />
+            {{ activeD11Team().name }}
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item
+            router
+            :ripple="false"
+            :to="{
+              name: 'd11Team',
+              params: { id: activeD11Team().id, seasonId: currentSeason().id }
+            }"
+          >
+            <v-list-item-title>
+              My Team
+            </v-list-item-title>
+          </v-list-item>
+          <v-list-item class="link">
+            <v-list-item-title @click="logout()">
+              Sign Out
+            </v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
 
       <search-field />
     </template>
@@ -66,6 +92,7 @@ export default {
   name: "AppBarMdAndUp",
   components: {
     LoginDialog: () => import("@/views/authentication/LoginDialog"),
+    D11TeamImage: () => import("@/components/image/D11TeamImage"),
     SearchField: () => import("@/components/app_bar/SearchField")
   },
   data: () => ({
@@ -75,12 +102,6 @@ export default {
   methods: {
     onLoggingIn: function(value) {
       this.loggingIn = value;
-    },
-    login: function() {
-      AuthenticationService.login({
-        username: "dromelvan@aland.net",
-        password: "mj521jmw0w"
-      });
     },
     logout: function() {
       AuthenticationService.logout();
@@ -126,6 +147,10 @@ export default {
     .v-list-item__title {
       font-size: 1rem;
       color: var(--v-menuText-base);
+    }
+
+    .v-list-item.link {
+      cursor: pointer;
     }
 
     .v-list-item:hover {
