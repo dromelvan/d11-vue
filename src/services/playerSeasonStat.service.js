@@ -43,6 +43,16 @@ const PlayerSeasonStatService = {
     } catch (error) {
       return Promise.reject(error);
     }
+  },
+  async getAvailablePlayerSeasonStatBySeasonId(seasonId) {
+    try {
+      let response = new D11BootApi.PlayerSeasonStatApi().findAvailablePlayerSeasonStatBySeasonId(
+        seasonId
+      );
+      return Promise.resolve(response);
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 };
 

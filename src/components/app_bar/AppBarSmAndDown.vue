@@ -50,4 +50,10 @@ export default {
   // This makes the button look not active when we're on the search page.
   background-color: inherit;
 }
+
+@media print {
+  .app-bar {
+    display: none !important;
+  }
+}
 </style>

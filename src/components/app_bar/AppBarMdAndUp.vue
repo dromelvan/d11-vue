@@ -98,6 +98,12 @@ export default {
   }
 }
 
+@media print {
+  .app-bar {
+    display: none !important;
+  }
+}
+
 // Tweak the visible menu buttons.
 .v-btn:before {
   background-color: inherit;
