@@ -40,6 +40,10 @@ img.large {
   height: 200px;
 }
 
+img.medium {
+  height: 128px;
+}
+
 img.small {
   height: 60px;
 }

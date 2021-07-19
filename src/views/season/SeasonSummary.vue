@@ -33,7 +33,7 @@
               </v-card-subtitle>
               <v-card-text>
                 <d11-team-image
-                  size="default"
+                  size="medium"
                   :id="seasonSummary.top3D11TeamSeasonStats[0].d11Team.id"
                 />
               </v-card-text>
@@ -85,7 +85,7 @@
               </v-card-subtitle>
               <v-card-text>
                 <team-image
-                  size="default"
+                  size="medium"
                   :id="seasonSummary.top3TeamSeasonStats[0].team.id"
                 />
               </v-card-text>
@@ -131,7 +131,7 @@
             </v-card-subtitle>
             <v-card-text>
               <player-image
-                size="default"
+                size="medium"
                 :fileName="
                   seasonSummary.top3PlayerSeasonStats[0].player.photoFileName
                 "
