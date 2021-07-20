@@ -4,7 +4,7 @@ const navigationGroups = {
     nudgeLeft: 35,
     links: [
       { text: "Home", icon: "mdi-home", route: "home" },
-      { text: "Rules", icon: "mdi-book", route: "placeholder" },
+      { text: "Rules", icon: "mdi-book", route: "rules" },
       { text: "About Drömelvan", icon: "mdi-information", route: "about" }
     ]
   },
