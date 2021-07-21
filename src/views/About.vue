@@ -5,8 +5,8 @@
 
       <p>Your D11 experience is made possible by the following technologies.</p>
 
-      <div class="section">
-        <div class="sub-section">
+      <v-row>
+        <v-col md="3" sm="6" xs="12">
           <h2>Java</h2>
           <img src="@/assets/images/about/java.png" class="technology-icon" />
 
@@ -19,9 +19,9 @@
           <p>
             <a href="http://www.java.com/">http://www.java.com/</a>
           </p>
-        </div>
+        </v-col>
 
-        <div class="sub-section">
+        <v-col md="3" sm="6" xs="12">
           <h2>Spring Boot</h2>
           <img
             src="@/assets/images/about/spring-boot.png"
@@ -38,9 +38,9 @@
               http://spring.io/projects/spring-boot/
             </a>
           </p>
-        </div>
+        </v-col>
 
-        <div class="sub-section">
+        <v-col md="3" sm="6" xs="12">
           <h2>Vue.js</h2>
           <img src="@/assets/images/about/vue-js.png" class="technology-icon" />
           <p>
@@ -50,9 +50,9 @@
           <p>
             <a href="http://vuejs.org/">http://vuejs.org/</a>
           </p>
-        </div>
+        </v-col>
 
-        <div class="sub-section">
+        <v-col md="3" sm="6" xs="12">
           <h2>Vuetify</h2>
           <img
             src="@/assets/images/about/vuetify.png"
@@ -66,10 +66,8 @@
           <p>
             <a href="http://vuetifyjs.com/">https://vuetifyjs.com/</a>
           </p>
-        </div>
-      </div>
-      <div class="section">
-        <div class="sub-section">
+        </v-col>
+        <v-col md="3" sm="6" xs="12">
           <h2>PostgreSQL</h2>
           <img
             src="@/assets/images/about/postgresql.png"
@@ -84,9 +82,9 @@
           <p>
             <a href="http://www.postgresql.org/">http://www.postgresql.org/</a>
           </p>
-        </div>
+        </v-col>
 
-        <div class="sub-section">
+        <v-col md="3" sm="6" xs="12">
           <h2>Docker</h2>
           <img src="@/assets/images/about/docker.png" class="technology-icon" />
           <p>
@@ -98,9 +96,9 @@
           <p>
             <a href="http://www.docker.com/">http://www.docker.com/</a>
           </p>
-        </div>
+        </v-col>
 
-        <div class="sub-section">
+        <v-col md="3" sm="6" xs="12">
           <h2>Mac Mini</h2>
           <img
             src="@/assets/images/about/mac-mini.png"
@@ -117,9 +115,9 @@
               http://www.apple.com/mac-mini/
             </a>
           </p>
-        </div>
+        </v-col>
 
-        <div class="sub-section">
+        <v-col md="3" sm="6" xs="12">
           <h2>macOS Big Sur</h2>
           <img src="@/assets/images/about/apple.png" class="technology-icon" />
           <p>
@@ -132,8 +130,8 @@
               https://www.apple.com/macos/big-sur/
             </a>
           </p>
-        </div>
-      </div>
+        </v-col>
+      </v-row>
     </div>
   </v-container>
 </template>
