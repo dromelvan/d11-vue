@@ -274,6 +274,11 @@ h2 {
   background-color: var(--v-primary-base);
   color: white !important;
   display: block;
+  letter-spacing: 0;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 1em;
+
   padding: 0px;
   .v-image {
     padding: 16px;
