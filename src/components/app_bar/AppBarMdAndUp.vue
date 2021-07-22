@@ -32,7 +32,7 @@
             exact
             router
             :ripple="false"
-            :to="{ name: link.route }"
+            :to="link.route"
           >
             <v-list-item-title>
               {{ link.text }}
@@ -50,7 +50,7 @@
         transition="slide-y-transition"
         offset-y
         tile
-        v-if="loggedIn() && !loggingIn"
+        v-if="loggedIn() && !loggingIn && activeD11Team() && currentSeason()"
       >
         <template v-slot:activator="{ on }">
           <v-btn v-on="on" :ripple="false" text dark>

@@ -28,7 +28,13 @@ export default new Vuex.Store({
       state.status.loggedIn = false;
     },
     initialized(state, current) {
-      state.current = current;
+      localStorage.setItem("currentSeason", JSON.stringify(current.season));
+      localStorage.setItem(
+        "currentTransferWindow",
+        JSON.stringify(current.transferWindow)
+      );
+      state.current.season = current.season;
+      state.current.transferWndow = current.season;
       state.status.initialized = true;
     }
   },
@@ -50,6 +56,9 @@ export default new Vuex.Store({
     },
     currentSeason: state => {
       return state.current.season;
+    },
+    currentTransferWindow: state => {
+      return state.current.transferWndow;
     }
   }
 });

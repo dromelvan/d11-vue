@@ -11,7 +11,7 @@
           :key="link.text"
           exact
           router
-          :to="{ name: link.route }"
+          :to="link.route"
         >
           <v-list-item-icon>
             <v-icon>{{ link.icon }}</v-icon>

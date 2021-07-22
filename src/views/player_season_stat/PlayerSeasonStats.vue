@@ -1,5 +1,5 @@
 <template>
-  <div class="player-season-stats" v-if="season">
+  <div class="player-season-stats">
     <!-- Header -------------------------------->
     <d11-header
       :backgroundPictureType="'stadium'"
@@ -15,7 +15,7 @@
           seasonId: season ? season.id - 1 : 0,
           tab: tab
         },
-        show: season && season.id > minSeasonId()
+        show: !season || season.id > minSeasonId()
       }"
       :nextLink="{
         name: 'playerSeasonStats',
@@ -26,16 +26,16 @@
         show: season && season.id < maxSeasonId()
       }"
     >
-      <template v-if="season">
+      <template>
         <div class="header-title">
           <h1>Player Stats</h1>
         </div>
-        <div class="header-subtitle">
+        <div class="header-subtitle" v-if="season">
           <h4>Season {{ season.name }}</h4>
         </div>
 
         <div class="horizontal most-valuable-player">
-          <div class="player-image">
+          <div class="player-image" v-if="seasonSummary">
             <player-image
               :size="'large'"
               :fileName="
@@ -43,7 +43,7 @@
               "
             />
           </div>
-          <div class="player-season-stats">
+          <div class="player-season-stats" v-if="season && seasonSummary">
             <div class="player-name">
               <h3>{{ seasonSummary.top3PlayerSeasonStats[0].player.name }}</h3>
             </div>
@@ -86,7 +86,7 @@
             </div>
           </div>
 
-          <div class="runners-up">
+          <div class="runners-up" v-if="seasonSummary">
             <div class="runner-up">
               <div class="horizontal">
                 <team-image
@@ -158,10 +158,10 @@
       <v-container class="tabs-container">
         <v-tabs v-model="tab">
           <v-tab class="stats-tab" href="#stats">
-            Player Stats {{ season.name }}
+            <template v-if="season"> Player Stats {{ season.name }} </template>
           </v-tab>
           <v-tabs-items :value="tab">
-            <v-tab-item value="stats">
+            <v-tab-item value="stats" v-if="season">
               <v-pagination
                 v-model="page"
                 :length="Math.ceil(season.playerSeasonStatCount / 25)"
@@ -211,14 +211,22 @@ export default {
   },
   methods: {
     loadData: function() {
-      SeasonService.getSeasonData(this.$route.params.seasonId).then(result => {
+      let seasonId =
+        this.$route.params.seasonId === "current"
+          ? this.currentSeason().id
+          : this.$route.params.seasonId;
+      SeasonService.getSeasonData(seasonId).then(result => {
         (this.season = result.season),
           (this.seasonSummary = result.seasonSummary);
       });
     },
     getPlayerSeasonStats: function() {
+      let seasonId =
+        this.$route.params.seasonId === "current"
+          ? this.currentSeason().id
+          : this.$route.params.seasonId;
       PlayerSeasonStatService.getPlayerSeasonStatsBySeasonIdAndPage(
-        this.$route.params.seasonId,
+        seasonId,
         this.page - 1
       ).then(result => (this.playerSeasonStats = result));
     }

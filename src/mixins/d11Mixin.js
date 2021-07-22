@@ -9,7 +9,12 @@ const d11Mixin = {
       return store.state.status.loggedIn;
     },
     currentSeason: function() {
-      return store.getters.currentSeason;
+      return JSON.parse(localStorage.getItem("currentSeason")) || { id: 1 };
+    },
+    currentTransferWindow: function() {
+      return (
+        JSON.parse(localStorage.getItem("currentTransferWindow")) || { id: 1 }
+      );
     },
     activeD11Team: function() {
       return JSON.parse(localStorage.getItem("d11-team"));

@@ -80,6 +80,7 @@
                 v-for="transferDay in transferDays"
                 :key="transferDay.id"
                 :transferDay="transferDay"
+                :context="'Transfer Day ' + transferDay.transferDayNumber"
               />
             </v-tab-item>
             <v-tab-item value="transfer-days">
@@ -116,12 +117,14 @@ export default {
   },
   methods: {
     loadData: function() {
-      TransferWindowService.getTransferWindowData(this.$route.params.id).then(
-        result => {
-          this.transferWindow = result.transferWindow;
-          this.transferDays = result.transferDays;
-        }
-      );
+      let id =
+        this.$route.params.id === "current"
+          ? this.currentTransferWindow().id
+          : this.$route.params.id;
+      TransferWindowService.getTransferWindowData(id).then(result => {
+        this.transferWindow = result.transferWindow;
+        this.transferDays = result.transferDays;
+      });
     }
   },
   mounted() {

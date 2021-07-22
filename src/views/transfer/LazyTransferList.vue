@@ -11,7 +11,7 @@
         <template v-slot:header>
           <div class="list-container-header">
             <div class="player">
-              Player
+              {{ context }}
             </div>
 
             <div class="fee after-main-item">
@@ -70,7 +70,11 @@ import TransferService from "@/services/transfer.service";
 export default {
   name: "LazyTransferList",
   props: {
-    transferDay: Object
+    transferDay: Object,
+    context: {
+      type: String,
+      default: "Player"
+    }
   },
   data: () => ({
     visible: false,

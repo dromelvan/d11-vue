@@ -178,15 +178,13 @@ export default {
   },
   methods: {
     loadData: function() {
-      SeasonService.getSeasonData(this.$route.params.id).then(result => {
+      let id =
+        this.$route.params.id === "current"
+          ? this.currentSeason().id
+          : this.$route.params.id;
+      SeasonService.getSeasonData(id).then(result => {
         (this.season = result.season),
           (this.seasonSummary = result.seasonSummary);
-      });
-    },
-
-    loadDataa: function() {
-      SeasonService.getSeasonSummaryById(this.$route.params.id).then(result => {
-        this.season = result;
       });
     }
   },

@@ -10,6 +10,14 @@ const MatchWeekService = {
     } catch (error) {
       return Promise.reject(error);
     }
+  },
+  async findCurrentMatchWeek() {
+    try {
+      const response = new D11BootApi.MatchWeekApi().findCurrentMatchWeek();
+      return Promise.resolve(response);
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 };
 

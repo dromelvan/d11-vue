@@ -92,9 +92,6 @@
           <v-tab class="matches-tab" href="#d11-matches">
             D11 Matches
           </v-tab>
-          <v-tab class="stats-tab" href="#stats">
-            Statistics
-          </v-tab>
           <v-tabs-items :value="tab">
             <v-tab-item value="matches" v-if="matchWeek">
               <lazy-match-list
@@ -110,15 +107,6 @@
                 :key="date"
                 :date="date"
                 :d11MatchIds="matchWeek.d11Matches[date]"
-              />
-            </v-tab-item>
-            <v-tab-item value="stats" v-if="matchWeek">
-              <!-- This hack with v-for resets the stats tab so it doesn't load stats on route change when it's not
-                  the active tab. Some day we might want to figure out how to do it in a less hacky way. -->
-              <match-week-stats
-                :matchWeekId="matchWeek.id"
-                v-for="matchWeek in [this.matchWeek]"
-                :key="matchWeek.id"
               />
             </v-tab-item>
           </v-tabs-items>
@@ -142,8 +130,7 @@ export default {
     D11TeamImage: () => import("@/components/image/D11TeamImage"),
     ContentSection: () => import("@/components/ContentSection"),
     LazyMatchList: () => import("@/views/match/LazyMatchList"),
-    LazyD11MatchList: () => import("@/views/d11_match/LazyD11MatchList"),
-    MatchWeekStats: () => import("@/views/match_week/MatchWeekStats")
+    LazyD11MatchList: () => import("@/views/d11_match/LazyD11MatchList")
   },
   methods: {
     loadData: function() {

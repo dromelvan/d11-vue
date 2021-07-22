@@ -85,7 +85,7 @@ const routes = [
     component: () => import("@/views/transfer_window/TransferWindow.vue")
   },
   {
-    path: "/transfer-day/:id/:tab?",
+    path: "/transfer-days/:id/:tab?",
     name: "transferDay",
     component: () => import("@/views/transfer_day/TransferDay.vue")
   }
