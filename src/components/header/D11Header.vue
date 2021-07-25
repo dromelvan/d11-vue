@@ -4,6 +4,7 @@
       :type="backgroundPictureType"
       :id="backgroundPictureId"
       :alt="backgroundPictureAlt"
+      v-if="smAndUp"
     />
 
     <section class="header-section">
@@ -22,7 +23,12 @@
             class="navigation-button-container previous"
             v-if="previousLink && previousLink.show"
           >
-            <navigation-button :to="previousLink" :direction="'left'" />
+            <navigation-button
+              :to="previousLink"
+              :size="smAndUp ? 50 : 20"
+              :padding="smAndUp ? 20 : 10"
+              :direction="'left'"
+            />
           </div>
           <div class="header-content">
             <slot />
@@ -31,7 +37,12 @@
             class="navigation-button-container next"
             v-if="nextLink && nextLink.show"
           >
-            <navigation-button :to="nextLink" :direction="'right'" />
+            <navigation-button
+              :to="nextLink"
+              :size="smAndUp ? 50 : 20"
+              :padding="smAndUp ? 20 : 10"
+              :direction="'right'"
+            />
           </div>
         </div>
       </v-container>
@@ -151,6 +162,27 @@ export default {
 
           a + .mdi-icon {
             margin-top: -1px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.v-application-xs {
+  .d11-header {
+    background-color: var(--v-primary-lighten1);
+    .header-section {
+      min-height: unset;
+      .header-container {
+        padding: 0px;
+        .header-background {
+          padding: $d11-spacer;
+          min-height: unset;
+          .header-content {
+            .header-title {
+              font-size: 1.2em;
+            }
           }
         }
       }

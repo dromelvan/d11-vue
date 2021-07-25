@@ -1,8 +1,8 @@
 <template>
   <v-btn
     color="white"
-    :height="height + 20"
-    :width="width + 20"
+    :height="size + padding"
+    :width="size + padding"
     icon
     dark
     :to="to"
@@ -10,15 +10,15 @@
   >
     <v-img
       v-if="direction === 'left'"
-      :height="height"
-      :width="width"
+      :height="size"
+      :width="size"
       src="~@/assets/images/chevron-left-dark.png"
     />
 
     <v-img
       v-if="direction === 'right'"
-      :height="height"
-      :width="width"
+      :height="size"
+      :width="size"
       src="~@/assets/images/chevron-right-dark.png"
     />
   </v-btn>
@@ -30,13 +30,13 @@ export default {
   props: {
     to: Object,
     direction: String,
-    height: {
+    size: {
       type: Number,
       default: 50
     },
-    width: {
+    padding: {
       type: Number,
-      default: 50
+      default: 20
     }
   }
 };

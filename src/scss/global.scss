@@ -113,3 +113,9 @@
 .vertical-align-test {
   background: $d11-50-50-test-background;
 }
+
+.v-application-xs {
+  .container {
+    padding: $d11-spacer;
+  }
+}
