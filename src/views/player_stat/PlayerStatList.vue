@@ -3,7 +3,11 @@
     <template v-slot:header>
       <player-stats-header :context="context" :view="view" />
     </template>
-    <div v-for="playerStat in playerStats" :key="playerStat.id">
+    <div
+      v-for="playerStat in playerStats"
+      :key="playerStat.id"
+      class="player-stat-container"
+    >
       <player-stat :view="view" :d11Match="d11Match" :playerStat="playerStat" />
       <v-divider />
     </div>
@@ -30,5 +34,8 @@ export default {
 <style lang="scss" scoped>
 .player-stat-list {
   padding-top: 0;
+}
+.player-stat-container {
+  min-height: 48px;
 }
 </style>
