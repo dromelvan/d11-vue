@@ -135,7 +135,7 @@ export default {
 
 .v-application-xs {
   .available-players {
-    padding: $d11-spacer;
+    padding: $d11-spacer * 2;
     .column {
       width: 100%;
     }

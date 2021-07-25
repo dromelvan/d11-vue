@@ -9,7 +9,7 @@
       <h2>{{ seasonSummary.name }}</h2>
       <v-row>
         <!-- D11 League winner ---------------------------->
-        <v-col md="3" sm="6" cols="12">
+        <v-col md="3" sm="6" cols="12" v-if="smAndUp">
           <router-link
             :to="{
               name: 'season',
@@ -61,7 +61,7 @@
         </v-col>
 
         <!-- Premier League winner ------------------------>
-        <v-col md="3" sm="6" cols="12">
+        <v-col md="3" sm="6" cols="12" v-if="smAndUp">
           <router-link
             :to="{
               name: 'season',
@@ -113,7 +113,7 @@
         </v-col>
 
         <!-- Most valuable player ------------------------->
-        <v-col md="3" sm="6" cols="12">
+        <v-col md="3" sm="6" cols="12" v-if="smAndUp">
           <router-link
             :to="{
               name: 'playerSeasonStats',
@@ -184,7 +184,7 @@
         </v-col>
 
         <!-- Runners up ----------------------------------->
-        <v-col md="3" sm="6" cols="12">
+        <v-col md="3" sm="6" cols="12" v-if="smAndUp">
           <v-card class="runners-up" outlined>
             <v-card-title>
               <v-img
@@ -227,6 +227,58 @@
                   seasonSummary.top3PlayerSeasonStats[index].player
                     .photoFileName
                 "
+              />
+              {{ seasonSummary.top3PlayerSeasonStats[index].player.name }}
+              <span class="number">
+                {{ seasonSummary.top3PlayerSeasonStats[index].points }}
+              </span>
+              pts
+            </v-card-text>
+          </v-card>
+        </v-col>
+
+        <!-- Winners and runners up ----------------------------------->
+        <v-col md="3" sm="6" cols="12" v-if="xs">
+          <v-card class="runners-up" outlined>
+            <v-card-title>
+              <v-img
+                dark
+                max-height="64px"
+                src="@/assets/images/card-title-background.png"
+              >
+                {{ finished(seasonSummary.status) ? "Winners" : "Leaders" }} and
+                runners up
+              </v-img>
+            </v-card-title>
+            <v-card-subtitle>Premier League</v-card-subtitle>
+            <v-card-text v-for="index in [0, 1, 2]" :key="'tss.' + index">
+              <team-image
+                size="tiny"
+                :id="seasonSummary.top3TeamSeasonStats[index].team.id"
+              />
+              {{ seasonSummary.top3TeamSeasonStats[index].team.name }}
+              <span class="number">
+                {{ seasonSummary.top3TeamSeasonStats[index].points }}
+              </span>
+              pts
+            </v-card-text>
+            <v-card-subtitle>D11 League</v-card-subtitle>
+            <v-card-text v-for="index in [0, 1, 2]" :key="'d11tss.' + index">
+              <d11-team-image
+                size="tiny"
+                :id="seasonSummary.top3D11TeamSeasonStats[index].d11Team.id"
+              />
+              {{ seasonSummary.top3D11TeamSeasonStats[index].d11Team.name }}
+              <span class="number">
+                {{ seasonSummary.top3D11TeamSeasonStats[index].points }}
+              </span>
+              pts
+            </v-card-text>
+            <v-card-subtitle>Most valuable players</v-card-subtitle>
+            <v-card-text v-for="index in [0, 1, 2]" :key="'pss.' + index">
+              <team-image
+                size="tiny"
+                :id="seasonSummary.top3PlayerSeasonStats[index].team.id"
               />
               {{ seasonSummary.top3PlayerSeasonStats[index].player.name }}
               <span class="number">
