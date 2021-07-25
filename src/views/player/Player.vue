@@ -106,10 +106,12 @@
           </div>
 
           <div class="player-info">
-            <div class="date-of-birth">
+            <div class="date-of-birth" v-if="player.dateOfBirth">
               Born {{ player.dateOfBirth | moment("MMMM Do YYYY") }}
             </div>
-            <div class="age">{{ playerAge(player.dateOfBirth) }} old</div>
+            <div class="age" v-if="player.dateOfBirth">
+              {{ playerAge(player.dateOfBirth) }} old
+            </div>
             <div class="country">
               <country-image :size="'tiny'" :iso="player.country.iso" />
               {{ player.country.name }}
