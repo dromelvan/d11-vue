@@ -44,8 +44,12 @@ export default {
     TeamImage: () => import("@/components/image/TeamImage")
   },
   mounted() {
+    let seasonId =
+      this.$route.params.seasonId === "current"
+        ? this.currentSeason().id
+        : this.$route.params.seasonId;
     PlayerSeasonStatService.getAvailablePlayerSeasonStatBySeasonId(
-      this.$route.params.seasonId
+      seasonId
     ).then(result => (this.playersByTeam = result));
   }
 };

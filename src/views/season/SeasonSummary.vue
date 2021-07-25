@@ -12,8 +12,8 @@
         <v-col md="3" sm="6" cols="12">
           <router-link
             :to="{
-              name: 'd11League',
-              params: { id: seasonSummary.d11League.id }
+              name: 'season',
+              params: { id: seasonSummary.id, tab: 'd11-league-table' }
             }"
             class="v-card-link"
           >
@@ -64,8 +64,8 @@
         <v-col md="3" sm="6" cols="12">
           <router-link
             :to="{
-              name: 'premierLeague',
-              params: { id: seasonSummary.premierLeague.id }
+              name: 'season',
+              params: { id: seasonSummary.id, tab: 'premier-league-table' }
             }"
             class="v-card-link"
           >
@@ -114,63 +114,73 @@
 
         <!-- Most valuable player ------------------------->
         <v-col md="3" sm="6" cols="12">
-          <v-card class="most-valuable-player" outlined>
-            <v-card-title>
+          <router-link
+            :to="{
+              name: 'playerSeasonStats',
+              params: {
+                seasonId: seasonSummary.id
+              }
+            }"
+            class="v-card-link"
+          >
+            <v-card class="most-valuable-player" outlined>
               <v-card-title>
-                <v-img
-                  dark
-                  max-height="64px"
-                  src="@/assets/images/card-title-background.png"
-                >
-                  Most Valuable Player
-                </v-img>
+                <v-card-title>
+                  <v-img
+                    dark
+                    max-height="64px"
+                    src="@/assets/images/card-title-background.png"
+                  >
+                    Most Valuable Player
+                  </v-img>
+                </v-card-title>
               </v-card-title>
-            </v-card-title>
-            <v-card-subtitle>
-              {{ seasonSummary.top3PlayerSeasonStats[0].player.name }}
-            </v-card-subtitle>
-            <v-card-text>
-              <player-image
-                size="medium"
-                :fileName="
-                  seasonSummary.top3PlayerSeasonStats[0].player.photoFileName
-                "
-              />
-            </v-card-text>
-            <v-card-text>
-              <span class="number">
-                {{ seasonSummary.top3PlayerSeasonStats[0].points }}
-              </span>
-              points
-              <span class="number">
-                {{ seasonSummary.top3PlayerSeasonStats[0].goals }}
-              </span>
-              goals
-            </v-card-text>
-            <v-card-text v-if="finished(seasonSummary.status)">
-              <span class="number">
-                {{
-                  seasonSummary.top3PlayerSeasonStats[0].winCount
-                    | ordinal({ includeNumber: true })
-                }}
-              </span>
-              most valuable player award
-            </v-card-text>
-            <v-card-text>
-              <team-image
-                size="tiny"
-                :id="seasonSummary.top3PlayerSeasonStats[0].team.id"
-              />
-              {{ seasonSummary.top3PlayerSeasonStats[0].team.name }}
-            </v-card-text>
-            <v-card-text>
-              <d11-team-image
-                size="tiny"
-                :id="seasonSummary.top3PlayerSeasonStats[0].d11Team.id"
-              />
-              {{ seasonSummary.top3PlayerSeasonStats[0].d11Team.name }}
-            </v-card-text>
-          </v-card>
+              <v-card-subtitle>
+                {{ seasonSummary.top3PlayerSeasonStats[0].player.name }}
+              </v-card-subtitle>
+              <v-card-text>
+                <player-image
+                  size="medium"
+                  :fileName="
+                    seasonSummary.top3PlayerSeasonStats[0].player.photoFileName
+                  "
+                />
+              </v-card-text>
+              <v-card-text>
+                <span class="number">
+                  {{ seasonSummary.top3PlayerSeasonStats[0].points }}
+                </span>
+                points
+                <span class="number">
+                  {{ seasonSummary.top3PlayerSeasonStats[0].goals }}
+                </span>
+                goals
+              </v-card-text>
+              <v-card-text v-if="finished(seasonSummary.status)">
+                <span class="number">
+                  {{
+                    seasonSummary.top3PlayerSeasonStats[0].winCount
+                      | ordinal({ includeNumber: true })
+                  }}
+                </span>
+                most valuable player award
+              </v-card-text>
+              <v-card-text>
+                <team-image
+                  size="tiny"
+                  :id="seasonSummary.top3PlayerSeasonStats[0].team.id"
+                />
+                {{ seasonSummary.top3PlayerSeasonStats[0].team.name }}
+              </v-card-text>
+              <v-card-text>
+                <d11-team-image
+                  size="tiny"
+                  :id="seasonSummary.top3PlayerSeasonStats[0].d11Team.id"
+                />
+                {{ seasonSummary.top3PlayerSeasonStats[0].d11Team.name }}
+              </v-card-text>
+            </v-card>
+          </router-link>
         </v-col>
 
         <!-- Runners up ----------------------------------->

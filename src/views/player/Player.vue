@@ -5,11 +5,7 @@
       :backgroundPictureType="'stadium'"
       :backgroundPictureId="19"
       :backgroundPictureAlt="'TODO'"
-      :parentLink="{
-        text: season ? 'Season ' + season.name : '',
-        name: 'season',
-        params: { id: season ? season.id : 0 }
-      }"
+      :parentLink="parentLink"
       :previousLink="{
         name: 'player',
         params: {
@@ -179,6 +175,7 @@ import PlayerSeasonStatService from "@/services/playerSeasonStat.service";
 export default {
   name: "Player",
   data: () => ({
+    tab: "matches",
     player: null,
     season: null,
     playerSeasonStat: null,
@@ -197,6 +194,19 @@ export default {
     PlayerMatchStats: () => import("@/views/player_stat/PlayerMatchStats"),
     LazyPlayerSeasonStatList: () =>
       import("@/views/player_season_stat/LazyPlayerSeasonStatList")
+  },
+  computed: {
+    parentLink() {
+      if (this.$route.params.parentLink) {
+        return this.$route.params.parentLink;
+      } else {
+        return {
+          text: this.season ? "Season " + this.season.name : "",
+          name: "season",
+          params: { id: this.season ? this.season.id : 0 }
+        };
+      }
+    }
   },
   methods: {
     loadData: function() {
@@ -223,6 +233,7 @@ export default {
     }
   },
   mounted() {
+    this.tab = this.$route.params.tab;
     this.loadData();
   },
   watch: {

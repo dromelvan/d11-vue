@@ -1,7 +1,7 @@
 <template>
   <list-container-item
     class="player-stat-container"
-    :to="{ name: 'player', params: { id: playerStat.player.id } }"
+    :to="to"
     v-bind:class="{
       'man-of-the-match':
         playerStat.manOfTheMatch || playerStat.sharedManOfTheMatch
@@ -273,6 +273,7 @@ export default {
   name: "PlayerStat",
   props: {
     playerStat: Object,
+    d11Match: Object,
     view: String
   },
   components: {
@@ -311,6 +312,53 @@ export default {
         }
       }
       return maxNameLength;
+    },
+    to() {
+      if (this.view === "match") {
+        return {
+          name: "player",
+          params: {
+            id: this.playerStat.player.id,
+            seasonId: this.playerStat.match.matchWeek.season.id,
+            parentLink: this.parentLink
+          }
+        };
+      } else if (this.view === "player") {
+        return {
+          name: "match",
+          params: {
+            id: this.playerStat.match.id,
+            parentLink: this.parentLink
+          }
+        };
+      }
+      return null;
+    },
+    parentLink() {
+      if (this.view === "match") {
+        let homeTeam = this.playerStat.match.homeTeam;
+        let awayTeam = this.playerStat.match.awayTeam;
+        return {
+          text: this.smAndUp
+            ? homeTeam.shortName + " vs " + awayTeam.shortName
+            : homeTeam.code + " vs " + awayTeam.code,
+          name: "match",
+          params: { id: this.playerStat.match.id }
+        };
+      } else if (this.view === "d11Match") {
+        return {
+          text: this.smAndUp
+            ? this.d11Match.homeD11Team.name +
+              " vs " +
+              this.d11Match.awayD11Team.name
+            : this.d11Match.homeD11Team.code +
+              " vs " +
+              this.d11Match.awayD11Team.code,
+          name: "d11Match",
+          params: { id: this.d11Match.id }
+        };
+      }
+      return null;
     }
   }
 };

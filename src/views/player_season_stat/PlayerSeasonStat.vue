@@ -1,8 +1,5 @@
 <template>
-  <list-container-item
-    class="player-season-stat-container"
-    :to="{ name: 'player', params: { id: playerSeasonStat.player.id } }"
-  >
+  <list-container-item class="player-season-stat-container" :to="to">
     <v-list-item-title class="player-season-stat">
       <template v-if="smAndUp">
         <!-- Season ---------------------->
@@ -219,6 +216,38 @@ export default {
         formMatchPoints.push({ index: index, points: item });
       });
       return formMatchPoints;
+    },
+    to() {
+      if (this.view === "transferListing") {
+        return {
+          name: "player",
+          params: {
+            id: this.playerSeasonStat.player.id,
+            seasonId: this.currentSeason().id,
+            parentLink: this.parentLink
+          }
+        };
+      }
+      return {
+        name: "player",
+        params: {
+          id: this.playerSeasonStat.player.id,
+          seasonId: this.playerSeasonStat.season.id,
+          parentLink: this.parentLink
+        }
+      };
+    },
+    parentLink() {
+      if (this.view === "team") {
+        return {
+          text: this.smAndUp
+            ? this.playerSeasonStat.team.name
+            : this.playerSeasonStat.team.code,
+          name: "team",
+          params: { id: this.playerSeasonStat.team.id }
+        };
+      }
+      return null;
     }
   }
 };

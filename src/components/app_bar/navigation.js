@@ -25,8 +25,16 @@ const navigationGroups = {
         }
       },
       {
+        text: "D11 Teams",
+        icon: "mdi-account-multiple",
+        route: {
+          name: "d11Teams",
+          params: { seasonId: "current" }
+        }
+      },
+      {
         text: "Current Match Week",
-        icon: "mdi-table",
+        icon: "mdi-calendar-month",
         route: {
           name: "matchWeek",
           params: { id: "current", tab: "d11-matches" }
@@ -34,13 +42,25 @@ const navigationGroups = {
       },
       {
         text: "Current Transfer Window",
-        icon: "mdi-table",
+        icon: "mdi-transit-transfer",
         route: {
           name: "transferWindow",
           params: { id: "current", tab: "transfers" }
         }
       },
-      { text: "Season History", icon: "mdi-table", route: { name: "seasons" } }
+      {
+        text: "Available Players",
+        icon: "mdi-account-multiple",
+        route: {
+          name: "availablePlayers",
+          params: { seasonId: "current" }
+        }
+      },
+      {
+        text: "Season History",
+        icon: "mdi-format-list-bulleted-square",
+        route: { name: "seasons" }
+      }
     ]
   },
   premierLeague: {
@@ -57,7 +77,7 @@ const navigationGroups = {
       },
       {
         text: "Current Match Week",
-        icon: "mdi-table",
+        icon: "mdi-calendar-month",
         route: {
           name: "matchWeek",
           params: { id: "current", tab: "matches" }
@@ -65,7 +85,7 @@ const navigationGroups = {
       },
       {
         text: "Player Statistics",
-        icon: "mdi-table",
+        icon: "mdi-format-list-bulleted-square",
         route: {
           name: "playerSeasonStats",
           params: { seasonId: "current", tab: "stats" }

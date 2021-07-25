@@ -106,7 +106,8 @@ export default {
   name: "TransferWindow",
   data: () => ({
     transferWindow: null,
-    transferDays: null
+    transferDays: null,
+    tab: "transfers"
   }),
   components: {
     D11Header: () => import("@/components/header/D11Header"),
@@ -128,10 +129,12 @@ export default {
     }
   },
   mounted() {
+    this.tab = this.$route.params.tab;
     this.loadData();
   },
   watch: {
     $route() {
+      this.tab = this.$route.params.tab;
       if (
         this.transferWindow == null ||
         this.$route.params.id != this.transferWindow.id

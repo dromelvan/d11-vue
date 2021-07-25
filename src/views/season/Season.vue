@@ -164,7 +164,8 @@ export default {
   name: "Season",
   data: () => ({
     season: null,
-    seasonSummary: null
+    seasonSummary: null,
+    tab: "match-weeks"
   }),
   components: {
     D11Header: () => import("@/components/header/D11Header"),
@@ -189,10 +190,12 @@ export default {
     }
   },
   mounted() {
+    this.tab = this.$route.params.tab;
     this.loadData();
   },
   watch: {
     $route() {
+      this.tab = this.$route.params.tab;
       this.loadData();
     }
   }

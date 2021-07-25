@@ -71,7 +71,7 @@
     </template>
     <div v-for="d11MatchId in d11MatchIds" :key="d11MatchId">
       <list-container-item
-        :to="{ name: 'd11-match', params: { id: d11MatchId } }"
+        :to="{ name: 'd11Match', params: { id: d11MatchId } }"
       >
         <lazy-d11-match v-if="smAndUp" :d11MatchId="d11MatchId" :view="view" />
       </list-container-item>

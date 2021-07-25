@@ -121,6 +121,11 @@ export default {
     color: white !important;
     display: block;
     padding: 0px;
+    letter-spacing: 0;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1em;
+
     .v-image {
       padding: 16px;
     }

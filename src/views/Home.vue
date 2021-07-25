@@ -65,7 +65,8 @@ export default {
     },
     d11MatchesByDate: {
       d11Matches: []
-    }
+    },
+    tab: "matches"
   }),
   components: {
     D11Header: () => import("@/components/header/D11Header"),
@@ -74,6 +75,7 @@ export default {
     LazyD11MatchList: () => import("@/views/d11_match/LazyD11MatchList")
   },
   mounted() {
+    this.tab = this.$route.params.tab;
     MatchService.findCurrentMatches().then(result => {
       this.matchesByDate = result;
     });

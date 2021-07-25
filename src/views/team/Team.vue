@@ -5,11 +5,7 @@
       :backgroundPictureType="'stadium'"
       :backgroundPictureId="19"
       :backgroundPictureAlt="'TODO'"
-      :parentLink="{
-        text: season ? 'Season ' + season.name : '',
-        name: 'season',
-        params: { id: season ? season.id : 0 }
-      }"
+      :parentLink="parentLink"
       :previousLink="{
         name: 'team',
         params: {
@@ -154,7 +150,8 @@ export default {
     season: null,
     teamSeasonStat: null,
     playerSeasonStatsByPosition: null,
-    matchIds: null
+    matchIds: null,
+    tab: "squad"
   }),
   components: {
     D11Header: () => import("@/components/header/D11Header"),
@@ -172,6 +169,17 @@ export default {
         formMatchPoints.push({ index: index, points: item });
       });
       return formMatchPoints;
+    },
+    parentLink() {
+      if (this.$route.params.parentLink) {
+        return this.$route.params.parentLink;
+      } else {
+        return {
+          text: this.season ? "Season " + this.season.name : "",
+          name: "season",
+          params: { id: this.season ? this.season.id : 0 }
+        };
+      }
     }
   },
   methods: {
@@ -200,10 +208,12 @@ export default {
     }
   },
   mounted() {
+    this.tab = this.$route.params.tab;
     this.loadData();
   },
   watch: {
     $route() {
+      this.tab = this.$route.params.tab;
       if (
         this.teamSeasonStat == null ||
         this.$route.params.id != this.team.id ||

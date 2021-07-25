@@ -18,7 +18,7 @@
       :nextLink="{
         name: 'matchWeek',
         params: { id: matchWeek ? matchWeek.id + 1 : 0, tab: tab },
-        show: matchWeek
+        show: matchWeek && matchWeek.id < maxMatchWeekId()
       }"
     >
       <template v-if="matchWeek">
@@ -122,7 +122,8 @@ import MatchWeekService from "@/services/matchWeek.service";
 export default {
   name: "MatchWeek",
   data: () => ({
-    matchWeek: null
+    matchWeek: null,
+    tab: "matches"
   }),
   components: {
     D11Header: () => import("@/components/header/D11Header"),
@@ -140,10 +141,12 @@ export default {
     }
   },
   mounted() {
+    this.tab = this.$route.params.tab;
     this.loadData();
   },
   watch: {
     $route() {
+      this.tab = this.$route.params.tab;
       this.loadData();
     }
   }

@@ -134,7 +134,8 @@ export default {
   data: () => ({
     transferDay: null,
     transferListings: null,
-    page: 1
+    page: 1,
+    tab: "transfers"
   }),
   components: {
     D11Header: () => import("@/components/header/D11Header"),
@@ -161,10 +162,12 @@ export default {
     }
   },
   mounted() {
+    this.tab = this.$route.params.tab;
     this.loadData();
   },
   watch: {
     $route() {
+      this.tab = this.$route.params.tab;
       if (
         this.transferDay == null ||
         this.$route.params.id != this.transferDay.id

@@ -6,8 +6,9 @@
       :backgroundPictureId="19"
       :backgroundPictureAlt="'TODO'"
       :parentLink="{
-        text: 'Season History',
-        name: 'seasons'
+        text: season ? 'Season ' + season.name : '',
+        name: 'season',
+        params: { id: season ? season.id : 0 }
       }"
       :previousLink="{
         name: 'd11Teams',
@@ -66,14 +67,16 @@ export default {
   },
   methods: {
     getSeason: function() {
+      let seasonId =
+        this.$route.params.seasonId === "current"
+          ? this.currentSeason().id
+          : this.$route.params.seasonId;
       this.d11Teams = null;
-      SeasonService.getSeason(this.$route.params.seasonId).then(result => {
+      SeasonService.getSeason(seasonId).then(result => {
         this.season = result;
-        D11TeamService.getD11TeamsBySeason(this.$route.params.seasonId).then(
-          result => {
-            this.d11Teams = result;
-          }
-        );
+        D11TeamService.getD11TeamsBySeason(seasonId).then(result => {
+          this.d11Teams = result;
+        });
       });
     }
   },

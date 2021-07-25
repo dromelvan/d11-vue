@@ -132,7 +132,15 @@ export default {
           name: "team",
           params: {
             id: this.seasonStat.team.id,
-            seasonId: this.seasonStat.season.id
+            seasonId: this.seasonStat.season.id,
+            parentLink: {
+              text: "League Table " + this.seasonStat.season.name,
+              name: "season",
+              params: {
+                id: this.seasonStat.season.id,
+                tab: "premier-league-table"
+              }
+            }
           }
         };
       } else if (this.view === "d11Team") {
@@ -140,7 +148,15 @@ export default {
           name: "d11Team",
           params: {
             id: this.seasonStat.d11Team.id,
-            seasonId: this.seasonStat.season.id
+            seasonId: this.seasonStat.season.id,
+            parentLink: {
+              text: "League Table " + this.seasonStat.season.name,
+              name: "season",
+              params: {
+                id: this.seasonStat.season.id,
+                tab: "d11-league-table"
+              }
+            }
           }
         };
       }

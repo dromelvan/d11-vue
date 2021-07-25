@@ -198,7 +198,8 @@ export default {
     season: null,
     seasonSummary: null,
     page: 1,
-    playerSeasonStats: null
+    playerSeasonStats: null,
+    tab: "stats"
   }),
   components: {
     D11Header: () => import("@/components/header/D11Header"),

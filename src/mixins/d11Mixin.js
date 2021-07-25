@@ -25,6 +25,9 @@ const d11Mixin = {
     minSeasonId: function() {
       return 2;
     },
+    maxMatchWeekId: function() {
+      return this.currentSeason().id * 38 + 1;
+    },
     playerValue(value) {
       return (value / 10).toFixed(1);
     },
@@ -131,14 +134,6 @@ const d11Mixin = {
     },
     lgAndUp: function() {
       return this.$vuetify.breakpoint.lgAndUp;
-    },
-    tab: {
-      set(tab) {
-        this.$router.replace({ params: { ...this.$route.params.tab, tab } });
-      },
-      get() {
-        return this.$route.params.tab;
-      }
     }
   }
 };

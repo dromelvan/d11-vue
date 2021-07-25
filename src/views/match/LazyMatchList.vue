@@ -93,6 +93,20 @@ export default {
     ListContainer: () => import("@/components/ListContainer"),
     ListContainerItem: () => import("@/components/ListContainerItem"),
     LazyMatch: () => import("@/views/match/LazyMatch")
+  },
+  parentLink() {
+    if (this.view === "player") {
+      let homeTeam = this.playerStat.match.homeTeam;
+      let awayTeam = this.playerStat.match.awayTeam;
+      return {
+        text: this.smAndUp
+          ? homeTeam.shortName + " vs " + awayTeam.shortName
+          : homeTeam.code + " vs " + awayTeam.code,
+        name: "match",
+        params: { id: this.playerStat.match.id }
+      };
+    }
+    return null;
   }
 };
 </script>

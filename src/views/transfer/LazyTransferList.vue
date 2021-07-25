@@ -33,7 +33,16 @@
           </div>
         </template>
         <div v-for="transfer in transfers" :key="transfer.id">
-          <list-container-item class="transfer-container">
+          <list-container-item
+            class="transfer-container"
+            :to="{
+              name: 'player',
+              params: {
+                id: transfer.player.id,
+                seasonId: currentSeason().id
+              }
+            }"
+          >
             <v-list-item-title class="transfer">
               <!-- Player image ---------------->
               <div class="image">

@@ -46,7 +46,7 @@ const routes = [
   },
   {
     path: "/d11-matches/:id",
-    name: "d11-match",
+    name: "d11Match",
     component: () => import("@/views/d11_match/D11Match.vue")
   },
   {
@@ -67,7 +67,8 @@ const routes = [
   {
     path: "/players/:id/:seasonId/:tab?",
     name: "player",
-    component: () => import("@/views/player/Player.vue")
+    component: () => import("@/views/player/Player.vue"),
+    props: true
   },
   {
     path: "/player-season-stats/:seasonId/:tab?",

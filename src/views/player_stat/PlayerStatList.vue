@@ -4,7 +4,7 @@
       <player-stats-header :context="context" :view="view" />
     </template>
     <div v-for="playerStat in playerStats" :key="playerStat.id">
-      <player-stat :view="view" :playerStat="playerStat" />
+      <player-stat :view="view" :d11Match="d11Match" :playerStat="playerStat" />
       <v-divider />
     </div>
   </list-container>
@@ -16,6 +16,7 @@ export default {
   props: {
     context: String,
     view: String,
+    d11Match: Object,
     playerStats: Array
   },
   components: {

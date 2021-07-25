@@ -10,7 +10,7 @@
           ? 'Match Week ' + d11Match.matchWeek.matchWeekNumber
           : '',
         name: 'matchWeek',
-        params: { id: d11Match ? d11Match.matchWeek.id : 0 }
+        params: { id: d11Match ? d11Match.matchWeek.id : 0, tab: 'd11-matches' }
       }"
     >
       <div class="header-title" v-if="d11Match">
@@ -139,6 +139,7 @@
                     ? homeD11TeamPlayerMatchStatsByPosition
                     : awayD11TeamPlayerMatchStatsByPosition
                 "
+                :d11Match="d11Match"
                 view="d11Match"
                 @visible="findPlayerMatchStats"
               />

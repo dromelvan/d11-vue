@@ -69,6 +69,13 @@
         </template>
         <div v-for="transferBid in transferBids" :key="transferBid.id">
           <list-container-item
+            :to="{
+              name: 'player',
+              params: {
+                id: transferBid.player.id,
+                seasonId: currentSeason().id
+              }
+            }"
             class="transfer-container"
             v-bind:class="{ inactive: transferBid.activeFee <= 0 }"
           >

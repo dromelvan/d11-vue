@@ -12,6 +12,7 @@
         :key="position"
         :context="position + 's'"
         :view="view"
+        :d11Match="d11Match"
         :playerStats="playerStatsByPosition.positions[position]"
       />
       <v-container class="total-points" v-if="showTotalPoints">
@@ -34,7 +35,8 @@ export default {
     showTotalPoints: {
       type: Boolean,
       default: false
-    }
+    },
+    d11Match: Object
   },
   components: {
     LoadingIndicator: () => import("@/components/LoadingIndicator"),
