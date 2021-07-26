@@ -5,10 +5,13 @@
       :backgroundPictureType="'stadium'"
       :backgroundPictureId="19"
       :backgroundPictureAlt="'TODO'"
+      v-if="smAndUp"
     >
       <div class="hero-unit">
         <div>
-          <h1>This is Drömelvan</h1>
+          <h1>
+            This is Drömelvan
+          </h1>
           <p>
             The competition for those whose knowledge of football is vastly
             greater than that of the average person.
@@ -17,6 +20,9 @@
         </div>
       </div>
     </d11-header>
+    <v-container v-else class="rules-button-container">
+      <v-btn dark :to="{ name: 'rules' }">Learn More »</v-btn>
+    </v-container>
 
     <content-section>
       <v-container class="tabs-container">
@@ -107,22 +113,42 @@ export default {
     }
   }
 }
+
+.v-application-xs {
+  .home {
+    h1 {
+      font-size: 2em;
+    }
+  }
+}
 </style>
 
 <style lang="scss">
-.home {
-  .background-picture {
-    .background-img {
+.v-application-sm,
+.v-application-md,
+.v-application-lg,
+.v-application-xl {
+  .home {
+    .background-picture {
+      .background-img {
+        height: 270px !important;
+      }
+    }
+
+    .background-picture:after {
+      height: 270px !important;
+    }
+
+    .header-section {
       height: 270px !important;
     }
   }
-
-  .background-picture:after {
-    height: 270px !important;
-  }
-
-  .header-section {
-    height: 270px !important;
+}
+.v-application-xs {
+  .home {
+    .rules-button-container {
+      border-bottom: 1px solid black;
+    }
   }
 }
 </style>
