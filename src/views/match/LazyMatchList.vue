@@ -71,7 +71,7 @@
     </template>
     <div v-for="matchId in matchIds" :key="matchId">
       <list-container-item :to="{ name: 'match', params: { id: matchId } }">
-        <lazy-match v-if="smAndUp" :matchId="matchId" :view="view" />
+        <lazy-match :matchId="matchId" :view="view" />
       </list-container-item>
       <v-divider />
     </div>

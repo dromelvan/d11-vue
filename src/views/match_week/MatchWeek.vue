@@ -33,7 +33,7 @@
           * This match week is active and results are not yet final.
         </div>
 
-        <template v-if="!this.pending(matchWeek.status)">
+        <template v-if="!this.pending(matchWeek.status) && smAndUp">
           <div class="horizontal">
             <div class="description">
               Most valuable player:
@@ -87,7 +87,7 @@
       <v-container class="tabs-container">
         <v-tabs v-model="tab">
           <v-tab class="matches-tab" href="#matches">
-            Premier League Matches
+            <template v-if="smAndUp">Premier League</template> Matches
           </v-tab>
           <v-tab class="matches-tab" href="#d11-matches">
             D11 Matches

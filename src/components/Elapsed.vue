@@ -21,7 +21,11 @@ export default {
 </script>
 
 <style lang="scss">
-.progress {
-  margin-right: $d11-spacer !important;
+.v-application-sm .v-application-md,
+.v-application-lg,
+.v-application-xl {
+  .progress {
+    margin-right: $d11-spacer !important;
+  }
 }
 </style>

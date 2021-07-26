@@ -73,7 +73,7 @@
       <list-container-item
         :to="{ name: 'd11Match', params: { id: d11MatchId } }"
       >
-        <lazy-d11-match v-if="smAndUp" :d11MatchId="d11MatchId" :view="view" />
+        <lazy-d11-match :d11MatchId="d11MatchId" :view="view" />
       </list-container-item>
       <v-divider />
     </div>

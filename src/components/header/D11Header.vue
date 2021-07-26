@@ -172,13 +172,21 @@ export default {
 .v-application-xs {
   .d11-header {
     background-color: var(--v-primary-lighten1);
+
     .header-section {
       min-height: unset;
+
       .header-container {
         padding: 0px;
+
         .header-background {
           padding: $d11-spacer;
           min-height: unset;
+          //background-image: url("../../assets/images/app-bar-background-sm-and-down.png");
+          .navigation-button-container {
+            align-items: unset;
+          }
+
           .header-content {
             .header-title {
               font-size: 1.2em;
