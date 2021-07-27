@@ -119,6 +119,11 @@
     width: 100%;
   }
 
+  .v-slide-group__prev,
+  .v-slide-group__next {
+    display: none !important;
+  }
+
   .v-btn {
     width: 100%;
   }

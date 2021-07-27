@@ -1,6 +1,6 @@
 <template>
   <div class="list-container-header">
-    <template v-if="smAndUp">
+    <template>
       <!-- Ranking -------------->
       <div class="ranking">
         <v-tooltip top>
@@ -28,7 +28,7 @@
         </v-tooltip>
       </div>
       <!-- Matches played -------->
-      <div class="matches-played stat after-main-item">
+      <div class="matches-played stat after-main-item" v-if="smAndUp">
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
             <span v-bind="attrs" v-on="on">Played</span>
@@ -37,7 +37,7 @@
         </v-tooltip>
       </div>
       <!-- Matches won ----------->
-      <div class="matches-won stat">
+      <div class="matches-won stat" v-if="smAndUp">
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
             <span v-bind="attrs" v-on="on">Won</span>
@@ -46,7 +46,7 @@
         </v-tooltip>
       </div>
       <!-- Matches drawn --------->
-      <div class="matches-drawn stat">
+      <div class="matches-drawn stat" v-if="smAndUp">
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
             <span v-bind="attrs" v-on="on">Drawn</span>
@@ -55,7 +55,7 @@
         </v-tooltip>
       </div>
       <!-- Matches lost ---------->
-      <div class="matches-lost stat">
+      <div class="matches-lost stat" v-if="smAndUp">
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
             <span v-bind="attrs" v-on="on">Lost</span>
@@ -64,7 +64,7 @@
         </v-tooltip>
       </div>
       <!-- Goals for ------------->
-      <div class="goals-for stat">
+      <div class="goals-for stat" v-if="smAndUp">
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
             <span v-bind="attrs" v-on="on">
@@ -78,7 +78,7 @@
         </v-tooltip>
       </div>
       <!-- Goals against --------->
-      <div class="goals-for stat">
+      <div class="goals-for stat" v-if="smAndUp">
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
             <span v-bind="attrs" v-on="on">
@@ -92,7 +92,7 @@
         </v-tooltip>
       </div>
       <!-- Goal difference ------>
-      <div class="goals-difference stat">
+      <div class="goals-difference stat" v-if="smAndUp">
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
             <span v-bind="attrs" v-on="on">GD</span>
@@ -142,5 +142,11 @@ export default {
 
 .form {
   min-width: 165px;
+}
+
+.v-application-xs {
+  .points {
+    margin-left: auto;
+  }
 }
 </style>

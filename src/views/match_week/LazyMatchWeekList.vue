@@ -25,7 +25,7 @@
             <span>Name of the match week</span>
           </v-tooltip>
         </div>
-        <div class="most-valuable-player main-item">
+        <div class="most-valuable-player main-item" v-if="smAndUp">
           <v-tooltip top>
             <template v-slot:activator="{ on, attrs }">
               <span v-bind="attrs" v-on="on">Most Valuable Player</span>
@@ -35,7 +35,7 @@
             </span>
           </v-tooltip>
         </div>
-        <div class="premier-league-leader">
+        <div class="premier-league-leader" v-if="smAndUp">
           <v-tooltip top>
             <template v-slot:activator="{ on, attrs }">
               <span v-bind="attrs" v-on="on">
@@ -141,6 +141,15 @@ export default {
   }
   .status {
     min-width: 3.4rem;
+  }
+}
+
+.v-application-xs {
+  .date {
+    min-width: 3.9rem;
+  }
+  .status {
+    margin-left: auto;
   }
 }
 </style>

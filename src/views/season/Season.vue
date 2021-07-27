@@ -34,7 +34,7 @@
           <h4>{{ season.name }}</h4>
         </div>
 
-        <div class="horizontal">
+        <div class="horizontal" v-if="smAndUp">
           <div class="season-summary" v-if="seasonSummary">
             <div class="horizontal most-valuable-player" v-if="seasonSummary">
               <div class="description">
@@ -123,10 +123,10 @@
             Match Weeks
           </v-tab>
           <v-tab class="premier-league-table-tab" href="#premier-league-table">
-            Premier League Table
+            <template v-if="smAndUp">Premier League</template> Table
           </v-tab>
           <v-tab class="d11-league-table-tab" href="#d11-league-table">
-            D11 League Table
+            D11 <template v-if="smAndUp">League</template> Table
           </v-tab>
           <v-tabs-items :value="tab">
             <v-tab-item value="match-weeks" v-if="season">
@@ -208,5 +208,10 @@ export default {
 }
 .horizontal {
   line-height: 2em;
+}
+.v-application-xs {
+  .v-tab {
+    width: 33% !important;
+  }
 }
 </style>

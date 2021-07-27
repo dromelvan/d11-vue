@@ -10,7 +10,7 @@
       :to="{ name: 'matchWeek', params: { id: matchWeek.id } }"
     >
       <v-list-item-title class="match-week">
-        <template v-if="smAndUp">
+        <template>
           <!-- Date --------------------->
           <div class="date">
             <template v-if="smAndDown">
@@ -27,7 +27,7 @@
             </template>
             {{ matchWeek.matchWeekNumber }}
           </div>
-          <div class="image" v-if="!pending(matchWeek.status)">
+          <div class="image" v-if="!pending(matchWeek.status) && smAndUp">
             <team-image
               :type="'team'"
               :size="'tiny'"
@@ -35,7 +35,7 @@
             />
           </div>
           <!-- Most valuable player ---->
-          <div class="most-valuable-player main-item">
+          <div class="most-valuable-player main-item" v-if="smAndUp">
             <template v-if="!pending(matchWeek.status)">
               {{ matchWeek.mostValuablePlayer.player.name }}
               <template v-if="matchWeek.mostValuablePlayer.d11Team.id > 1">
@@ -52,14 +52,14 @@
             </template>
           </div>
           <!-- Premier League leader ------------>
-          <div class="image" v-if="!pending(matchWeek.status)">
+          <div class="image" v-if="!pending(matchWeek.status) && smAndUp">
             <team-image
               :type="'team'"
               :size="'tiny'"
               :id="matchWeek.premierLeagueLeader.team.id"
             />
           </div>
-          <div class="premier-league-leader">
+          <div class="premier-league-leader" v-if="smAndUp">
             <template v-if="!pending(matchWeek.status)">
               <template v-if="smAndDown">
                 {{ matchWeek.premierLeagueLeader.team.code }}
@@ -206,6 +206,12 @@ export default {
   }
   .status {
     min-width: 3.4rem;
+  }
+}
+
+.v-application-xs {
+  .status {
+    margin-left: auto;
   }
 }
 </style>

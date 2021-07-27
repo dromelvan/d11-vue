@@ -5,9 +5,10 @@
     v-bind:class="'ranking-' + seasonStat.ranking"
   >
     <v-list-item-title class="table-stat">
-      <template v-if="smAndUp">
+      <template>
         <!-- Ranking -------------->
         <div class="ranking emphasised">{{ seasonStat.ranking }}</div>
+        <!-- Image ---------------->
         <div class="image">
           <template v-if="['team'].includes(view)">
             <team-image size="tiny" :id="seasonStat.team.id" />
@@ -77,21 +78,31 @@
           </div>
         </div>
         <!-- Matches played -->
-        <div class="matches-played stat after-main-item">
+        <div class="matches-played stat after-main-item" v-if="smAndUp">
           {{ seasonStat.matchesPlayed }}
         </div>
         <!-- Matches won ----->
-        <div class="matches-won stat">{{ seasonStat.matchesWon }}</div>
+        <div class="matches-won stat" v-if="smAndUp">
+          {{ seasonStat.matchesWon }}
+        </div>
         <!-- Matches drawn --->
-        <div class="matches-drawn stat">{{ seasonStat.matchesDrawn }}</div>
+        <div class="matches-drawn stat" v-if="smAndUp">
+          {{ seasonStat.matchesDrawn }}
+        </div>
         <!-- Matches lost ---->
-        <div class="matches-lost stat">{{ seasonStat.matchesLost }}</div>
+        <div class="matches-lost stat" v-if="smAndUp">
+          {{ seasonStat.matchesLost }}
+        </div>
         <!-- Goals for ------->
-        <div class="goals-for stat">{{ seasonStat.goalsFor }}</div>
+        <div class="goals-for stat" v-if="smAndUp">
+          {{ seasonStat.goalsFor }}
+        </div>
         <!-- Goals against --->
-        <div class="goals-against stat">{{ seasonStat.goalsAgainst }}</div>
+        <div class="goals-against stat" v-if="smAndUp">
+          {{ seasonStat.goalsAgainst }}
+        </div>
         <!-- Goal difference -->
-        <div class="goal-difference stat">
+        <div class="goal-difference stat" v-if="smAndUp">
           <template v-if="seasonStat.goalDifference > 0">+</template>
           {{ seasonStat.goalDifference }}
         </div>
@@ -250,6 +261,19 @@ export default {
   .theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled).ranking-2,
   .theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled).ranking-3 {
     color: white !important;
+  }
+}
+
+.v-application-xs {
+  .image {
+    padding-left: $d11-spacer / 2;
+  }
+  .v-list-item {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+  .points {
+    margin-left: auto;
   }
 }
 </style>
