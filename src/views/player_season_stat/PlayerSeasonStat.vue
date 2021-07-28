@@ -244,7 +244,7 @@ export default {
         return {
           text: this.smAndUp
             ? this.playerSeasonStat.team.name
-            : this.playerSeasonStat.team.code,
+            : this.playerSeasonStat.team.shortName,
           name: "team",
           params: { id: this.playerSeasonStat.team.id }
         };

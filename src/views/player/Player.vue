@@ -28,7 +28,7 @@
       <template v-if="player && season">
         <div class="header-title">
           <h1>{{ player.name }}</h1>
-          <div class="external-link">
+          <div class="external-link" v-if="smAndUp">
             <a
               class="team-link"
               target="_blank"
@@ -45,7 +45,7 @@
           <h4>Season {{ season.name }}</h4>
         </div>
         <div class="horizontal">
-          <div class="player-image">
+          <div class="player-image" v-if="smAndUp">
             <player-image :size="'large'" :fileName="player.photoFileName" />
           </div>
 
@@ -67,7 +67,7 @@
               />
               {{ playerSeasonStat.d11Team.name }}
             </div>
-            <div class="rating-mom">
+            <div class="rating-mom" v-if="smAndUp">
               {{ playerRating(playerSeasonStat.rating) }} avg rating
               <template
                 v-if="
@@ -87,17 +87,17 @@
                 MoM
               </template>
             </div>
-            <div class="goals">
+            <div class="goals" v-if="smAndUp">
               {{ playerSeasonStat.goals }} goals,
               {{ playerSeasonStat.goalAssists }} assists
             </div>
-            <div class="cards">
+            <div class="cards" v-if="smAndUp">
               <yellow-card-icon />
               {{ playerSeasonStat.yellowCards }}
               <red-card-icon />
               {{ playerSeasonStat.redCards }}
             </div>
-            <div class="appearances">
+            <div class="appearances" v-if="smAndUp">
               {{ playerSeasonStat.gamesStarted }}
               {{ playerSeasonStat.gamesStarted | pluralize("start") }},
               {{ playerSeasonStat.substitutionsOn }}
@@ -106,13 +106,13 @@
           </div>
 
           <div class="player-info">
-            <div class="date-of-birth" v-if="player.dateOfBirth">
+            <div class="date-of-birth" v-if="player.dateOfBirth && smAndUp">
               Born {{ player.dateOfBirth | moment("MMMM Do YYYY") }}
             </div>
-            <div class="age" v-if="player.dateOfBirth">
+            <div class="age" v-if="player.dateOfBirth && smAndUp">
               {{ playerAge(player.dateOfBirth) }} old
             </div>
-            <div class="country">
+            <div class="country" v-if="smAndUp">
               <country-image :size="'tiny'" :iso="player.country.iso" />
               {{ player.country.name }}
             </div>
@@ -280,6 +280,13 @@ export default {
   white-space: nowrap;
   img {
     padding-right: $d11-spacer;
+  }
+}
+
+.v-application-xs {
+  .player-season-stats {
+    margin-top: unset;
+    padding-right: unset;
   }
 }
 </style>

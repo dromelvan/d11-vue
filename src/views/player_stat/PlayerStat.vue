@@ -8,7 +8,7 @@
     }"
   >
     <v-list-item-title class="player-stat">
-      <template v-if="smAndUp">
+      <template>
         <!-- Match date ------------------>
         <div class="match-date" v-if="['player'].includes(view)">
           <template v-if="!this.postponed(playerStat.match.status)">
@@ -27,7 +27,7 @@
           </template>
         </div>
         <!-- Kickoff ----------------->
-        <div class="kickoff" v-if="['player'].includes(view)">
+        <div class="kickoff" v-if="['player'].includes(view) && smAndUp">
           <template
             v-if="
               !this.postponed(playerStat.match.status) &&
@@ -70,7 +70,8 @@
           class="man-of-the-match"
           v-if="
             ['match', 'd11Match', 'player'].includes(view) &&
-              (playerStat.manOfTheMatch || playerStat.sharedManOfTheMatch)
+              (playerStat.manOfTheMatch || playerStat.sharedManOfTheMatch) &&
+              smAndUp
           "
         >
           <span v-if="mdAndUp">Man of the Match</span>
@@ -83,7 +84,8 @@
           v-if="
             ['d11Match', 'player'].includes(view) &&
               playerStat.lineup >= 1 &&
-              active(playerStat.match.status)
+              active(playerStat.match.status) &&
+              smAndUp
           "
         >
           <elapsed :elapsedTime="playerStat.match.elapsed" />
@@ -118,15 +120,16 @@
             :class="{
               'after-main-item': ['match'].includes(view)
             }"
+            v-if="smAndUp"
           >
-            <template v-if="playerStat.goals > 0">{{
+            <template v-if="playerStat.goals > 0 && smAndUp">{{
               playerStat.goals
             }}</template
             ><template v-else>&nbsp;</template>
           </div>
 
           <!-- Own goals ------------------->
-          <div class="own-goals">
+          <div class="own-goals" v-if="smAndUp">
             <template v-if="playerStat.ownGoals > 0">{{
               playerStat.ownGoals
             }}</template
@@ -134,7 +137,7 @@
           </div>
 
           <!-- Assists --------------------->
-          <div class="goal-assists">
+          <div class="goal-assists" v-if="smAndUp">
             <template v-if="playerStat.goalAssists > 0">{{
               playerStat.goalAssists
             }}</template
@@ -153,7 +156,7 @@
           </div>
 
           <!-- Cards ----------------------->
-          <div class="cards">
+          <div class="cards" v-if="smAndUp">
             <yellow-card-icon v-if="playerStat.yellowCardTime > 0" />
             <template v-if="playerStat.yellowCardTime > 0"
               >{{ playerStat.yellowCardTime }}'</template
@@ -168,7 +171,7 @@
           </div>
 
           <!-- Substitutions --------------->
-          <div class="substitutions">
+          <div class="substitutions" v-if="smAndUp">
             <substitution-on-icon v-if="playerStat.substitutionOnTime > 0" />
             <template v-if="playerStat.substitutionOnTime > 0">
               {{ playerStat.substitutionOnTime }}'
@@ -186,7 +189,7 @@
           </div>
 
           <!-- Rating ---------------------->
-          <div class="rating">
+          <div class="rating" v-if="smAndUp">
             <template v-if="playerStat.rating > 0">{{
               (playerStat.rating / 100).toFixed(2)
             }}</template
@@ -194,47 +197,52 @@
           </div>
         </template>
 
-        <!-- Unused substitute ----------->
-        <div
-          class="unused-substitute"
-          v-else-if="playerStat.lineup === 1"
-          :class="{
-            'after-main-item': ['match'].includes(view),
-            narrow: smAndDown && ['d11Match'].includes(view)
-          }"
-        >
-          Unused Substitute
-        </div>
+        <template v-else-if="smAndUp">
+          <!-- Unused substitute ----------->
+          <div
+            class="unused-substitute"
+            v-if="playerStat.lineup === 1"
+            :class="{
+              'after-main-item': ['match'].includes(view),
+              narrow: smAndDown && ['d11Match'].includes(view)
+            }"
+          >
+            Unused Substitute
+          </div>
 
-        <!-- Match not played ------------>
-        <div
-          class="match-not-played"
-          v-else-if="pending(playerStat.match.status)"
-          :class="{
-            'after-main-item': ['match'].includes(view),
-            narrow: smAndDown && ['d11Match'].includes(view)
-          }"
-        >
-          Kickoff
-          {{ playerStat.match.datetime | moment("DD.MM YYYY [at] HH:mm") }}
-        </div>
+          <!-- Match not played ------------>
+          <div
+            class="match-not-played"
+            v-else-if="pending(playerStat.match.status)"
+            :class="{
+              'after-main-item': ['match'].includes(view),
+              narrow: smAndDown && ['d11Match'].includes(view)
+            }"
+          >
+            Kickoff
+            {{ playerStat.match.datetime | moment("DD.MM YYYY [at] HH:mm") }}
+          </div>
 
-        <!-- Did not participate --------->
-        <div
-          class="did-not-participate"
-          v-else
-          :class="{
-            'after-main-item': ['match'].includes(view),
-            narrow: smAndDown && ['d11Match'].includes(view)
-          }"
-        >
-          Did not participate
-        </div>
+          <!-- Did not participate --------->
+          <div
+            class="did-not-participate"
+            v-else
+            :class="{
+              'after-main-item': ['match'].includes(view),
+              narrow: smAndDown && ['d11Match'].includes(view)
+            }"
+          >
+            Did not participate
+          </div>
+        </template>
 
         <!-- Points ---------------------->
         <div class="points">
           <template v-if="!pending(playerStat.match.status)">
-            {{ playerStat.points }}
+            <template v-if="smAndUp || participated(playerStat)">
+              {{ playerStat.points }}
+            </template>
+            <template v-else> ({{ playerStat.points }}) </template>
           </template>
         </div>
 
@@ -259,6 +267,11 @@
             {{ playerStat.d11Team.name }}
           </template>
           <template v-else-if="!playerStat.d11Team.dummy && smAndDown">
+            <d11-team-image
+              size="tiny"
+              :id="playerStat.d11Team.id"
+              v-if="isView(['player']) && xs"
+            />
             {{ playerStat.d11Team.code }}
           </template>
           <template v-else>&nbsp;</template>
@@ -512,6 +525,13 @@ export default {
     .player-stat-container {
       padding: 0;
       .player-stat {
+        .match-date {
+          min-width: 3em;
+        }
+        .match-week {
+          min-width: 2.2em !important;
+        }
+
         .match-not-played,
         .did-not-participate,
         .unused-substitute {
@@ -520,6 +540,19 @@ export default {
         }
         .points {
           width: 1.8em;
+        }
+      }
+    }
+  }
+
+  .player {
+    .list-container {
+      .player-stat-container {
+        .player-stat {
+          .points {
+            min-width: 2em;
+            //background: cyan;
+          }
         }
       }
     }
