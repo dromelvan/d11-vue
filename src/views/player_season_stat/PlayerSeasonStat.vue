@@ -1,7 +1,7 @@
 <template>
   <list-container-item class="player-season-stat-container" :to="to">
     <v-list-item-title class="player-season-stat">
-      <template v-if="smAndUp">
+      <template>
         <!-- Season ---------------------->
         <div class="season" v-if="isView(['player'])">
           {{ playerSeasonStat.season.name }}
@@ -20,7 +20,7 @@
         <!-- Player image ---------------->
         <div
           class="image"
-          v-if="isView(['team', 'd11Team', 'transferListing'])"
+          v-if="isView(['team', 'd11Team', 'transferListing']) && smAndUp"
         >
           <player-image
             :size="'tiny'"
@@ -56,18 +56,18 @@
         </div>
         <template v-if="this.participated(playerSeasonStat)">
           <!-- Appearances ----------------------->
-          <div class="appearances">
+          <div class="appearances" v-if="smAndUp">
             {{ playerSeasonStat.gamesStarted }}/{{
               playerSeasonStat.substitutionsOn
             }}
           </div>
           <!-- Goals ----------------------->
-          <div class="goals">
+          <div class="goals" v-if="smAndUp">
             {{ playerSeasonStat.goals > 0 ? playerSeasonStat.goals : "&nbsp;" }}
           </div>
 
           <!-- Own goals ------------------->
-          <div class="own-goals">
+          <div class="own-goals" v-if="smAndUp">
             {{
               playerSeasonStat.ownGoals > 0
                 ? playerSeasonStat.ownGoals
@@ -76,7 +76,7 @@
           </div>
 
           <!-- Assists --------------------->
-          <div class="goal-assists">
+          <div class="goal-assists" v-if="smAndUp">
             {{
               playerSeasonStat.goalAssists > 0
                 ? playerSeasonStat.goalAssists
@@ -85,7 +85,7 @@
           </div>
 
           <!-- Cards --------------------->
-          <div class="cards">
+          <div class="cards" v-if="smAndUp">
             <template v-if="playerSeasonStat.yellowCards > 0">
               <yellow-card-icon />
               {{ playerSeasonStat.yellowCards }}
@@ -97,7 +97,7 @@
           </div>
 
           <!-- MoMs ----------------------->
-          <div class="man-of-the-match">
+          <div class="man-of-the-match" v-if="smAndUp">
             <template
               v-if="
                 playerSeasonStat.manOfTheMatch > 0 &&
@@ -117,7 +117,7 @@
           </div>
 
           <!-- Rating --------------------->
-          <div class="rating">
+          <div class="rating" v-if="smAndUp">
             {{ (playerSeasonStat.rating / 100).toFixed(2) }}
           </div>
 
@@ -134,7 +134,7 @@
         </template>
         <template v-else>
           <!-- Did not participate --------->
-          <div class="did-not-participate">
+          <div class="did-not-participate" v-if="smAndUp">
             {{
               playerSeasonStat.season &&
               this.finished(playerSeasonStat.season.status)
@@ -349,6 +349,19 @@ export default {
         width: 22.9em;
       }
     }
+  }
+}
+
+.v-application-xs {
+  .player {
+    margin-right: auto;
+  }
+  .d11-team {
+    width: 3.5em;
+  }
+  .v-list-item {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
   }
 }
 </style>

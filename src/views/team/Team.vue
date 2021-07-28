@@ -28,7 +28,7 @@
       <template v-if="team && season">
         <div class="header-title">
           <h1>{{ team.name }}</h1>
-          <div class="external-link">
+          <div class="external-link" v-if="smAndUp">
             <a class="team-link" target="_blank" :href="team.url">
               Official Site
             </a>
@@ -40,7 +40,8 @@
         </div>
         <div class="horizontal">
           <div class="team-image">
-            <team-image :size="'large'" :id="team.id" />
+            <team-image :size="'large'" :id="team.id" v-if="smAndUp" />
+            <team-image :size="'medium'" :id="team.id" v-else />
           </div>
 
           <div class="team-season-stats" v-if="teamSeasonStat">
@@ -54,13 +55,13 @@
               {{ teamSeasonStat.winCount | ordinal({ includeNumber: true }) }}
               league victory
             </div>
-            <div class="goals-for">
+            <div class="goals-for" v-if="smAndUp">
               {{ teamSeasonStat.goalsFor }} goals scored
             </div>
-            <div class="goals-against">
+            <div class="goals-against" v-if="smAndUp">
               {{ teamSeasonStat.goalsAgainst }} goals conceded
             </div>
-            <div class="goal-difference">
+            <div class="goal-difference" v-if="smAndUp">
               <template v-if="teamSeasonStat.goalDifference > 0">
                 +{{ teamSeasonStat.goalDifference }}
               </template>
@@ -69,7 +70,7 @@
               </template>
               goal difference
             </div>
-            <div class="team-form">
+            <div class="team-form" v-if="smAndUp">
               <result-indicator
                 v-for="formMatchPoint in formMatchPoints"
                 :key="formMatchPoint.index"
@@ -78,7 +79,7 @@
             </div>
           </div>
 
-          <div class="team-info">
+          <div class="team-info" v-if="smAndUp">
             <div class="established">Established {{ team.established }}</div>
             <div class="stadium">
               <v-icon medium class="mdi-icon">mdi-stadium</v-icon>
@@ -246,5 +247,12 @@ export default {
 
 .no-data {
   padding: $d11-spacer;
+}
+
+.v-application-xs {
+  .team-season-stats {
+    margin-top: unset;
+    padding-right: unset;
+  }
 }
 </style>

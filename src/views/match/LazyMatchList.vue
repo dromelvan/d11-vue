@@ -18,7 +18,7 @@
             <span>The date of the match</span>
           </v-tooltip>
         </div>
-        <div class="kickoff" v-if="['team'].includes(view)">
+        <div class="kickoff" v-if="['team'].includes(view) && smAndUp">
           <v-tooltip top>
             <template v-slot:activator="{ on, attrs }">
               <span v-bind="attrs" v-on="on">Kickoff</span>
@@ -35,7 +35,7 @@
             <span>The match week the match is played in</span>
           </v-tooltip>
         </div>
-        <div class="team home" v-if="['team'].includes(view)">
+        <div class="team home" v-if="['team'].includes(view) && smAndUp">
           <v-tooltip top>
             <template v-slot:activator="{ on, attrs }">
               <span v-bind="attrs" v-on="on">Home Team</span>
@@ -43,7 +43,7 @@
             <span>The home team for the match</span>
           </v-tooltip>
         </div>
-        <div class="score" v-if="['team'].includes(view)">
+        <div class="score" v-if="['team'].includes(view) && smAndUp">
           <v-tooltip top>
             <template v-slot:activator="{ on, attrs }">
               <span v-bind="attrs" v-on="on">Result</span>
@@ -51,7 +51,7 @@
             <span>The result of the match, if it has been played</span>
           </v-tooltip>
         </div>
-        <div class="team away" v-if="['team'].includes(view)">
+        <div class="team away" v-if="['team'].includes(view) && smAndUp">
           <v-tooltip top>
             <template v-slot:activator="{ on, attrs }">
               <span v-bind="attrs" v-on="on">Away Team</span>
@@ -59,7 +59,7 @@
             <span>The away team for the match</span>
           </v-tooltip>
         </div>
-        <div class="elapsed" v-if="['team'].includes(view)">
+        <div class="elapsed" v-if="['team'].includes(view) && smAndUp">
           <v-tooltip top>
             <template v-slot:activator="{ on, attrs }">
               <span v-bind="attrs" v-on="on">Elapsed</span>
@@ -171,6 +171,15 @@ export default {
     .team {
       min-width: 10.5em;
     }
+  }
+}
+
+.v-application-xs {
+  .match-date {
+    min-width: 3em;
+  }
+  .match-week {
+    min-width: 1.5em;
   }
 }
 </style>

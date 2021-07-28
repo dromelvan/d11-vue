@@ -1,15 +1,7 @@
 <template>
   <div class="list-container-header">
-    <!-- XS device header --------------------------------------------------->
-
-    <template v-if="xs">
-      <div class="position main-item">{{ context }}</div>
-      <div class="points">P.</div>
-    </template>
-
     <!-- Sm and up device header -------------------------------------------->
-
-    <template v-if="smAndUp">
+    <template>
       <!-- Position ------------------>
       <div v-if="context" class="context">{{ context }}</div>
       <!-- Season ------------------->
@@ -64,7 +56,7 @@
         </v-tooltip>
       </div>
       <!-- Appearances ------------------->
-      <div class="appearances">
+      <div class="appearances" v-if="smAndUp">
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
             <span v-bind="attrs" v-on="on">Apps</span>
@@ -75,7 +67,7 @@
         </v-tooltip>
       </div>
       <!-- Goals --------------------->
-      <div class="goals">
+      <div class="goals" v-if="smAndUp">
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
             <span v-bind="attrs" v-on="on">Goals</span>
@@ -84,7 +76,7 @@
         </v-tooltip>
       </div>
       <!-- Own goals ----------------->
-      <div class="own-goals">
+      <div class="own-goals" v-if="smAndUp">
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
             <span v-bind="attrs" v-on="on">OGs</span>
@@ -93,7 +85,7 @@
         </v-tooltip>
       </div>
       <!-- Goal assists -------------->
-      <div class="goal-assists">
+      <div class="goal-assists" v-if="smAndUp">
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
             <span v-bind="attrs" v-on="on">Ass.</span>
@@ -102,7 +94,7 @@
         </v-tooltip>
       </div>
       <!-- Cards --------------------->
-      <div class="cards">
+      <div class="cards" v-if="smAndUp">
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
             <span v-bind="attrs" v-on="on">Cards</span>
@@ -111,7 +103,7 @@
         </v-tooltip>
       </div>
       <!-- MoM ---------------------->
-      <div class="man-of-the-match">
+      <div class="man-of-the-match" v-if="smAndUp">
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
             <span v-bind="attrs" v-on="on">MoM</span>
@@ -120,7 +112,7 @@
         </v-tooltip>
       </div>
       <!-- Rating ------------------->
-      <div class="rating">
+      <div class="rating" v-if="smAndUp">
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
             <span v-bind="attrs" v-on="on">Rating</span>
@@ -256,6 +248,15 @@ export default {
     .d11-team {
       width: 3.5em;
     }
+  }
+}
+
+.v-application-xs {
+  .context {
+    margin-right: auto;
+  }
+  .d11-team {
+    width: 3.5em;
   }
 }
 </style>

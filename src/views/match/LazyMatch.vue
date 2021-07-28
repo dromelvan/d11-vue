@@ -16,8 +16,11 @@
       <!-- XS view ------------------------>
       <template v-if="xs">
         <div class="match-result">
-          <div>
-            <div>K/O</div>
+          <div class="match-date">
+            <div v-if="isView(['team'])">
+              {{ match.datetime | moment("DD.MM") }}
+            </div>
+            <div v-else>K/O</div>
             <div>
               <template v-if="!this.postponed(match.status)">
                 {{ match.datetime | moment("HH:mm") }}
@@ -26,6 +29,10 @@
                 PP
               </template>
             </div>
+          </div>
+          <!-- Match Week -------------->
+          <div class="match-week" v-if="isView(['team'])">
+            {{ match.matchWeek.matchWeekNumber }}
           </div>
           <div>
             <div class="image home">
@@ -350,6 +357,15 @@ export default {
     .match-result {
       display: flex;
       width: 100%;
+    }
+
+    .match-date {
+      min-width: 3em;
+    }
+    .match-week {
+      min-width: 1.5em;
+      margin-top: auto;
+      margin-bottom: auto;
     }
 
     .image,

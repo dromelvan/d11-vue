@@ -33,15 +33,13 @@
           <div class="header-content">
             <slot />
           </div>
-          <div
-            class="navigation-button-container next"
-            v-if="nextLink && nextLink.show"
-          >
+          <div class="navigation-button-container next">
             <navigation-button
               :to="nextLink"
               :size="smAndUp ? 50 : 20"
               :padding="smAndUp ? 20 : 10"
               :direction="'right'"
+              v-if="nextLink && nextLink.show"
             />
           </div>
         </div>
@@ -185,11 +183,16 @@ export default {
           //background-image: url("../../assets/images/app-bar-background-sm-and-down.png");
           .navigation-button-container {
             align-items: unset;
+            min-width: 2.25em;
           }
 
           .header-content {
             .header-title {
               font-size: 1.2em;
+            }
+            .horizontal {
+              display: unset;
+              text-align: center;
             }
           }
         }

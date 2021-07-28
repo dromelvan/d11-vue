@@ -81,7 +81,7 @@ export default {
   .list-container {
     .list-container-header > *,
     .v-list-item {
-      padding-left: $d11-spacer;
+      //padding-left: $d11-spacer;
       padding-right: $d11-spacer;
     }
   }
