@@ -45,7 +45,7 @@
           >
             <v-list-item-title class="transfer">
               <!-- Player image ---------------->
-              <div class="image">
+              <div class="image" v-if="smAndUp">
                 <player-image
                   :size="'tiny'"
                   :fileName="transfer.player.photoFileName"
@@ -62,7 +62,12 @@
               <!-- D11 Team -------------------->
               <div class="d11-team">
                 <d11-team-image size="tiny" :id="transfer.d11Team.id" />
-                {{ transfer.d11Team.name }}
+                <template v-if="smAndUp">
+                  {{ transfer.d11Team.name }}
+                </template>
+                <template v-else>
+                  {{ transfer.d11Team.code }}
+                </template>
               </div>
             </v-list-item-title>
           </list-container-item>
@@ -122,5 +127,12 @@ export default {
 .d11-team {
   text-align: left !important;
   width: 15em;
+}
+
+.v-application-xs {
+  .d11-team {
+    width: unset;
+    min-width: 4em;
+  }
 }
 </style>

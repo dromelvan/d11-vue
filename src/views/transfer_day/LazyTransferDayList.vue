@@ -10,11 +10,16 @@
       <list-container>
         <template v-slot:header>
           <div class="list-container-header">
-            <div class="transfer-day">
+            <div class="transfer-day-number">
               Transfer Day
             </div>
             <div class="datetime after-main-item">
-              Transfer Deadline
+              <template v-if="smAndUp">
+                Transfer Deadline
+              </template>
+              <template v-else>
+                Deadline
+              </template>
             </div>
             <div class="status">
               Status
@@ -31,9 +36,15 @@
                 Transfer day {{ transferDay.transferDayNumber }}
               </div>
               <div class="datetime after-main-item">
-                {{
-                  transferDay.datetime | moment("dddd, MMMM Do YYYY [at] HH:mm")
-                }}
+                <template v-if="smAndUp">
+                  {{
+                    transferDay.datetime
+                      | moment("dddd, MMMM Do YYYY [at] HH:mm")
+                  }}
+                </template>
+                <template v-else>
+                  {{ transferDay.datetime | moment("MM.DD YY [at] HH:mm") }}
+                </template>
               </div>
               <div class="status">
                 {{ transferDay.status }}
@@ -87,5 +98,15 @@ export default {
 .status {
   min-width: 5em;
   text-align: left !important;
+}
+
+.v-application-xs {
+  .transfer-day-number {
+    text-align: left !important;
+    min-width: 6.5em;
+  }
+  .datetime {
+    min-width: 8em;
+  }
 }
 </style>
