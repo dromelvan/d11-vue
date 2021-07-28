@@ -355,7 +355,8 @@ export default {
 }
 
 .v-application-xs {
-  .d11-team {
+  .d11-team,
+  .player-season-stats {
     .player {
       padding-left: 0px !important;
     }
