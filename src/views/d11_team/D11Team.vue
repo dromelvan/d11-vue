@@ -34,7 +34,8 @@
         </div>
         <div class="horizontal">
           <div class="d11-team-image">
-            <d11-team-image :size="'large'" :id="d11Team.id" />
+            <d11-team-image :size="'large'" :id="d11Team.id" v-if="smAndUp" />
+            <d11-team-image :size="'medium'" :id="d11Team.id" v-else />
           </div>
 
           <div class="d11-team-season-stats" v-if="d11TeamSeasonStat">
@@ -50,13 +51,13 @@
               }}
               D11 league victory
             </div>
-            <div class="goals-for">
+            <div class="goals-for" v-if="smAndUp">
               {{ d11TeamSeasonStat.goalsFor }} goals scored
             </div>
-            <div class="goals-against">
+            <div class="goals-against" v-if="smAndUp">
               {{ d11TeamSeasonStat.goalsAgainst }} goals conceded
             </div>
-            <div class="goal-difference">
+            <div class="goal-difference" v-if="smAndUp">
               <template v-if="d11TeamSeasonStat.goalDifference > 0">
                 +{{ d11TeamSeasonStat.goalDifference }}
               </template>
@@ -65,7 +66,7 @@
               </template>
               goal difference
             </div>
-            <div class="team-form">
+            <div class="team-form" v-if="smAndUp">
               <result-indicator
                 v-for="formMatchPoint in formMatchPoints"
                 :key="formMatchPoint.index"
@@ -238,5 +239,12 @@ export default {
 
 .no-data {
   padding: $d11-spacer;
+}
+
+.v-application-xs {
+  .d11-team-season-stats {
+    margin-top: unset;
+    padding-right: unset;
+  }
 }
 </style>

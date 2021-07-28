@@ -258,5 +258,8 @@ export default {
   .d11-team {
     width: 3.5em;
   }
+  .team {
+    width: 3.5em;
+  }
 }
 </style>

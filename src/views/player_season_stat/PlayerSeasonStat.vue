@@ -207,6 +207,8 @@ export default {
     maxNameLength() {
       if (this.$vuetify.breakpoint.lgAndUp) {
         return 100;
+      } else if (this.$vuetify.breakpoint.xs) {
+        return 20;
       }
       return 22;
     },
@@ -353,10 +355,18 @@ export default {
 }
 
 .v-application-xs {
+  .d11-team {
+    .player {
+      padding-left: 0px !important;
+    }
+  }
   .player {
-    margin-right: auto;
+    margin-right: auto !important;
   }
   .d11-team {
+    width: 3.5em;
+  }
+  .team {
     width: 3.5em;
   }
   .v-list-item {
