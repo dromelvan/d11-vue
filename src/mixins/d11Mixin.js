@@ -16,6 +16,11 @@ const d11Mixin = {
         JSON.parse(localStorage.getItem("currentTransferWindow")) || { id: 1 }
       );
     },
+    currentTransferDay: function() {
+      return (
+        JSON.parse(localStorage.getItem("currentTransferDay")) || { id: 1 }
+      );
+    },
     activeD11Team: function() {
       return JSON.parse(localStorage.getItem("d11-team"));
     },
@@ -27,6 +32,12 @@ const d11Mixin = {
     },
     maxMatchWeekId: function() {
       return this.currentSeason().id * 38 + 1;
+    },
+    maxTransferWindowId: function() {
+      return this.currentTransferWindow().id;
+    },
+    maxTransferDayId: function() {
+      return this.currentTransferDay().id;
     },
     playerValue(value) {
       return (value / 10).toFixed(1);

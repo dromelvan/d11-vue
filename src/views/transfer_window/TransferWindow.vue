@@ -26,7 +26,7 @@
           id: transferWindow ? transferWindow.id + 1 : 0,
           tab: tab
         },
-        show: true
+        show: transferWindow && transferWindow.id < maxTransferWindowId()
       }"
     >
       <template v-if="transferWindow">
@@ -35,7 +35,8 @@
             D11 Draft
           </h1>
           <h1 v-else>
-            Transfer Window {{ transferWindow.transferWindowNumber }}
+            Transfer Window
+            {{ transferWindow.transferWindowNumber }}
           </h1>
         </div>
         <div class="header-subtitle">
@@ -63,7 +64,10 @@
         <v-tabs v-model="tab">
           <v-tab class="transfers-tab" href="#transfers">
             <template v-if="transferWindow">
-              <template v-if="transferWindow.draft">
+              <template v-if="xs">
+                Transfers
+              </template>
+              <template v-else-if="transferWindow.draft">
                 D11 Draft Transfers
               </template>
               <template v-else>

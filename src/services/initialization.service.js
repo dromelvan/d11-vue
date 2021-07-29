@@ -6,14 +6,17 @@ const InitializationService = {
     if (!store.getters.initialized) {
       let seasonPromise = await CurrentService.currentSeason();
       let transferWindowPromise = await CurrentService.currentTransferWindow();
+      let transferDayPromise = await CurrentService.currentTransferDay();
 
       let combinedPromise = await Promise.allSettled([
         seasonPromise,
-        transferWindowPromise
+        transferWindowPromise,
+        transferDayPromise
       ]);
       store.dispatch("initialize", {
         season: combinedPromise[0].value,
-        transferWindow: combinedPromise[1].value
+        transferWindow: combinedPromise[1].value,
+        transferDay: combinedPromise[2].value
       });
     }
   }

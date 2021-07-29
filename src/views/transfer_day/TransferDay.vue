@@ -32,7 +32,7 @@
           id: transferDay ? transferDay.id + 1 : 0,
           tab: tab
         },
-        show: true
+        show: transferDay && transferDay.id < maxTransferDayId()
       }"
     >
       <template v-if="transferDay">
@@ -46,19 +46,30 @@
                 ? "D11 draft"
                 : "Transfer Window " +
                   transferDay.transferWindow.transferWindowNumber
-            }}, Season
+            }}, <template v-if="smAndUp">Season</template>
             {{ transferDay.transferWindow.matchWeek.season.name }}
           </h4>
         </div>
 
         <div class="datetime">
           <v-icon medium class="mdi-icon">mdi-calendar-month</v-icon>
-          Transfer deadline
-          {{ transferDay.datetime | moment("dddd, MMMM Do YYYY [at] HH:mm") }}
+          <template v-if="smAndUp">
+            Transfer deadline
+            {{ transferDay.datetime | moment("dddd, MMMM Do YYYY [at] HH:mm") }}
+          </template>
+          <template v-else>
+            Deadline
+            {{ transferDay.datetime | moment("DD.MM YYYY [at] HH:mm") }}
+          </template>
         </div>
         <div class="match-week">
           <v-icon medium class="mdi-icon">mdi-account-arrow-right</v-icon>
-          Players will be active for their new teams from match week
+          <template v-if="smAndUp">
+            Players will be active for their new teams from match week
+          </template>
+          <template v-else>
+            Players active match week
+          </template>
           {{ transferDay.transferWindow.matchWeek.matchWeekNumber }}
         </div>
       </template>
@@ -72,10 +83,20 @@
             Transfers
           </v-tab>
           <v-tab class="transfer-bids-tab" href="#transfer-bids">
-            Transfer Bids
+            <template v-if="smAndUp">
+              Transfer Bids
+            </template>
+            <template v-else>
+              Bids
+            </template>
           </v-tab>
           <v-tab class="transfer-listings-tab" href="#transfer-listings">
-            Available Players
+            <template v-if="smAndUp">
+              Available Players
+            </template>
+            <template v-else>
+              Players
+            </template>
           </v-tab>
           <v-tabs-items :value="tab">
             <v-tab-item value="transfers">
@@ -184,3 +205,11 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.v-application-xs {
+  .v-tab {
+    width: 33% !important;
+  }
+}
+</style>

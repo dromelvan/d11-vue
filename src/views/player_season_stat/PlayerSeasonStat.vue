@@ -207,6 +207,11 @@ export default {
     maxNameLength() {
       if (this.$vuetify.breakpoint.lgAndUp) {
         return 100;
+      } else if (
+        this.$vuetify.breakpoint.xs &&
+        this.isView("transferListings")
+      ) {
+        return 17;
       } else if (this.$vuetify.breakpoint.xs) {
         return 20;
       }

@@ -16,6 +16,14 @@ const CurrentService = {
     } catch (error) {
       return Promise.reject(error);
     }
+  },
+  async currentTransferDay() {
+    try {
+      const response = new D11BootApi.TransferDayApi().findCurrentTransferDay();
+      return Promise.resolve(response);
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 };
 

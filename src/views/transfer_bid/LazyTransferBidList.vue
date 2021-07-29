@@ -10,10 +10,10 @@
       <list-container>
         <template v-slot:header>
           <div class="list-container-header">
-            <div class="player">
+            <div class="player main-item">
               Player
             </div>
-            <div class="player-ranking after-main-item">
+            <div class="player-ranking" v-if="smAndUp">
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
                   <span v-bind="attrs" v-on="on">#</span>
@@ -23,7 +23,7 @@
                 </span>
               </v-tooltip>
             </div>
-            <div class="d11-team-ranking">
+            <div class="d11-team-ranking" v-if="smAndUp">
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
                   <span v-bind="attrs" v-on="on">D11 #</span>
@@ -33,7 +33,7 @@
                 </span>
               </v-tooltip>
             </div>
-            <div class="bid">
+            <div class="bid" v-if="smAndUp">
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
                   <span v-bind="attrs" v-on="on">Bid</span>
@@ -81,26 +81,28 @@
           >
             <v-list-item-title class="transfer-bid">
               <!-- Player image ---------------->
-              <div class="image">
+              <div class="image" v-if="smAndUp">
                 <player-image
                   :size="'tiny'"
                   :fileName="transferBid.player.photoFileName"
                 />
               </div>
               <!-- Player name ----------------->
-              <div class="player">
+              <div class="player main-item">
                 {{ transferBid.player.name }}
               </div>
               <!-- Player ranking ----------------->
-              <div class="player-ranking after-main-item">
+              <div class="player-ranking" v-if="smAndUp">
                 {{ transferBid.playerRanking }}
               </div>
               <!-- D11 team ranking ---------------->
-              <div class="d11-team-ranking">
+              <div class="d11-team-ranking" v-if="smAndUp">
                 {{ transferBid.d11TeamRanking }}
               </div>
               <!-- Bid ------------------------->
-              <div class="bid">£{{ playerValue(transferBid.fee) }}m</div>
+              <div class="bid" v-if="smAndUp">
+                £{{ playerValue(transferBid.fee) }}m
+              </div>
               <!-- Active Bid ------------------>
               <div class="active-bid">
                 £{{ playerValue(transferBid.activeFee) }}m
@@ -117,7 +119,12 @@
               <!-- D11 Team -------------------->
               <div class="d11-team">
                 <d11-team-image size="tiny" :id="transferBid.d11Team.id" />
-                {{ transferBid.d11Team.name }}
+                <template v-if="smAndUp">
+                  {{ transferBid.d11Team.name }}
+                </template>
+                <template v-else>
+                  {{ transferBid.d11Team.code }}
+                </template>
               </div>
             </v-list-item-title>
           </list-container-item>
@@ -186,10 +193,12 @@ export default {
 
 .active-bid {
   min-width: 4.5em;
+  padding-right: 0px !important;
 }
 
 .successful {
   min-width: 3em;
+  padding-right: 0px !important;
   .mdi-icon {
     color: var(--v-success-base);
   }
@@ -198,5 +207,12 @@ export default {
 .d11-team {
   text-align: left !important;
   width: 15em;
+}
+
+.v-application-xs {
+  .d11-team {
+    width: unset;
+    min-width: 3.9em;
+  }
 }
 </style>

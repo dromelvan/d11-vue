@@ -33,8 +33,13 @@ export default new Vuex.Store({
         "currentTransferWindow",
         JSON.stringify(current.transferWindow)
       );
+      localStorage.setItem(
+        "currentTransferDay",
+        JSON.stringify(current.transferDay)
+      );
       state.current.season = current.season;
-      state.current.transferWndow = current.season;
+      state.current.transferWndow = current.transferWndow;
+      state.current.transferDay = current.transferDay;
       state.status.initialized = true;
     }
   },
