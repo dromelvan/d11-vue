@@ -5,7 +5,7 @@
         >{{ goal.player.name }} {{ goal.time }}'</span
       >
       <span class="goal-text" v-if="xs"
-        >{{ goal.player.lastName }} {{ goal.time }}'</span
+        >{{ goal.player.shortName }} {{ goal.time }}'</span
       >
       <span class="goal-text" v-if="goal.penalty && smAndUp"> (pen)</span>
       <span class="goal-text" v-if="goal.penalty && xs"> (p)</span>
@@ -23,7 +23,7 @@
         >{{ goal.time }}' {{ goal.player.name }}</span
       >
       <span class="goal-text" v-if="xs"
-        >{{ goal.time }}' {{ goal.player.lastName }}</span
+        >{{ goal.time }}' {{ goal.player.shortName }}</span
       >
     </div>
   </div>

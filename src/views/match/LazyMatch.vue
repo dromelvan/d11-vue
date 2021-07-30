@@ -42,7 +42,7 @@
                 :id="match.homeTeam.id"
               />
             </div>
-            <div class="image home">
+            <div class="image away">
               <team-image
                 :type="'team'"
                 :size="'icon'"

@@ -33,7 +33,7 @@
           <div class="header-content">
             <slot />
           </div>
-          <div class="navigation-button-container next">
+          <div class="navigation-button-container next" v-if="!hideNext">
             <navigation-button
               :to="nextLink"
               :size="smAndUp ? 50 : 20"
@@ -57,7 +57,11 @@ export default {
     backgroundPictureAlt: String,
     parentLink: Object,
     previousLink: Object,
-    nextLink: Object
+    nextLink: Object,
+    hideNext: {
+      type: Boolean,
+      default: false
+    }
   },
   components: {
     BackgroundPicture: () => import("@/components/image/BackgroundImage"),

@@ -10,11 +10,12 @@
         name: 'matchWeek',
         params: { id: match ? match.matchWeek.id : 0 }
       }"
+      :hideNext="true"
     >
       <template v-if="match">
         <div class="header-title">
           <h1>Match Week {{ match.matchWeek.matchWeekNumber }}</h1>
-          <div class="external-link">
+          <div class="external-link" v-if="smAndUp">
             <a
               class="match-link"
               target="_blank"
@@ -58,7 +59,7 @@
         </v-container>
 
         <!-- Result ------------------>
-        <div class="match-result">
+        <div class="match-result" v-if="smAndUp">
           <div
             class="team home"
             v-if="mdAndUp || match.homeTeam.name.length < 20"
@@ -94,6 +95,50 @@
           </div>
         </div>
 
+        <div class="match-result" v-else>
+          <div class="team home">
+            <div class="image home">
+              <team-image
+                :type="'team'"
+                :size="'tiny'"
+                :id="match.homeTeam.id"
+              />
+            </div>
+            <div class="team-name">
+              {{ match.homeTeam.shortName }}
+            </div>
+            <div
+              class="highlight"
+              v-if="!pending(match.status) && !postponed(match.status)"
+            >
+              <div class="score">
+                {{ match.homeTeamGoals }}
+              </div>
+            </div>
+          </div>
+
+          <div class="team away">
+            <div class="image away">
+              <team-image
+                :type="'team'"
+                :size="'tiny'"
+                :id="match.awayTeam.id"
+              />
+            </div>
+            <div class="team-name">
+              {{ match.awayTeam.shortName }}
+            </div>
+            <div
+              class="highlight"
+              v-if="!pending(match.status) && !postponed(match.status)"
+            >
+              <div class="score">
+                {{ match.awayTeamGoals }}
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Elapsed ---------------->
         <v-container
           class="elapsed"
@@ -108,7 +153,7 @@
           class="match-goals-container"
           v-if="match.homeTeamGoals > 0 || match.awayTeamGoals > 0"
         >
-          <div class="match-goals">
+          <div class="match-goals" v-if="smAndUp">
             <div class="goals home">
               <goal
                 v-for="goal in match.goals.filter(goal => {
@@ -127,6 +172,23 @@
                 :key="goal.id"
                 :goal="goal"
                 :homeTeamGoal="false"
+              />
+            </div>
+          </div>
+
+          <div class="match-goals" v-else>
+            <div
+              class="goal"
+              v-bind:class="{
+                home: goal.team.id === match.homeTeam.id,
+                away: goal.team.id === match.awayTeam.id
+              }"
+              v-for="goal in match.goals"
+              :key="goal.id"
+            >
+              <goal
+                :goal="goal"
+                :homeTeamGoal="goal.team.id === match.homeTeam.id"
               />
             </div>
           </div>
@@ -298,6 +360,72 @@ export default {
       text-align: left;
       padding-left: 3.5em;
     }
+  }
+}
+
+.v-application-xs {
+  .match-result {
+    display: unset;
+  }
+
+  .time {
+    margin-top: unset;
+    text-align: right;
+  }
+
+  .team {
+    display: flex;
+    width: 100%;
+  }
+
+  .team.home,
+  .team.away {
+    padding: unset;
+  }
+
+  .image.home,
+  .image.away {
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  .team-name {
+    line-height: 32px;
+    vertical-align: middle;
+    padding-top: 4px;
+  }
+
+  .image {
+    min-width: 1em;
+    padding-right: $d11-spacer;
+  }
+
+  .highlight {
+    margin-left: auto;
+  }
+
+  .score {
+    width: unset;
+    min-width: 1.5em;
+  }
+
+  .match-goals {
+    display: unset;
+  }
+
+  .goal.home {
+    text-align: right;
+    padding-right: calc(50% - (18px / 2));
+  }
+
+  .goal.away {
+    text-align: left;
+    padding-left: calc(50% - (18px / 2));
+  }
+
+  .v-tab {
+    width: 50% !important;
   }
 }
 </style>

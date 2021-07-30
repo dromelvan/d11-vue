@@ -42,7 +42,10 @@
           {{ playerStat.match.matchWeek.matchWeekNumber }}
         </div>
         <!-- Player image ---------------->
-        <div class="image" v-if="['match', 'd11Match'].includes(view)">
+        <div
+          class="image"
+          v-if="['match', 'd11Match'].includes(view) && smAndUp"
+        >
           <player-image
             :size="'tiny'"
             :fileName="playerStat.player.photoFileName"
@@ -147,7 +150,7 @@
           <!-- Goals conceded -------------->
           <div
             class="goals-conceded"
-            v-if="['match'].includes(view) || mdAndUp"
+            v-if="(['match'].includes(view) && smAndUp) || mdAndUp"
           >
             <template v-if="playerStat.position.defender">{{
               playerStat.goalsConceded
@@ -189,7 +192,7 @@
           </div>
 
           <!-- Rating ---------------------->
-          <div class="rating" v-if="smAndUp">
+          <div class="rating" v-if="smAndUp || isView(['match'])">
             <template v-if="playerStat.rating > 0">{{
               (playerStat.rating / 100).toFixed(2)
             }}</template
@@ -538,8 +541,19 @@ export default {
           width: unset;
           text-align: right;
         }
+        .player {
+          padding: 0px;
+          margin-right: auto;
+        }
+
         .points {
-          width: 1.8em;
+          width: unset;
+          min-width: 2.2em;
+        }
+
+        .d11-team {
+          width: unset;
+          min-width: 3em;
         }
       }
     }
@@ -551,7 +565,11 @@ export default {
         .player-stat {
           .points {
             min-width: 2em;
-            //background: cyan;
+          }
+
+          .d11-team {
+            width: unset;
+            min-width: 4.6em;
           }
         }
       }

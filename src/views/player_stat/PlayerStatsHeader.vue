@@ -2,7 +2,9 @@
   <div class="list-container-header">
     <template>
       <!-- Position ------------------>
-      <div v-if="context && smAndUp" class="context">{{ context }}</div>
+      <div v-if="context && (smAndUp || isView(['match']))" class="context">
+        {{ context }}
+      </div>
       <!-- Match date ---------------->
       <div class="match-date" v-if="['player'].includes(view)">
         <v-tooltip top>
@@ -82,7 +84,10 @@
         </v-tooltip>
       </div>
       <!-- Goals conceded ------------>
-      <div class="goals-conceded" v-if="['match'].includes(view) || mdAndUp">
+      <div
+        class="goals-conceded"
+        v-if="(['match'].includes(view) && smAndUp) || mdAndUp"
+      >
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
             <span v-bind="attrs" v-on="on">Con.</span>
@@ -109,7 +114,7 @@
         </v-tooltip>
       </div>
       <!-- Rating -------------------->
-      <div class="rating" v-if="smAndUp">
+      <div class="rating" v-if="smAndUp || isView(['match'])">
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
             <span v-bind="attrs" v-on="on">Rating</span>
@@ -256,6 +261,10 @@ export default {
 }
 
 .v-application-xs {
+  .context {
+    margin-right: auto;
+  }
+
   .match-date {
     min-width: 3em;
   }
@@ -266,10 +275,21 @@ export default {
   .match {
     padding: 0px;
   }
+
+  .points {
+    width: unset;
+    min-width: 2.2em;
+  }
+
+  .d11-team {
+    width: unset;
+    min-width: 3em;
+  }
+
   .player {
-    .points {
-      //background: cyan;
-      min-width: 2em;
+    .d11-team {
+      width: unset;
+      min-width: 4.6em;
     }
   }
 }
