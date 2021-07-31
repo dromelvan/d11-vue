@@ -1,8 +1,10 @@
 <template>
   <img
-    :class="'arrow-' + direction + '-image '"
-    :src="`${baseURL}img/icons/arrow-${direction}.png`"
+    v-if="direction === 'down'"
+    class="arrow-down-image"
+    src="@/assets/images/arrow-down.png"
   />
+  <img v-else class="arrow-up-image" src="@/assets/images/arrow-up.png" />
 </template>
 
 <script>
