@@ -379,7 +379,7 @@ export default {
       min-width: 1.5em;
     }
     .team {
-      min-width: 10.5em;
+      min-width: 10em;
     }
   }
 }

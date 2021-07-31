@@ -84,11 +84,17 @@ export default {
 
     .header-navigation {
       background: $overview-dark-background-color;
-      min-height: 3.563em;
+      min-height: 2.5em;
+      max-height: 2.5em;
 
+      .container {
+        padding-top: 7px;
+      }
       span {
+        height: 100%;
         vertical-align: middle;
-        font-size: 22px;
+        text-transform: uppercase;
+        font-size: 14px;
         font-weight: 700;
       }
 
