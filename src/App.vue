@@ -18,6 +18,7 @@
     <v-main>
       <router-view />
     </v-main>
+    <d11-footer />
   </v-app>
 </template>
 
@@ -30,7 +31,8 @@ export default {
   components: {
     AppBarSmAndDown: () => import("@/components/app_bar/AppBarSmAndDown"),
     NavigationDrawer: () => import("@/components/app_bar/NavigationDrawer"),
-    AppBarMdAndUp: () => import("@/components/app_bar/AppBarMdAndUp")
+    AppBarMdAndUp: () => import("@/components/app_bar/AppBarMdAndUp"),
+    D11Footer: () => import("@/components/D11Footer")
   },
   mounted() {
     InitializationService.initialize();

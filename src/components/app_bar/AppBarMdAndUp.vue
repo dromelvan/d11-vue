@@ -136,6 +136,10 @@ export default {
   justify-content: inherit;
 }
 
+.d11-team-image {
+  margin-right: $d11-spacer;
+}
+
 // Tweak menu items.
 .v-menu__content {
   .v-list {
