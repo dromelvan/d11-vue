@@ -47,8 +47,9 @@
             Vue.js is an open-source model–view–viewmodel front end JavaScript
             framework for building user interfaces and single-page applications.
           </p>
-          <p>
-            <a href="http://vuejs.org/">http://vuejs.org/</a>
+          <p style="white-space: nowrap">
+            <a href="http://www.vuejs.org/">http://www.vuejs.org/</a>
+            <span style="color: white">filler</span>
           </p>
         </v-col>
 
@@ -67,6 +68,7 @@
             <a href="http://vuetifyjs.com/">https://vuetifyjs.com/</a>
           </p>
         </v-col>
+
         <v-col md="3" sm="6" xs="12">
           <h2>PostgreSQL</h2>
           <img
@@ -83,7 +85,19 @@
             <a href="http://www.postgresql.org/">http://www.postgresql.org/</a>
           </p>
         </v-col>
-
+        <!--
+        <v-col md="3" sm="6" xs="12">
+          <h2>Vue.js</h2>
+          <img src="@/assets/images/about/vue-js.png" class="technology-icon" />
+          <p>
+            Vue.js is an open-source model–view–viewmodel front end JavaScript
+            framework for building user interfaces and single-page applications.
+          </p>
+          <p>
+            <a href="http://vuejs.org/">http://vuejs.org/</a>
+          </p>
+        </v-col>
+-->
         <v-col md="3" sm="6" xs="12">
           <h2>Docker</h2>
           <img src="@/assets/images/about/docker.png" class="technology-icon" />
