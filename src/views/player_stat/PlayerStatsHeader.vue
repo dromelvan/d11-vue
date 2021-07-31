@@ -2,7 +2,10 @@
   <div class="list-container-header">
     <template>
       <!-- Position ------------------>
-      <div v-if="context && (smAndUp || isView(['match']))" class="context">
+      <div
+        v-if="context && (smAndUp || isView(['match', 'd11Match']))"
+        class="context"
+      >
         {{ context }}
       </div>
       <!-- Match date ---------------->
@@ -288,6 +291,12 @@ export default {
 
   .player {
     .d11-team {
+      width: unset;
+      min-width: 4.6em;
+    }
+  }
+  .d11-match {
+    .team {
       width: unset;
       min-width: 4.6em;
     }

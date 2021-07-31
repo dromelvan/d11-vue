@@ -256,6 +256,7 @@
             {{ playerStat.team.name }}
           </template>
           <template v-else>
+            <team-image :size="'icon'" :id="playerStat.team.id" v-if="xs" />
             {{ playerStat.team.code }}
           </template>
         </div>
@@ -327,6 +328,13 @@ export default {
           maxNameLength -= 6;
         }
       }
+      if (this.isView(["d11Match"])) {
+        if (this.playerStat.lineup < 2 && this.xs) {
+          maxNameLength -= 10;
+        } else if (this.xs) {
+          maxNameLength -= 2;
+        }
+      }
       return maxNameLength;
     },
     to() {
@@ -339,7 +347,7 @@ export default {
             parentLink: this.parentLink
           }
         };
-      } else if (this.view === "player") {
+      } else if (this.view === "player" || this.view === "d11Match") {
         return {
           name: "match",
           params: {
@@ -573,6 +581,13 @@ export default {
           }
         }
       }
+    }
+  }
+
+  .d11-match {
+    .team {
+      width: unset;
+      min-width: 4.6em;
     }
   }
 }

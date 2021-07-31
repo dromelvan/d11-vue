@@ -12,6 +12,7 @@
         name: 'matchWeek',
         params: { id: d11Match ? d11Match.matchWeek.id : 0, tab: 'd11-matches' }
       }"
+      :hideNext="true"
     >
       <div class="header-title" v-if="d11Match">
         <h1>Match Week {{ d11Match.matchWeek.matchWeekNumber }}</h1>
@@ -42,7 +43,7 @@
       </v-container>
 
       <!-- Result ------------------>
-      <div class="match-result">
+      <div class="match-result" v-if="smAndUp">
         <div
           class="team home"
           v-if="d11Match && (mdAndUp || d11Match.homeD11Team.name.length < 20)"
@@ -56,7 +57,7 @@
             {{ d11Match.homeD11Team.shortName }}
           </template>
         </div>
-        <div class="team-points home">
+        <div class="team-points home" v-if="d11Match">
           <template v-if="d11Match"> ({{ d11Match.homeTeamPoints }}) </template>
         </div>
         <div
@@ -74,7 +75,7 @@
         <div class="highlight" v-else>
           <div class="score">vs</div>
         </div>
-        <div class="team-points away">
+        <div class="team-points away" v-if="d11Match">
           <template v-if="d11Match"> ({{ d11Match.awayTeamPoints }}) </template>
         </div>
         <div
@@ -89,6 +90,68 @@
             {{ d11Match.awayD11Team.shortName }}
             <d11-team-image :size="'small'" :id="d11Match.awayD11Team.id" />
           </template>
+        </div>
+      </div>
+
+      <div class="match-result" v-else>
+        <div class="team home">
+          <div class="image home" v-if="d11Match">
+            <d11-team-image
+              :type="'team'"
+              :size="'tiny'"
+              :id="d11Match.homeD11Team.id"
+            />
+          </div>
+          <div class="team-name" v-if="d11Match">
+            {{ d11Match.homeD11Team.name }}
+          </div>
+          <div class="team-d11-points" v-if="d11Match">
+            <template v-if="d11Match">
+              ({{ d11Match.homeTeamPoints }})
+            </template>
+          </div>
+          <div
+            class="highlight"
+            v-if="
+              d11Match &&
+                !pending(d11Match.status) &&
+                !postponed(d11Match.status)
+            "
+          >
+            <div class="score">
+              {{ d11Match.homeTeamGoals }}
+            </div>
+          </div>
+        </div>
+
+        <div class="team away">
+          <div class="image away" v-if="d11Match">
+            <d11-team-image
+              :type="'team'"
+              :size="'tiny'"
+              :id="d11Match.awayD11Team.id"
+            />
+          </div>
+          <div class="team-name" v-if="d11Match">
+            {{ d11Match.awayD11Team.name }}
+          </div>
+          <div class="team-d11-points" v-if="d11Match">
+            <template v-if="d11Match">
+              ({{ d11Match.awayTeamPoints }})
+            </template>
+          </div>
+          <div
+            class="highlight"
+            v-if="
+              d11Match &&
+                !pending(d11Match.status) &&
+                !postponed(d11Match.status)
+            "
+          >
+            <div class="score">
+              {{ d11Match.awayTeamGoals }}
+            </div>
+          </div>
         </div>
       </div>
 
@@ -268,6 +331,60 @@ export default {
 
   span {
     margin: 0 auto;
+  }
+}
+
+.v-application-xs {
+  .match-result {
+    display: unset;
+  }
+
+  .time {
+    margin-top: unset;
+    text-align: right;
+  }
+
+  .team {
+    display: flex;
+    width: 100%;
+  }
+
+  .team.home,
+  .team.away {
+    padding: unset;
+  }
+
+  .image.home,
+  .image.away {
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  .team-name,
+  .team-d11-points {
+    line-height: 32px;
+    vertical-align: middle;
+    padding-top: 4px;
+  }
+
+  .team-d11-points {
+    margin-left: auto;
+    padding-right: $d11-spacer;
+  }
+
+  .image {
+    min-width: 1em;
+    padding-right: $d11-spacer;
+  }
+
+  .score {
+    width: unset;
+    min-width: 1.5em;
+  }
+
+  .v-tab {
+    width: 50% !important;
   }
 }
 </style>
