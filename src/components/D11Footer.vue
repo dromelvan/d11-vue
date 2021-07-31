@@ -24,6 +24,10 @@ export default {
   background: url("../assets/images/app-bar-background.png");
   background-color: var(--v-brand-base);
   color: white;
+  letter-spacing: 0;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 14px;
 
   .footer {
     display: flex;
