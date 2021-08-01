@@ -31,6 +31,9 @@ export default {
     //padding-bottom: $d11-spacer;
     line-height: 2.2em;
     font-weight: 600;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 0px;
   }
 
   .list-container-header > * {

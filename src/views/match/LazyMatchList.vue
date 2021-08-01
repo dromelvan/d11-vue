@@ -115,21 +115,21 @@ export default {
 .match,
 .team {
   .match-date {
-    min-width: 5.8em;
+    min-width: 5.8rem;
     text-align: left;
   }
 
   .kickoff {
     text-align: left;
-    min-width: 3.8em;
+    min-width: 3.8rem;
   }
 
   .match-week {
-    min-width: 6.4em;
+    min-width: 6.4rem;
   }
 
   .team {
-    min-width: 16.5em;
+    min-width: 16.5rem;
   }
   .team.home {
     margin-left: auto;
@@ -142,11 +142,11 @@ export default {
   }
 
   .score {
-    min-width: calc(2em + 88px);
+    min-width: calc(2rem + 88px);
   }
 
   .elapsed {
-    min-width: 4.5em;
+    min-width: 4.5rem;
     text-align: right;
   }
 }
@@ -163,23 +163,23 @@ export default {
   .match,
   .team {
     .match-date {
-      min-width: 3em;
+      min-width: 3rem;
     }
     .match-week {
-      min-width: 1.5em;
+      min-width: 1.5rem;
     }
     .team {
-      min-width: 10.5em;
+      min-width: 10.5rem;
     }
   }
 }
 
 .v-application-xs {
   .match-date {
-    min-width: 3em;
+    min-width: 3rem;
   }
   .match-week {
-    min-width: 1.5em;
+    min-width: 1.5rem;
   }
 }
 </style>

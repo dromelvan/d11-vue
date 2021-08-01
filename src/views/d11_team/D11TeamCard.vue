@@ -30,7 +30,7 @@
             </v-img>
           </v-card-title>
           <v-card-subtitle>
-            <div class="position">Pos</div>
+            <div class="position">P.</div>
             <div class="player">Player</div>
             <div class="fee">Fee</div>
           </v-card-subtitle>
@@ -134,6 +134,13 @@ export default {
   .v-card__subtitle,
   .v-card__text {
     display: flex;
+  }
+
+  .v-card__subtitle {
+    letter-spacing: 0;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
   }
 
   .v-card__text {

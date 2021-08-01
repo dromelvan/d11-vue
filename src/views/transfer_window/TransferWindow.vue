@@ -51,7 +51,12 @@
         </div>
         <div class="match-week">
           <v-icon medium class="mdi-icon">mdi-account-arrow-right</v-icon>
-          Players will be active for their new teams from match week
+          <template v-if="smAndUp">
+            Players will be active for their new teams from match week
+          </template>
+          <template v-else>
+            Players active match week
+          </template>
           {{ transferWindow.matchWeek.matchWeekNumber }}
         </div>
       </template>

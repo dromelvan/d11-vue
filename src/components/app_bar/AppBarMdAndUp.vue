@@ -150,6 +150,9 @@ export default {
 
     .v-list-item__title {
       font-size: 1rem;
+      text-transform: uppercase;
+      font-size: 14px;
+      font-weight: 600;
       color: var(--v-menuText-base);
     }
 

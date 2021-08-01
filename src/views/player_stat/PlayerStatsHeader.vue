@@ -175,24 +175,24 @@ export default {
 .list-container-header {
   .match-date {
     padding-left: $d11-spacer;
-    min-width: 5.8em;
+    min-width: 5.8rem;
     text-align: left !important;
   }
 
   .match {
-    min-width: 4.5em;
+    min-width: 4.5rem;
   }
 
   .player-team {
-    min-width: 2.5em;
+    min-width: 2.5rem;
   }
 
   .kickoff {
-    min-width: 3.8em;
+    min-width: 3.8rem;
   }
 
   .match-week {
-    min-width: 2.5em;
+    min-width: 2.5rem;
     text-align: center;
   }
 
@@ -200,49 +200,49 @@ export default {
   .own-goals,
   .goal-assists,
   .goals-conceded {
-    width: 3em;
+    width: 3rem;
   }
 
   .cards,
   .substitutions {
-    width: 3.5em;
+    width: 3.5rem;
   }
 
   div.unused-substitute,
   div.match-not-played,
   div.did-not-participate {
-    width: 22.4em;
+    width: 22.4rem;
     opacity: 0.6;
   }
 
   div.unused-substitute.narrow,
   div.match-not-played.narrow,
   div.did-not-participate.narrow {
-    width: 19.4em;
+    width: 19.4rem;
   }
 
   .rating,
   .points {
     text-align: right;
-    width: 3.4em;
+    width: 3.4rem;
   }
 
   .team,
   .d11-team {
     padding-left: 6px;
     text-align: left;
-    width: 15em;
+    width: 15rem;
   }
 }
 
 .v-application-md {
   .list-container-header {
     .points {
-      width: 2.4em;
+      width: 2.4rem;
     }
     .team,
     .d11-team {
-      width: 9.8em;
+      width: 9.8rem;
     }
   }
 }
@@ -250,15 +250,15 @@ export default {
 .v-application-sm {
   .list-container-header {
     .match-date {
-      min-width: 3em;
+      min-width: 3rem;
     }
 
     .points {
-      width: 2.4em;
+      width: 2.4rem;
     }
     .team,
     .d11-team {
-      width: 3.5em;
+      width: 3.5rem;
     }
   }
 }
@@ -269,11 +269,11 @@ export default {
   }
 
   .match-date {
-    min-width: 3em;
+    min-width: 3rem;
   }
   .match-week {
     padding: 0px;
-    min-width: 2.2em;
+    min-width: 2.2rem;
   }
   .match {
     padding: 0px;
@@ -281,24 +281,24 @@ export default {
 
   .points {
     width: unset;
-    min-width: 2.2em;
+    min-width: 2.2rem;
   }
 
   .d11-team {
     width: unset;
-    min-width: 3em;
+    min-width: 3rem;
   }
 
   .player {
     .d11-team {
       width: unset;
-      min-width: 4.6em;
+      min-width: 4.6rem;
     }
   }
   .d11-match {
     .team {
       width: unset;
-      min-width: 4.6em;
+      min-width: 4.6rem;
     }
   }
 }

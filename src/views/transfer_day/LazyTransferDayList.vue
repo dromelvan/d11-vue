@@ -91,22 +91,22 @@ export default {
 }
 
 .datetime {
-  min-width: 18em;
+  min-width: 18rem;
   text-align: left !important;
 }
 
 .status {
-  min-width: 5em;
+  min-width: 5rem;
   text-align: left !important;
 }
 
 .v-application-xs {
   .transfer-day-number {
     text-align: left !important;
-    min-width: 6.5em;
+    min-width: 6.5rem;
   }
   .datetime {
-    min-width: 8em;
+    min-width: 8rem;
   }
 }
 </style>

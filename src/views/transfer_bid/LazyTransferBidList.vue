@@ -180,24 +180,24 @@ export default {
 }
 
 .player-ranking {
-  min-width: 2em;
+  min-width: 2rem;
 }
 
 .d11-team-ranking {
-  min-width: 3.5em;
+  min-width: 3.5rem;
 }
 
 .bid {
-  min-width: 4em;
+  min-width: 4rem;
 }
 
 .active-bid {
-  min-width: 4.5em;
+  min-width: 4.5rem;
   padding-right: 0px !important;
 }
 
 .successful {
-  min-width: 3em;
+  min-width: 3rem;
   padding-right: 0px !important;
   .mdi-icon {
     color: var(--v-success-base);
@@ -206,13 +206,13 @@ export default {
 
 .d11-team {
   text-align: left !important;
-  width: 15em;
+  width: 15rem;
 }
 
 .v-application-xs {
   .d11-team {
     width: unset;
-    min-width: 3.9em;
+    min-width: 3.9rem;
   }
 }
 </style>

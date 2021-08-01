@@ -179,7 +179,7 @@ export default {
 .season {
   padding-left: $d11-spacer;
   text-align: left !important;
-  min-width: 5em;
+  min-width: 5rem;
 }
 
 .ranking,
@@ -187,30 +187,30 @@ export default {
 .goals,
 .own-goals,
 .goal-assists {
-  width: 3em;
+  width: 3rem;
 }
 
 .fee {
   padding-right: $d11-spacer;
   text-align: right !important;
-  min-width: 2.3em;
+  min-width: 2.3rem;
 }
 
 .cards {
-  width: 4.5em;
+  width: 4.5rem;
 }
 
 .rating,
 .man-of-the-match {
-  width: 3.2em;
+  width: 3.2rem;
 }
 
 .form {
-  min-width: 11em;
+  min-width: 11rem;
 }
 
 .points {
-  width: 2.5em;
+  width: 2.5rem;
   text-align: right !important;
   padding-right: $d11-spacer;
   padding-left: $d11-spacer;
@@ -220,21 +220,21 @@ export default {
 .d11-team {
   padding-left: 6px;
   text-align: left;
-  width: 15em;
+  width: 15rem;
 }
 
 .team-image-container {
-  min-width: 2.6em;
+  min-width: 2.6rem;
 }
 
 .v-application-md {
   .list-container-header {
     .points {
-      width: 2.4em;
+      width: 2.4rem;
     }
     .team,
     .d11-team {
-      width: 9.8em;
+      width: 9.8rem;
     }
   }
 }
@@ -242,11 +242,11 @@ export default {
 .v-application-sm {
   .list-container-header {
     .points {
-      width: 2.4em;
+      width: 2.4rem;
     }
     .team,
     .d11-team {
-      width: 3.5em;
+      width: 3.5rem;
     }
   }
 }
@@ -256,10 +256,10 @@ export default {
     margin-right: auto;
   }
   .d11-team {
-    width: 3.5em;
+    width: 3.5rem;
   }
   .team {
-    width: 3.5em;
+    width: 3.5rem;
   }
 }
 </style>

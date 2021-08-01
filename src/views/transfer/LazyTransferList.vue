@@ -121,18 +121,18 @@ export default {
 }
 
 .fee {
-  min-width: 4em;
+  min-width: 4rem;
 }
 
 .d11-team {
   text-align: left !important;
-  width: 15em;
+  width: 15rem;
 }
 
 .v-application-xs {
   .d11-team {
     width: unset;
-    min-width: 4em;
+    min-width: 4rem;
   }
 }
 </style>

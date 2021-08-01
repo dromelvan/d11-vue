@@ -133,11 +133,11 @@ export default {
 
 <style lang="scss" scoped>
 .ranking {
-  min-width: 3em;
+  min-width: 3rem;
 }
 
 .stat {
-  min-width: 3.8em;
+  min-width: 3.8rem;
 }
 
 .form {
