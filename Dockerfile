@@ -13,5 +13,6 @@ RUN npm run build
 # m1
 FROM arm64v8/nginx as production-stage
 COPY --from=build-stage /app/dist /usr/share/nginx/html
+COPY ./docker /
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
