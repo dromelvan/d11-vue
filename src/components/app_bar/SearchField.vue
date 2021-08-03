@@ -19,7 +19,7 @@
           <v-list-item-avatar>
             <player-image :fileName="data.item.photoFileName" />
           </v-list-item-avatar>
-          <v-list-item-content dark>
+          <v-list-item-content>
             <v-list-item-title class="player-name" v-html="data.item.name">
             </v-list-item-title>
             <v-list-item-subtitle
@@ -123,8 +123,6 @@ export default {
   max-width: 100px !important;
 
   .v-list {
-    background-color: $menu-background-color;
-
     .v-subheader {
       padding-left: 16px;
     }

@@ -36,6 +36,12 @@
   }
 }
 
+.v-menu__content.v-autocomplete__content {
+  .v-list {
+    background-color: $menu-background-color;
+  }
+}
+
 .v-tabs {
   .v-tab {
     letter-spacing: 0;
