@@ -5,8 +5,7 @@ const AuthenticationService = {
   async login(credentials) {
     try {
       const response = await new D11BootApi.AuthenticationApi().authenticate(
-        credentials.username,
-        credentials.password
+        credentials
       );
       store.dispatch("login", response);
       return Promise.resolve(response);

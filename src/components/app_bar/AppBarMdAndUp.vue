@@ -71,8 +71,8 @@
               My Team
             </v-list-item-title>
           </v-list-item>
-          <v-list-item class="link">
-            <v-list-item-title @click="logout()">
+          <v-list-item class="link" @click="logout()">
+            <v-list-item-title>
               Sign Out
             </v-list-item-title>
           </v-list-item>
