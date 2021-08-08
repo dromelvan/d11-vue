@@ -24,6 +24,10 @@ export default new Vuex.Store({
     loggedIn(state, authentication) {
       localStorage.setItem("d11-token", JSON.stringify(authentication.jwt));
       localStorage.setItem("d11-team", JSON.stringify(authentication.d11Team));
+      localStorage.setItem(
+        "d11-authorities",
+        JSON.stringify(authentication.authorities)
+      );
       state.status.loggedIn = true;
     },
     loggedOut(state) {

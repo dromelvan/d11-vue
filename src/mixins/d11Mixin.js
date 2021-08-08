@@ -8,6 +8,11 @@ const d11Mixin = {
     loggedIn: function() {
       return store.state.status.loggedIn;
     },
+    administrator: function() {
+      return JSON.parse(localStorage.getItem("d11-authorities")).includes(
+        "ROLE_ADMIN"
+      );
+    },
     currentSeason: function() {
       return JSON.parse(localStorage.getItem("currentSeason")) || { id: 1 };
     },

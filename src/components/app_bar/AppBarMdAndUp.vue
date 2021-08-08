@@ -44,7 +44,6 @@
       <v-spacer></v-spacer>
 
       <login-dialog @logging-in="onLoggingIn" v-if="!loggedIn() || loggingIn" />
-      <!-- <create-player-dialog /> -->
 
       <v-menu
         open-on-hover
@@ -55,12 +54,18 @@
       >
         <template v-slot:activator="{ on }">
           <v-btn v-on="on" :ripple="false" text dark>
-            <d11-team-image size="tiny" :id="activeD11Team().id" />
-            {{ activeD11Team().name }}
+            <template v-if="!administrator()">
+              <d11-team-image size="tiny" :id="activeD11Team().id" />
+              {{ activeD11Team().name }}
+            </template>
+            <template v-else>
+              Admin
+            </template>
           </v-btn>
         </template>
         <v-list>
           <v-list-item
+            v-if="!administrator()"
             router
             :ripple="false"
             :to="{
@@ -78,7 +83,7 @@
             </v-list-item-title>
           </v-list-item>
 
-          <create-player-dialog>
+          <create-player-dialog v-if="administrator()">
             <template v-slot:activator="{ open }">
               <v-list-item class="link" @click="openDialog(open)">
                 <v-list-item-title>Add New Player</v-list-item-title>
