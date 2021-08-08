@@ -44,6 +44,7 @@
       <v-spacer></v-spacer>
 
       <login-dialog @logging-in="onLoggingIn" v-if="!loggedIn() || loggingIn" />
+      <!-- <create-player-dialog /> -->
 
       <v-menu
         open-on-hover
@@ -76,6 +77,14 @@
               Sign Out
             </v-list-item-title>
           </v-list-item>
+
+          <create-player-dialog>
+            <template v-slot:activator="{ open }">
+              <v-list-item class="link" @click="openDialog(open)">
+                <v-list-item-title>Add New Player</v-list-item-title>
+              </v-list-item>
+            </template>
+          </create-player-dialog>
         </v-list>
       </v-menu>
 
@@ -92,6 +101,7 @@ export default {
   name: "AppBarMdAndUp",
   components: {
     LoginDialog: () => import("@/views/authentication/LoginDialog"),
+    CreatePlayerDialog: () => import("@/views/admin/CreatePlayerDialog"),
     D11TeamImage: () => import("@/components/image/D11TeamImage"),
     SearchField: () => import("@/components/app_bar/SearchField")
   },
@@ -105,6 +115,9 @@ export default {
     },
     logout: function() {
       AuthenticationService.logout();
+    },
+    openDialog: function(method) {
+      setTimeout(() => method());
     }
   }
 };

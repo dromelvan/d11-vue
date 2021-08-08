@@ -11,6 +11,10 @@ var initialState = {
   },
   current: {
     season: null
+  },
+  cache: {
+    teams: [],
+    d11Teams: []
   }
 };
 
@@ -40,6 +44,10 @@ export default new Vuex.Store({
       state.current.season = current.season;
       state.current.transferWndow = current.transferWndow;
       state.current.transferDay = current.transferDay;
+      state.cache.teams = current.teams;
+      state.cache.d11Teams = current.d11Teams;
+      state.cache.positions = current.positions;
+      state.cache.countries = current.countries;
       state.status.initialized = true;
     }
   },
@@ -64,6 +72,18 @@ export default new Vuex.Store({
     },
     currentTransferWindow: state => {
       return state.current.transferWndow;
+    },
+    teams: state => {
+      return state.cache.teams;
+    },
+    d11Teams: state => {
+      return state.cache.d11Teams;
+    },
+    positions: state => {
+      return state.cache.positions;
+    },
+    countries: state => {
+      return state.cache.countries;
     }
   }
 });

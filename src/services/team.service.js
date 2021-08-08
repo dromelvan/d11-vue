@@ -1,6 +1,14 @@
 import D11BootApi from "./d11BootApi";
 
 const TeamService = {
+  async getTeams() {
+    try {
+      const response = new D11BootApi.TeamApi().findAllTeams();
+      return Promise.resolve(response);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  },
   async getTeamSeasonData(teamId, seasonId) {
     try {
       let teamPromise = new D11BootApi.TeamApi().findTeamById(teamId);

@@ -33,6 +33,17 @@ const PlayerService = {
     } catch (error) {
       return Promise.reject(error);
     }
+  },
+  async insertPlayer(player) {
+    try {
+      let playerApi = new D11BootApi.PlayerApi();
+      D11BootApi.setBearerToken();
+      let response = playerApi.insertPlayer(player);
+      D11BootApi.clearBearerToken();
+      return Promise.resolve(response);
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 };
 

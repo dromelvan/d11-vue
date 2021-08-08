@@ -39,6 +39,31 @@ const d11Mixin = {
     maxTransferDayId: function() {
       return this.currentTransferDay().id;
     },
+    allTeams: function() {
+      return store.state.cache.teams;
+    },
+    allD11Teams: function() {
+      return store.state.cache.d11Teams;
+    },
+    allPositions: function() {
+      return store.state.cache.positions;
+    },
+    allCountries: function() {
+      return store.state.cache.countries;
+    },
+    countryById: function(id) {
+      let result = null;
+      store.state.cache.countries.forEach(country => {
+        if (country.id === id) {
+          result = country;
+        }
+      });
+      return result;
+    },
+    defaultCountry: function() {
+      // The country with id 70 is England.
+      return this.countryById(70);
+    },
     playerValue(value) {
       return (value / 10).toFixed(1);
     },
