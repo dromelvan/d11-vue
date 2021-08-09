@@ -28,6 +28,13 @@
       <template v-if="player && season">
         <div class="header-title">
           <h1>{{ player.name }}</h1>
+          <edit-player-dialog
+            :editPlayer="player"
+            :playerSeasonStat="playerSeasonStat"
+            @player-updated="loadData"
+            v-if="administrator"
+          />
+
           <div class="external-link" v-if="smAndUp">
             <a
               class="team-link"
@@ -195,7 +202,8 @@ export default {
     ContentSection: () => import("@/components/ContentSection"),
     PlayerMatchStats: () => import("@/views/player_stat/PlayerMatchStats"),
     LazyPlayerSeasonStatList: () =>
-      import("@/views/player_season_stat/LazyPlayerSeasonStatList")
+      import("@/views/player_season_stat/LazyPlayerSeasonStatList"),
+    EditPlayerDialog: () => import("@/views/admin/EditPlayerDialog")
   },
   computed: {
     parentLink() {

@@ -56,6 +56,33 @@ const d11Mixin = {
     allCountries: function() {
       return store.state.cache.countries;
     },
+    teamById: function(id) {
+      let result = null;
+      store.state.cache.teams.forEach(team => {
+        if (team.id === id) {
+          result = team;
+        }
+      });
+      return result;
+    },
+    d11TeamById: function(id) {
+      let result = null;
+      store.state.cache.d11Teams.forEach(d11Team => {
+        if (d11Team.id === id) {
+          result = d11Team;
+        }
+      });
+      return result;
+    },
+    positionById: function(id) {
+      let result = null;
+      store.state.cache.positions.forEach(position => {
+        if (position.id === id) {
+          result = position;
+        }
+      });
+      return result;
+    },
     countryById: function(id) {
       let result = null;
       store.state.cache.countries.forEach(country => {

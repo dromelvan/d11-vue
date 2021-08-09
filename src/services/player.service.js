@@ -44,6 +44,17 @@ const PlayerService = {
     } catch (error) {
       return Promise.reject(error);
     }
+  },
+  async updatePlayer(player) {
+    try {
+      let playerApi = new D11BootApi.PlayerApi();
+      D11BootApi.setBearerToken();
+      let response = playerApi.updatePlayer(player);
+      D11BootApi.clearBearerToken();
+      return Promise.resolve(response);
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 };
 
