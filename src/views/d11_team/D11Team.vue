@@ -66,6 +66,12 @@
               </template>
               goal difference
             </div>
+            <div class="total" v-bind:class="{ error: total > 600 }">
+              £{{ playerValue(total) }}m squad value
+            </div>
+            <div class="max-bid" v-if="maxBid > 0">
+              £{{ playerValue(maxBid) }}m max bid
+            </div>
             <div class="team-form" v-if="smAndUp">
               <result-indicator
                 v-for="formMatchPoint in formMatchPoints"
@@ -138,6 +144,8 @@ export default {
     d11TeamSeasonStat: null,
     playerSeasonStatsByPosition: null,
     d11MatchIds: null,
+    total: 0,
+    maxBid: 0,
     tab: "squad"
   }),
   components: {
@@ -188,12 +196,19 @@ export default {
           this.d11Team.id,
           this.season.id
         )
-        .then(
-          result =>
-            (this.playerSeasonStatsByPosition = this.$d11Mapper.playerStatsByPosition(
-              result
-            ))
-        );
+        .then(result => {
+          this.total = 0;
+          result.forEach(playerSeasonStat => {
+            this.total = this.total + playerSeasonStat.value;
+          });
+
+          let neededPlayers = 11 - result.length;
+          this.maxBid =
+            neededPlayers > 0 ? 600 - this.total - 5 * neededPlayers : 0;
+          this.playerSeasonStatsByPosition = this.$d11Mapper.playerStatsByPosition(
+            result
+          );
+        });
     }
   },
   mounted() {

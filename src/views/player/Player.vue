@@ -34,6 +34,12 @@
             @player-updated="loadData"
             v-if="administrator"
           />
+          <create-transfer-dialog
+            :player="player"
+            :playerSeasonStat="playerSeasonStat"
+            @transfer-inserted="loadData"
+            v-if="administrator"
+          />
 
           <div class="external-link" v-if="smAndUp">
             <a
@@ -203,7 +209,8 @@ export default {
     PlayerMatchStats: () => import("@/views/player_stat/PlayerMatchStats"),
     LazyPlayerSeasonStatList: () =>
       import("@/views/player_season_stat/LazyPlayerSeasonStatList"),
-    EditPlayerDialog: () => import("@/views/admin/EditPlayerDialog")
+    EditPlayerDialog: () => import("@/views/admin/EditPlayerDialog"),
+    CreateTransferDialog: () => import("@/views/admin/CreateTransferDialog")
   },
   computed: {
     parentLink() {
