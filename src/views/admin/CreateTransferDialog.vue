@@ -160,7 +160,7 @@ export default {
         this.step = 2;
 
         let insertResult = {};
-        console.log(this.transfer);
+
         let insert = TransferService.insertTransfer(this.transfer).then(
           result => (insertResult = result)
         );

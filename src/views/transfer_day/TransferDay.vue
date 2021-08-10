@@ -38,6 +38,11 @@
       <template v-if="transferDay">
         <div class="header-title">
           <h1>Transfer Day {{ transferDay.transferDayNumber }}</h1>
+          <update-transfer-day-dialog
+            :transferDay="transferDay"
+            @transfer-day-updated="loadData"
+            v-if="administrator && pending(transferDay.status)"
+          />
         </div>
         <div class="header-subtitle">
           <h4>
@@ -165,7 +170,9 @@ export default {
     LazyTransferBidList: () =>
       import("@/views/transfer_bid/LazyTransferBidList"),
     LazyPlayerSeasonStatList: () =>
-      import("@/views/player_season_stat/LazyPlayerSeasonStatList")
+      import("@/views/player_season_stat/LazyPlayerSeasonStatList"),
+    UpdateTransferDayDialog: () =>
+      import("@/views/admin/UpdateTransferDayDialog")
   },
   methods: {
     loadData: function() {

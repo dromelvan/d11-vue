@@ -20,6 +20,16 @@ const TransferDayService = {
     } catch (error) {
       return Promise.reject(error);
     }
+  },
+  async updateTransferDay(transferDay) {
+    try {
+      D11BootApi.setBearerToken();
+      let response = transferDayApi.updateTransferDay(transferDay);
+      D11BootApi.clearBearerToken();
+      return Promise.resolve(response);
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 };
 
