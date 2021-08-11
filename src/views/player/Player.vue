@@ -37,7 +37,6 @@
           <create-transfer-dialog
             :player="player"
             :playerSeasonStat="playerSeasonStat"
-            @transfer-inserted="loadData"
             v-if="administrator"
           />
 

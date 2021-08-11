@@ -174,7 +174,13 @@ export default {
         Promise.allSettled([insert, timer]).then(() => {
           if (insertResult.errors && insertResult.errors.length === 0) {
             this.visible = false;
-            this.$emit("transfer-inserted", true);
+            this.$router.push({
+              name: "d11Team",
+              params: {
+                id: this.transfer.d11TeamId,
+                seasonId: this.currentSeason().id
+              }
+            });
           } else {
             this.waiting = false;
             this.serviceErrors = insertResult.errors;
