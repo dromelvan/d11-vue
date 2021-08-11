@@ -37,7 +37,7 @@
           <create-transfer-dialog
             :player="player"
             :playerSeasonStat="playerSeasonStat"
-            v-if="administrator"
+            v-if="administrator && playerSeasonStat"
           />
 
           <div class="external-link" v-if="smAndUp">
@@ -67,6 +67,9 @@
               pts
               <span class="ranking">#{{ playerSeasonStat.ranking }}</span>
               ranking
+            </div>
+            <div class="position">
+              {{ playerSeasonStat.position.name }}
             </div>
             <div class="team" v-if="!playerSeasonStat.team.dummy">
               <team-image :size="'tiny'" :id="playerSeasonStat.team.id" />

@@ -15,6 +15,7 @@ const InitializationService = {
       let d11TeamPromise = await D11TeamService.getD11Teams();
       let positionPromise = await PositionService.getPositions();
       let countryPromise = await CountryService.getCountries();
+      let currentD11TeamPromise = await D11TeamService.getD11TeamsBySeason(18);
 
       let combinedPromise = await Promise.allSettled([
         seasonPromise,
@@ -23,7 +24,8 @@ const InitializationService = {
         teamPromise,
         d11TeamPromise,
         positionPromise,
-        countryPromise
+        countryPromise,
+        currentD11TeamPromise
       ]);
       store.dispatch("initialize", {
         season: combinedPromise[0].value,
@@ -32,7 +34,8 @@ const InitializationService = {
         teams: combinedPromise[3].value,
         d11Teams: combinedPromise[4].value,
         positions: combinedPromise[5].value,
-        countries: combinedPromise[6].value
+        countries: combinedPromise[6].value,
+        currentD11Teams: combinedPromise[7].value
       });
     }
   }

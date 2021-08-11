@@ -52,6 +52,7 @@ export default new Vuex.Store({
       state.cache.d11Teams = current.d11Teams;
       state.cache.positions = current.positions;
       state.cache.countries = current.countries;
+      state.cache.currentD11Teams = current.currentD11Teams;
       state.status.initialized = true;
     }
   },

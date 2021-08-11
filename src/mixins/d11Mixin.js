@@ -50,6 +50,9 @@ const d11Mixin = {
     allD11Teams: function() {
       return store.state.cache.d11Teams;
     },
+    currentD11Teams: function() {
+      return store.state.cache.currentD11Teams;
+    },
     allPositions: function() {
       return store.state.cache.positions;
     },

@@ -125,7 +125,7 @@ export default {
       visible: false,
       step: 1,
       transfer: {},
-      d11Teams: this.allD11Teams(),
+      d11Teams: this.currentD11Teams(),
       d11Team: null,
       fee: null,
       failed: false,
@@ -168,7 +168,7 @@ export default {
         var timer = new Promise(resolve => {
           setTimeout(() => {
             resolve();
-          }, 2000);
+          }, 1000);
         });
 
         Promise.allSettled([insert, timer]).then(() => {
@@ -189,7 +189,7 @@ export default {
       }
     },
     open() {
-      this.d11Teams = this.allD11Teams();
+      this.d11Teams = this.currentD11Teams();
       this.d11Team = null;
       this.fee = null;
 
@@ -204,6 +204,7 @@ export default {
         fee: this.fee
       };
       this.visible = true;
+      this.waiting = true;
     }
   },
   watch: {
