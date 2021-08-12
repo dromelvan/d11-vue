@@ -202,7 +202,7 @@ export default {
             this.total = this.total + playerSeasonStat.value;
           });
 
-          let neededPlayers = 11 - result.length;
+          let neededPlayers = 10 - result.length;
           this.maxBid =
             neededPlayers > 0 ? 600 - this.total - 5 * neededPlayers : 0;
           this.playerSeasonStatsByPosition = this.$d11Mapper.playerStatsByPosition(
