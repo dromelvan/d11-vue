@@ -34,7 +34,7 @@
         </div>
 
         <template v-if="!this.pending(matchWeek.status) && smAndUp">
-          <div class="horizontal">
+          <div class="horizontal" v-if="matchWeek.mostValuablePlayer">
             <div class="description">
               Most valuable player:
             </div>
@@ -51,7 +51,7 @@
             </div>
           </div>
 
-          <div class="horizontal">
+          <div class="horizontal" v-if="matchWeek.premierLeagueLeader">
             <div class="description">
               Premier League leader:
             </div>
@@ -65,7 +65,7 @@
             </div>
           </div>
 
-          <div class="horizontal">
+          <div class="horizontal" v-if="matchWeek.d11LeagueLeader">
             <div class="description">
               D11 League leader:
             </div>
