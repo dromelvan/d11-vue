@@ -5,90 +5,217 @@
     :options="{ threshold: 0.5 }"
     transition="fade-transition"
   >
-    <v-list-item-title
-      v-if="match"
-      class="match"
-      v-bind:class="{
-        'full-time': this.fullTime(match.status),
-        finished: this.finished(match.status)
-      }"
-    >
-      <!-- XS view ------------------------>
-      <template v-if="xs">
-        <div class="match-result">
-          <div class="match-date">
-            <div v-if="isView(['team'])">
-              {{ match.datetime | moment("DD.MM") }}
+    <div v-bind:class="{ padded: smAndUp && matchLogMessages }">
+      <v-list-item-title
+        v-if="match"
+        class="match"
+        v-bind:class="{
+          'full-time': this.fullTime(match.status),
+          finished: this.finished(match.status)
+        }"
+      >
+        <!-- XS view ------------------------>
+        <template v-if="xs">
+          <div class="match-result">
+            <div class="match-date">
+              <div v-if="isView(['team'])">
+                {{ match.datetime | moment("DD.MM") }}
+              </div>
+              <div v-else>K/O</div>
+              <div>
+                <template v-if="!this.postponed(match.status)">
+                  {{ match.datetime | moment("HH:mm") }}
+                </template>
+                <template v-else>
+                  PP
+                </template>
+              </div>
             </div>
-            <div v-else>K/O</div>
+            <!-- Match Week -------------->
+            <div class="match-week" v-if="isView(['team'])">
+              {{ match.matchWeek.matchWeekNumber }}
+            </div>
             <div>
+              <div class="image home">
+                <team-image
+                  :type="'team'"
+                  :size="'icon'"
+                  :id="match.homeTeam.id"
+                />
+              </div>
+              <div class="image away">
+                <team-image
+                  :type="'team'"
+                  :size="'icon'"
+                  :id="match.awayTeam.id"
+                />
+              </div>
+            </div>
+            <div class="teams">
+              <div
+                class="team"
+                v-bind:class="{ winner: winner(match, match.homeTeam.id) }"
+              >
+                {{ match.homeTeam.shortName }}
+              </div>
+              <div
+                class="team"
+                v-bind:class="{ winner: winner(match, match.awayTeam.id) }"
+              >
+                {{ match.awayTeam.shortName }}
+              </div>
+            </div>
+            <div class="result-changes">
+              <div>
+                <result-change
+                  v-if="match.homeTeamGoals != match.previousHomeTeamGoals"
+                  team="away"
+                  :current="match.homeTeamGoals"
+                  :previous="match.previousHomeTeamGoals"
+                />
+              </div>
+              <div>
+                <result-change
+                  v-if="match.awayTeamGoals != match.previousAwayTeamGoals"
+                  team="away"
+                  :current="match.awayTeamGoals"
+                  :previous="match.previousAwayTeamGoals"
+                />
+              </div>
+            </div>
+            <div class="elapsed">
+              <elapsed
+                v-if="this.active(match.status)"
+                :elapsedTime="this.match.elapsed"
+              />
+              <template v-if="this.fullTime(match.status)">
+                FT
+                <v-tooltip top>
+                  <template v-slot:activator="{ on, attrs }">
+                    <span v-bind="attrs" v-on="on" class="not-finalized"
+                      >*</span
+                    >
+                  </template>
+                  <span
+                    >Match stats for this match have not yet been finalized and
+                    are subject to change.
+                  </span>
+                </v-tooltip>
+              </template>
+              <template v-if="this.finished(match.status)">
+                FT
+              </template>
+            </div>
+            <div class="score" v-if="!this.pending(match.status)">
+              <div>{{ match.homeTeamGoals }}</div>
+              <div>{{ match.awayTeamGoals }}</div>
+            </div>
+          </div>
+        </template>
+
+        <!-- SM and up view ----------------->
+        <template v-else>
+          <template v-if="['team'].includes(view)">
+            <!-- Date -------------------->
+            <div class="match-date" v-if="['team'].includes(view)">
               <template v-if="!this.postponed(match.status)">
-                {{ match.datetime | moment("HH:mm") }}
+                <template v-if="mdAndUp">
+                  {{ match.datetime | moment("DD.MM YYYY") }}
+                </template>
+                <template v-else>
+                  {{ match.datetime | moment("DD.MM") }}
+                </template>
+              </template>
+              <template v-else-if="mdAndUp">
+                Postponed
               </template>
               <template v-else>
                 PP
               </template>
             </div>
-          </div>
-          <!-- Match Week -------------->
-          <div class="match-week" v-if="isView(['team'])">
-            {{ match.matchWeek.matchWeekNumber }}
-          </div>
-          <div>
-            <div class="image home">
-              <team-image
-                :type="'team'"
-                :size="'icon'"
-                :id="match.homeTeam.id"
-              />
+            <!-- Kickoff ----------------->
+            <div class="kickoff">
+              <template v-if="!this.postponed(match.status)">
+                {{ match.datetime | moment("HH:mm") }}
+              </template>
             </div>
-            <div class="image away">
-              <team-image
-                :type="'team'"
-                :size="'icon'"
-                :id="match.awayTeam.id"
-              />
+            <!-- Match Week -------------->
+            <div class="match-week">
+              <template v-if="mdAndUp">
+                Match Week
+              </template>
+              {{ match.matchWeek.matchWeekNumber }}
             </div>
+          </template>
+          <template v-else>
+            <!-- Kickoff ----------------->
+            <div class="kickoff">
+              <template v-if="!this.postponed(match.status)">
+                Kick Off {{ match.datetime | moment("HH:mm") }}
+              </template>
+            </div>
+            <!-- Match Week -------------->
+            <div class="match-week" v-if="isView(['current'])">
+              <template v-if="mdAndUp">
+                Match Week
+              </template>
+              <template v-else>
+                MW
+              </template>
+              {{ match.matchWeek.matchWeekNumber }}
+            </div>
+          </template>
+          <!-- Home team --------------->
+          <div
+            class="team home"
+            v-bind:class="{ winner: winner(match, match.homeTeam.id) }"
+          >
+            <result-change
+              v-if="match.homeTeamGoals != match.previousHomeTeamGoals"
+              team="home"
+              :current="match.homeTeamGoals"
+              :previous="match.previousHomeTeamGoals"
+            />
+            {{ match.homeTeam.name }}
           </div>
-          <div class="teams">
-            <div
-              class="team"
-              v-bind:class="{ winner: winner(match, match.homeTeam.id) }"
+          <div class="image home">
+            <team-image :type="'team'" :size="'tiny'" :id="match.homeTeam.id" />
+          </div>
+          <!-- Score ------------------>
+          <div class="score">
+            <template
+              v-if="this.pending(match.status) || this.postponed(match.status)"
             >
-              {{ match.homeTeam.shortName }}
-            </div>
-            <div
-              class="team"
-              v-bind:class="{ winner: winner(match, match.awayTeam.id) }"
-            >
-              {{ match.awayTeam.shortName }}
-            </div>
+              vs
+            </template>
+            <template v-else>
+              {{ match.homeTeamGoals }}-{{ match.awayTeamGoals }}
+            </template>
           </div>
-          <div class="result-changes">
-            <div>
-              <result-change
-                v-if="match.homeTeamGoals != match.previousHomeTeamGoals"
-                team="away"
-                :current="match.homeTeamGoals"
-                :previous="match.previousHomeTeamGoals"
-              />
-            </div>
-            <div>
-              <result-change
-                v-if="match.awayTeamGoals != match.previousAwayTeamGoals"
-                team="away"
-                :current="match.awayTeamGoals"
-                :previous="match.previousAwayTeamGoals"
-              />
-            </div>
+          <!-- Away team -------------->
+          <div class="image away">
+            <team-image :type="'team'" :size="'tiny'" :id="match.awayTeam.id" />
           </div>
+          <div
+            class="team away"
+            v-bind:class="{ winner: winner(match, match.awayTeam.id) }"
+          >
+            {{ match.awayTeam.name }}
+            <result-change
+              v-if="match.awayTeamGoals != match.previousawayTeamGoals"
+              team="away"
+              :current="match.awayTeamGoals"
+              :previous="match.previousAwayTeamGoals"
+            />
+          </div>
+          <!-- Elapsed ----------------->
           <div class="elapsed">
             <elapsed
               v-if="this.active(match.status)"
               :elapsedTime="this.match.elapsed"
             />
             <template v-if="this.fullTime(match.status)">
-              FT
+              Full Time
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
                   <span v-bind="attrs" v-on="on" class="not-finalized">*</span>
@@ -100,135 +227,20 @@
               </v-tooltip>
             </template>
             <template v-if="this.finished(match.status)">
-              FT
+              Full Time
             </template>
-          </div>
-          <div class="score" v-if="!this.pending(match.status)">
-            <div>{{ match.homeTeamGoals }}</div>
-            <div>{{ match.awayTeamGoals }}</div>
-          </div>
-        </div>
-      </template>
-
-      <!-- SM and up view ----------------->
-      <template v-else>
-        <template v-if="['team'].includes(view)">
-          <!-- Date -------------------->
-          <div class="match-date" v-if="['team'].includes(view)">
-            <template v-if="!this.postponed(match.status)">
-              <template v-if="mdAndUp">
-                {{ match.datetime | moment("DD.MM YYYY") }}
-              </template>
-              <template v-else>
-                {{ match.datetime | moment("DD.MM") }}
-              </template>
-            </template>
-            <template v-else-if="mdAndUp">
-              Postponed
-            </template>
-            <template v-else>
-              PP
-            </template>
-          </div>
-          <!-- Kickoff ----------------->
-          <div class="kickoff">
-            <template v-if="!this.postponed(match.status)">
-              {{ match.datetime | moment("HH:mm") }}
-            </template>
-          </div>
-          <!-- Match Week -------------->
-          <div class="match-week">
-            <template v-if="mdAndUp">
-              Match Week
-            </template>
-            {{ match.matchWeek.matchWeekNumber }}
           </div>
         </template>
-        <template v-else>
-          <!-- Kickoff ----------------->
-          <div class="kickoff">
-            <template v-if="!this.postponed(match.status)">
-              Kick Off {{ match.datetime | moment("HH:mm") }}
-            </template>
-          </div>
-          <!-- Match Week -------------->
-          <div class="match-week" v-if="isView(['current'])">
-            <template v-if="mdAndUp">
-              Match Week
-            </template>
-            <template v-else>
-              MW
-            </template>
-            {{ match.matchWeek.matchWeekNumber }}
-          </div>
-        </template>
-        <!-- Home team --------------->
-        <div
-          class="team home"
-          v-bind:class="{ winner: winner(match, match.homeTeam.id) }"
+      </v-list-item-title>
+      <template v-if="smAndUp && matchLogMessages">
+        <v-list-item-title
+          v-for="(matchLogMessage, index) in matchLogMessages"
+          :key="index"
         >
-          <result-change
-            v-if="match.homeTeamGoals != match.previousHomeTeamGoals"
-            team="home"
-            :current="match.homeTeamGoals"
-            :previous="match.previousHomeTeamGoals"
-          />
-          {{ match.homeTeam.name }}
-        </div>
-        <div class="image home">
-          <team-image :type="'team'" :size="'tiny'" :id="match.homeTeam.id" />
-        </div>
-        <!-- Score ------------------>
-        <div class="score">
-          <template
-            v-if="this.pending(match.status) || this.postponed(match.status)"
-          >
-            vs
-          </template>
-          <template v-else>
-            {{ match.homeTeamGoals }}-{{ match.awayTeamGoals }}
-          </template>
-        </div>
-        <!-- Away team -------------->
-        <div class="image away">
-          <team-image :type="'team'" :size="'tiny'" :id="match.awayTeam.id" />
-        </div>
-        <div
-          class="team away"
-          v-bind:class="{ winner: winner(match, match.awayTeam.id) }"
-        >
-          {{ match.awayTeam.name }}
-          <result-change
-            v-if="match.awayTeamGoals != match.previousawayTeamGoals"
-            team="away"
-            :current="match.awayTeamGoals"
-            :previous="match.previousAwayTeamGoals"
-          />
-        </div>
-        <!-- Elapsed ----------------->
-        <div class="elapsed">
-          <elapsed
-            v-if="this.active(match.status)"
-            :elapsedTime="this.match.elapsed"
-          />
-          <template v-if="this.fullTime(match.status)">
-            Full Time
-            <v-tooltip top>
-              <template v-slot:activator="{ on, attrs }">
-                <span v-bind="attrs" v-on="on" class="not-finalized">*</span>
-              </template>
-              <span
-                >Match stats for this match have not yet been finalized and are
-                subject to change.
-              </span>
-            </v-tooltip>
-          </template>
-          <template v-if="this.finished(match.status)">
-            Full Time
-          </template>
-        </div>
+          {{ matchLogMessage.message }}
+        </v-list-item-title>
       </template>
-    </v-list-item-title>
+    </div>
   </v-lazy>
 </template>
 
@@ -248,6 +260,19 @@ export default {
     view: String,
     matchId: Number
   },
+  computed: {
+    matchLogMessages() {
+      if (
+        this.match &&
+        !this.finished(this.match.status) &&
+        this.match.matchLogMessages.length > 0
+      ) {
+        return this.match.matchLogMessages;
+      } else {
+        return null;
+      }
+    }
+  },
   watch: {
     visible: function() {
       new this.$d11BootApi.MatchApi()
@@ -259,6 +284,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.padded {
+  padding-top: $d11-spacer;
+  padding-bottom: $d11-spacer;
+}
+
 .match {
   .match-date {
     min-width: 5.8em;
