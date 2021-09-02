@@ -102,7 +102,19 @@
           </div>
           <!-- Status ------------------->
           <div class="status">
-            <template v-if="finished(matchWeek.status)">
+            <template v-if="fullTime(matchWeek.status)">
+              Full Time
+              <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                  <span v-bind="attrs" v-on="on" class="not-finalized">*</span>
+                </template>
+                <span
+                  >Match stats for this match weekhave not yet been finalized
+                  and are subject to change.
+                </span>
+              </v-tooltip>
+            </template>
+            <template v-else-if="finished(matchWeek.status)">
               Finished
             </template>
             <template v-else-if="matchWeek.elapsed > 0">
