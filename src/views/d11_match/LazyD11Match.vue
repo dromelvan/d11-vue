@@ -267,15 +267,24 @@ export default {
     Elapsed: () => import("@/components/Elapsed"),
     ResultChange: () => import("@/components/ResultChange")
   },
+  methods: {
+    loadData: function() {
+      new this.$d11BootApi.D11MatchApi()
+        .findD11MatchById(this.d11MatchId)
+        .then(result => (this.d11Match = result));
+    },
+    refresh: function() {
+      this.d11Match = null;
+      this.loadData();
+    }
+  },
   props: {
     view: String,
     d11MatchId: Number
   },
   watch: {
     visible: function() {
-      new this.$d11BootApi.D11MatchApi()
-        .findD11MatchById(this.d11MatchId)
-        .then(result => (this.d11Match = result));
+      this.loadData();
     }
   }
 };

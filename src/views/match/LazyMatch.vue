@@ -256,6 +256,17 @@ export default {
     Elapsed: () => import("@/components/Elapsed"),
     ResultChange: () => import("@/components/ResultChange")
   },
+  methods: {
+    loadData: function() {
+      new this.$d11BootApi.MatchApi()
+        .findMatchById(this.matchId)
+        .then(result => (this.match = result));
+    },
+    refresh: function() {
+      this.match = null;
+      this.loadData();
+    }
+  },
   props: {
     view: String,
     matchId: Number
@@ -275,9 +286,10 @@ export default {
   },
   watch: {
     visible: function() {
-      new this.$d11BootApi.MatchApi()
-        .findMatchById(this.matchId)
-        .then(result => (this.match = result));
+      this.loadData();
+    },
+    matchId: function() {
+      console.log("dskjflskfjslk");
     }
   }
 };

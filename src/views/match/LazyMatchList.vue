@@ -71,7 +71,7 @@
     </template>
     <div v-for="matchId in matchIds" :key="matchId">
       <list-container-item :to="{ name: 'match', params: { id: matchId } }">
-        <lazy-match :matchId="matchId" :view="view" />
+        <lazy-match :matchId="matchId" :view="view" ref="match" />
       </list-container-item>
       <v-divider />
     </div>
@@ -87,6 +87,13 @@ export default {
     view: {
       type: String,
       default: "matchWeek"
+    }
+  },
+  methods: {
+    refresh: function() {
+      for (let ref of this.$refs.match) {
+        ref.refresh();
+      }
     }
   },
   components: {

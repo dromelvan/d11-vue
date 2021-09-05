@@ -22,6 +22,20 @@
       }"
     >
       <template v-if="matchWeek">
+        <v-btn
+          class="admin-btn edit"
+          style="background-color: rgba(0,0,0,1) !important; min-width: unset !important"
+          fab
+          dark
+          small
+          @click="refresh()"
+          v-if="!pending(matchWeek.status) && !finished(matchWeek.status)"
+        >
+          <v-icon dark>
+            mdi-refresh
+          </v-icon>
+        </v-btn>
+
         <div class="header-title">
           <h1>Match Week {{ matchWeek.matchWeekNumber }}</h1>
         </div>
@@ -99,6 +113,7 @@
                 :key="date"
                 :date="date"
                 :matchIds="matchWeek.matches[date]"
+                ref="refresh"
               />
             </v-tab-item>
             <v-tab-item value="d11-matches" v-if="matchWeek">
@@ -107,6 +122,7 @@
                 :key="date"
                 :date="date"
                 :d11MatchIds="matchWeek.d11Matches[date]"
+                ref="refresh"
               />
             </v-tab-item>
           </v-tabs-items>
@@ -138,6 +154,11 @@ export default {
       MatchWeekService.findMatchWeekById(this.$route.params.id).then(
         result => (this.matchWeek = result)
       );
+    },
+    refresh: function() {
+      for (let ref of this.$refs.refresh) {
+        ref.refresh();
+      }
     }
   },
   mounted() {
@@ -154,6 +175,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.admin-btn {
+  position: absolute;
+  left: 42px;
+}
+
 .description {
   min-width: 10em;
 }

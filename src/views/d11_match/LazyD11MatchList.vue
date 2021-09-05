@@ -73,7 +73,7 @@
       <list-container-item
         :to="{ name: 'd11Match', params: { id: d11MatchId } }"
       >
-        <lazy-d11-match :d11MatchId="d11MatchId" :view="view" />
+        <lazy-d11-match :d11MatchId="d11MatchId" :view="view" ref="d11Match" />
       </list-container-item>
       <v-divider />
     </div>
@@ -89,6 +89,13 @@ export default {
     view: {
       type: String,
       default: "d11MatchWeek"
+    }
+  },
+  methods: {
+    refresh: function() {
+      for (let ref of this.$refs.d11Match) {
+        ref.refresh();
+      }
     }
   },
   components: {
