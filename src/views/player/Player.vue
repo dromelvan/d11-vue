@@ -32,12 +32,12 @@
             :editPlayer="player"
             :playerSeasonStat="playerSeasonStat"
             @player-updated="loadData"
-            v-if="administrator"
+            v-if="administrator()"
           />
           <create-transfer-dialog
             :player="player"
             :playerSeasonStat="playerSeasonStat"
-            v-if="administrator && playerSeasonStat"
+            v-if="administrator() && playerSeasonStat"
           />
 
           <div class="external-link" v-if="smAndUp">
