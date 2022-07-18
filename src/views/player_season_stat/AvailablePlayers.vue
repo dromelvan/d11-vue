@@ -1,6 +1,9 @@
 <template>
   <v-container>
-    <div class="available-players" v-if="playersByTeam">
+    <div
+      class="available-players"
+      v-if="playersByTeam && playersByTeam.length > 0"
+    >
       <div class="row" v-for="row in rows()" :key="'row-' + row">
         <div
           class="column"

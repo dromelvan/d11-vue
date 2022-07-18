@@ -34,7 +34,14 @@
           <h4>Season {{ season.name }}</h4>
         </div>
 
-        <div class="horizontal most-valuable-player" v-if="smAndUp">
+        <div
+          class="horizontal most-valuable-player"
+          v-if="
+            smAndUp &&
+              seasonSummary &&
+              seasonSummary.top3PlayerSeasonStats.length >= 3
+          "
+        >
           <div class="player-image" v-if="seasonSummary">
             <player-image
               :size="'large'"

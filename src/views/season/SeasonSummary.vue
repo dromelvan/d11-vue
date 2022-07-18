@@ -135,50 +135,53 @@
                   </v-img>
                 </v-card-title>
               </v-card-title>
-              <v-card-subtitle>
-                {{ seasonSummary.top3PlayerSeasonStats[0].player.name }}
-              </v-card-subtitle>
-              <v-card-text>
-                <player-image
-                  size="medium"
-                  :fileName="
-                    seasonSummary.top3PlayerSeasonStats[0].player.photoFileName
-                  "
-                />
-              </v-card-text>
-              <v-card-text>
-                <span class="number">
-                  {{ seasonSummary.top3PlayerSeasonStats[0].points }}
-                </span>
-                points
-                <span class="number">
-                  {{ seasonSummary.top3PlayerSeasonStats[0].goals }}
-                </span>
-                goals
-              </v-card-text>
-              <v-card-text v-if="finished(seasonSummary.status)">
-                <span class="number">
-                  {{
-                    seasonSummary.top3PlayerSeasonStats[0].winCount
-                      | ordinal({ includeNumber: true })
-                  }}
-                </span>
-                most valuable player award
-              </v-card-text>
-              <v-card-text>
-                <team-image
-                  size="tiny"
-                  :id="seasonSummary.top3PlayerSeasonStats[0].team.id"
-                />
-                {{ seasonSummary.top3PlayerSeasonStats[0].team.name }}
-              </v-card-text>
-              <v-card-text>
-                <d11-team-image
-                  size="tiny"
-                  :id="seasonSummary.top3PlayerSeasonStats[0].d11Team.id"
-                />
-                {{ seasonSummary.top3PlayerSeasonStats[0].d11Team.name }}
-              </v-card-text>
+              <div v-if="seasonSummary.top3PlayerSeasonStats.length >= 3">
+                <v-card-subtitle>
+                  {{ seasonSummary.top3PlayerSeasonStats[0].player.name }}
+                </v-card-subtitle>
+                <v-card-text>
+                  <player-image
+                    size="medium"
+                    :fileName="
+                      seasonSummary.top3PlayerSeasonStats[0].player
+                        .photoFileName
+                    "
+                  />
+                </v-card-text>
+                <v-card-text>
+                  <span class="number">
+                    {{ seasonSummary.top3PlayerSeasonStats[0].points }}
+                  </span>
+                  points
+                  <span class="number">
+                    {{ seasonSummary.top3PlayerSeasonStats[0].goals }}
+                  </span>
+                  goals
+                </v-card-text>
+                <v-card-text v-if="finished(seasonSummary.status)">
+                  <span class="number">
+                    {{
+                      seasonSummary.top3PlayerSeasonStats[0].winCount
+                        | ordinal({ includeNumber: true })
+                    }}
+                  </span>
+                  most valuable player award
+                </v-card-text>
+                <v-card-text>
+                  <team-image
+                    size="tiny"
+                    :id="seasonSummary.top3PlayerSeasonStats[0].team.id"
+                  />
+                  {{ seasonSummary.top3PlayerSeasonStats[0].team.name }}
+                </v-card-text>
+                <v-card-text>
+                  <d11-team-image
+                    size="tiny"
+                    :id="seasonSummary.top3PlayerSeasonStats[0].d11Team.id"
+                  />
+                  {{ seasonSummary.top3PlayerSeasonStats[0].d11Team.name }}
+                </v-card-text>
+              </div>
             </v-card>
           </router-link>
         </v-col>
@@ -220,20 +223,22 @@
               pts
             </v-card-text>
             <v-card-subtitle>Most valuable players</v-card-subtitle>
-            <v-card-text v-for="index in [1, 2]" :key="'pss.' + index">
-              <player-image
-                size="tiny"
-                :fileName="
-                  seasonSummary.top3PlayerSeasonStats[index].player
-                    .photoFileName
-                "
-              />
-              {{ seasonSummary.top3PlayerSeasonStats[index].player.name }}
-              <span class="number">
-                {{ seasonSummary.top3PlayerSeasonStats[index].points }}
-              </span>
-              pts
-            </v-card-text>
+            <div v-if="seasonSummary.top3PlayerSeasonStats.length >= 3">
+              <v-card-text v-for="index in [1, 2]" :key="'pss.' + index">
+                <player-image
+                  size="tiny"
+                  :fileName="
+                    seasonSummary.top3PlayerSeasonStats[index].player
+                      .photoFileName
+                  "
+                />
+                {{ seasonSummary.top3PlayerSeasonStats[index].player.name }}
+                <span class="number">
+                  {{ seasonSummary.top3PlayerSeasonStats[index].points }}
+                </span>
+                pts
+              </v-card-text>
+            </div>
           </v-card>
         </v-col>
 
@@ -275,17 +280,19 @@
               pts
             </v-card-text>
             <v-card-subtitle>Most valuable players</v-card-subtitle>
-            <v-card-text v-for="index in [0, 1, 2]" :key="'pss.' + index">
-              <team-image
-                size="tiny"
-                :id="seasonSummary.top3PlayerSeasonStats[index].team.id"
-              />
-              {{ seasonSummary.top3PlayerSeasonStats[index].player.name }}
-              <span class="number">
-                {{ seasonSummary.top3PlayerSeasonStats[index].points }}
-              </span>
-              pts
-            </v-card-text>
+            <div v-if="seasonSummary.top3PlayerSeasonStats.length >= 3">
+              <v-card-text v-for="index in [0, 1, 2]" :key="'pss.' + index">
+                <team-image
+                  size="tiny"
+                  :id="seasonSummary.top3PlayerSeasonStats[index].team.id"
+                />
+                {{ seasonSummary.top3PlayerSeasonStats[index].player.name }}
+                <span class="number">
+                  {{ seasonSummary.top3PlayerSeasonStats[index].points }}
+                </span>
+                pts
+              </v-card-text>
+            </div>
           </v-card>
         </v-col>
       </v-row>

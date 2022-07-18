@@ -36,7 +36,12 @@
 
         <div class="horizontal" v-if="smAndUp">
           <div class="season-summary" v-if="seasonSummary">
-            <div class="horizontal most-valuable-player" v-if="seasonSummary">
+            <div
+              class="horizontal most-valuable-player"
+              v-if="
+                seasonSummary && seasonSummary.top3PlayerSeasonStats.length > 0
+              "
+            >
               <div class="description">
                 Most valuable player:
               </div>
