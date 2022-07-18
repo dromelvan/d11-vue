@@ -30,5 +30,10 @@ npm run test:e2e
 npm run lint
 ```
 
+### Docker
+
+docker build -t d11/d11-vue .
+docker image save -o d11-vue.tar d11/d11-vue
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
