@@ -15,7 +15,7 @@ const InitializationService = {
       let d11TeamPromise = await D11TeamService.getD11Teams();
       let positionPromise = await PositionService.getPositions();
       let countryPromise = await CountryService.getCountries();
-      let currentD11TeamPromise = await D11TeamService.getD11TeamsBySeason(18);
+      let currentD11TeamPromise = await D11TeamService.getD11TeamsByCurrentSeason();
 
       let combinedPromise = await Promise.allSettled([
         seasonPromise,

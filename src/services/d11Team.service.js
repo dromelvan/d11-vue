@@ -40,6 +40,14 @@ const D11TeamService = {
       return Promise.reject(error);
     }
   },
+  async getD11TeamsByCurrentSeason() {
+    try {
+      const response = new D11BootApi.D11TeamApi().findD11TeamsByCurrentSeason();
+      return Promise.resolve(response);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  },
   async getD11TeamsBySeason(seasonId) {
     try {
       const response = new D11BootApi.D11TeamApi().findD11TeamBySeasonId(
