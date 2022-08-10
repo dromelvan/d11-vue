@@ -9,17 +9,24 @@ const PlayerService = {
         playerId,
         seasonId
       );
+      D11BootApi.setBearerToken();
+      let playerTransferStatusPromise = new D11BootApi.PlayerApi().findPlayerTransferStatusById(
+        playerId
+      );
       let combinedPromise = await Promise.allSettled([
         playerPromise,
         seasonPromise,
-        playerSeasonStatPromise
+        playerSeasonStatPromise,
+        playerTransferStatusPromise
       ]);
       return Promise.resolve({
         player: combinedPromise[0].value || null,
         season: combinedPromise[1].value || null,
-        playerSeasonStat: combinedPromise[2].value || null
-      });
+        playerSeasonStat: combinedPromise[2].value || null,
+        playerTransferStatus: combinedPromise[3].value || null
+      }).finally(D11BootApi.clearBearerToken());
     } catch (error) {
+      D11BootApi.clearBearerToken();
       return Promise.reject(error);
     }
   },

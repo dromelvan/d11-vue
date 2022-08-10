@@ -13,6 +13,32 @@ const TransferListingService = {
     } catch (error) {
       return Promise.reject(error);
     }
+  },
+  async insertTransferListing(playerId) {
+    try {
+      D11BootApi.setBearerToken();
+      const response = transferListingApi.insertTransferListing({
+        playerId: playerId
+      });
+      return Promise.resolve(response);
+    } catch (error) {
+      return Promise.reject(error);
+    } finally {
+      D11BootApi.clearBearerToken();
+    }
+  },
+  async deleteTransferListing(playerId) {
+    try {
+      D11BootApi.setBearerToken();
+      const response = transferListingApi.deleteTransferListing({
+        playerId: playerId
+      });
+      return Promise.resolve(response);
+    } catch (error) {
+      return Promise.reject(error);
+    } finally {
+      D11BootApi.clearBearerToken();
+    }
   }
 };
 

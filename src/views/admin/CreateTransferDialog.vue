@@ -3,7 +3,7 @@
     <template v-slot:activator="{ on, attrs }">
       <v-btn
         class="admin-btn transfer"
-        style="background-color: rgba(0,0,0,1) !important; min-width: unset !important"
+        style="background-color: rgba(0,0,0,0) !important; min-width: unset !important"
         fab
         dark
         small
@@ -235,7 +235,7 @@ export default {
 .admin-btn {
   position: absolute;
   left: 42px;
-  top: 70px;
+  top: 270px;
 }
 
 .menu-link {

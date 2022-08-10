@@ -39,6 +39,9 @@
             :playerSeasonStat="playerSeasonStat"
             v-if="administrator() && playerSeasonStat"
           />
+          <player-transfer-buttons
+            :playerTransferStatus="playerTransferStatus"
+          />
 
           <div class="external-link" v-if="smAndUp">
             <a
@@ -196,6 +199,7 @@ export default {
     player: null,
     season: null,
     playerSeasonStat: null,
+    playerTransferStatus: {},
     playerMatchStats: null,
     playerSeasonStats: null
   }),
@@ -212,7 +216,8 @@ export default {
     LazyPlayerSeasonStatList: () =>
       import("@/views/player_season_stat/LazyPlayerSeasonStatList"),
     EditPlayerDialog: () => import("@/views/admin/EditPlayerDialog"),
-    CreateTransferDialog: () => import("@/views/admin/CreateTransferDialog")
+    CreateTransferDialog: () => import("@/views/admin/CreateTransferDialog"),
+    PlayerTransferButtons: () => import("@/views/player/PlayerTransferButtons")
   },
   computed: {
     parentLink() {
@@ -237,6 +242,7 @@ export default {
         this.player = result.player;
         this.season = result.season;
         this.playerSeasonStat = result.playerSeasonStat;
+        this.playerTransferStatus = result.playerTransferStatus;
       });
     },
     getPlayerMatchStats: function() {
