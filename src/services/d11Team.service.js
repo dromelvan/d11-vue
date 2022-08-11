@@ -23,20 +23,30 @@ const D11TeamService = {
         d11TeamId,
         seasonId
       );
+      D11BootApi.setBearerToken();
+      let transferListingsPromise = new D11BootApi.TransferListingApi().findPendingTransferListingByD11TeamId(
+        d11TeamId
+      );
 
       let combinedPromise = await Promise.allSettled([
         d11TeamPromise,
         seasonPromise,
         d11TeamSeasonStatPromise,
-        d11MatchPromise
+        d11MatchPromise,
+        transferListingsPromise
       ]);
       return Promise.resolve({
         d11Team: combinedPromise[0].value || null,
         season: combinedPromise[1].value || null,
         d11TeamSeasonStat: combinedPromise[2].value || null,
-        d11MatchIds: combinedPromise[3].value || null
-      });
+        d11MatchIds: combinedPromise[3].value || null,
+        transferListedPlayerIds:
+          combinedPromise[4].value.map(
+            transferListing => transferListing.player.id
+          ) || null
+      }).finally(D11BootApi.clearBearerToken());
     } catch (error) {
+      D11BootApi.clearBearerToken();
       return Promise.reject(error);
     }
   },

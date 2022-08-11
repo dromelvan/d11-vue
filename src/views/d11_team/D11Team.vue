@@ -144,6 +144,7 @@ export default {
     d11TeamSeasonStat: null,
     playerSeasonStatsByPosition: null,
     d11MatchIds: null,
+    transferListedPlayerIds: [],
     total: 0,
     maxBid: 0,
     tab: "squad"
@@ -187,6 +188,7 @@ export default {
         this.season = result.season;
         this.d11TeamSeasonStat = result.d11TeamSeasonStat;
         this.d11MatchIds = result.d11MatchIds;
+        this.transferListedPlayerIds = result.transferListedPlayerIds;
         this.playerSeasonStatsByPosition = null;
       });
     },
@@ -200,6 +202,9 @@ export default {
           this.total = 0;
           result.forEach(playerSeasonStat => {
             this.total = this.total + playerSeasonStat.value;
+            playerSeasonStat.transferListed = this.transferListedPlayerIds.includes(
+              playerSeasonStat.player.id
+            );
           });
 
           let neededPlayers = 10 - result.length;

@@ -1,5 +1,9 @@
 <template>
-  <list-container-item class="player-season-stat-container" :to="to">
+  <list-container-item
+    :class="{ 'transfer-listed': playerSeasonStat.transferListed }"
+    class="player-season-stat-container"
+    :to="to"
+  >
     <v-list-item-title class="player-season-stat">
       <template>
         <!-- Season ---------------------->
@@ -261,6 +265,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.theme--light.player-season-stat-container.transfer-listed {
+  color: white !important;
+}
+.player-season-stat-container.transfer-listed {
+  background-color: var(--v-highlight-base);
+}
+
 .player-season-stat-container {
   min-height: 48px;
   .player-season-stat > div {
