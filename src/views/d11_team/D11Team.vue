@@ -69,6 +69,12 @@
             <div class="total" v-bind:class="{ error: total > 600 }">
               £{{ playerValue(total) }}m squad value
             </div>
+            <div class="remaining-transfers">
+              {{
+                remainingTransfers
+                  | pluralize("remaining transfer", { includeNumber: true })
+              }}
+            </div>
             <div class="max-bid" v-if="maxBid > 0">
               £{{ playerValue(maxBid) }}m max bid
             </div>
@@ -144,6 +150,7 @@ export default {
     d11TeamSeasonStat: null,
     playerSeasonStatsByPosition: null,
     d11MatchIds: null,
+    remainingTransfers: 0,
     transferListedPlayerIds: [],
     total: 0,
     maxBid: 0,
@@ -188,6 +195,7 @@ export default {
         this.season = result.season;
         this.d11TeamSeasonStat = result.d11TeamSeasonStat;
         this.d11MatchIds = result.d11MatchIds;
+        this.remainingTransfers = result.remainingTransfers;
         this.transferListedPlayerIds = result.transferListedPlayerIds;
         this.playerSeasonStatsByPosition = null;
       });

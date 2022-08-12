@@ -136,4 +136,13 @@ export default {
     min-width: unset !important;
   }
 }
+
+.v-application-xs {
+  .v-main {
+    .admin-btn {
+      left: 0px;
+      top: 40px;
+    }
+  }
+}
 </style>

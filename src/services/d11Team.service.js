@@ -24,7 +24,7 @@ const D11TeamService = {
         seasonId
       );
       D11BootApi.setBearerToken();
-      let transferListingsPromise = new D11BootApi.TransferListingApi().findPendingTransferListingByD11TeamId(
+      let d11TeamTransferStatusPromise = new D11BootApi.D11TeamApi().findD11TeamTransferStatusById(
         d11TeamId
       );
 
@@ -33,15 +33,16 @@ const D11TeamService = {
         seasonPromise,
         d11TeamSeasonStatPromise,
         d11MatchPromise,
-        transferListingsPromise
+        d11TeamTransferStatusPromise
       ]);
       return Promise.resolve({
         d11Team: combinedPromise[0].value || null,
         season: combinedPromise[1].value || null,
         d11TeamSeasonStat: combinedPromise[2].value || null,
         d11MatchIds: combinedPromise[3].value || null,
+        remainingTransfers: combinedPromise[4].value.remainingTransfers,
         transferListedPlayerIds:
-          combinedPromise[4].value.map(
+          combinedPromise[4].value.pendingTransferListings.map(
             transferListing => transferListing.player.id
           ) || null
       }).finally(D11BootApi.clearBearerToken());
