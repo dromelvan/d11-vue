@@ -41,7 +41,7 @@
           <update-transfer-day-dialog
             :transferDay="transferDay"
             @transfer-day-updated="loadData"
-            v-if="administrator && pending(transferDay.status)"
+            v-if="administrator() && pending(transferDay.status)"
           />
         </div>
         <div class="header-subtitle">
