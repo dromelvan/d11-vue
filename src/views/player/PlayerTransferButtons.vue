@@ -40,25 +40,12 @@
       <span>Remove player from transfer list</span>
     </v-tooltip>
 
-    <v-tooltip
+    <create-transfer-bid-dialog
       v-if="playerTransferStatus.transferBiddable"
-      v-model="showToolTip"
-      top
-    >
-      <template v-slot:activator="{ on }">
-        <v-btn
-          v-on="on"
-          v-on:click="transferBid"
-          class="admin-btn transfer-bid"
-          fab
-          dark
-          small
-        >
-          <v-icon dark>mdi-currency-eur</v-icon>
-        </v-btn>
-      </template>
-      <span>Make transfer bid for player</span>
-    </v-tooltip>
+      :player="player"
+      :playerSeasonStat="playerSeasonStat"
+      :playerTransferStatus="playerTransferStatus"
+    />
 
     <v-tooltip
       v-if="playerTransferStatus.transferBidRemovable"
@@ -88,11 +75,17 @@ import TransferListingService from "@/services/transferListing.service";
 export default {
   name: "PlayerTransferButtons",
   props: {
+    player: Object,
+    playerSeasonStat: Object,
     playerTransferStatus: Object
   },
   data: () => ({
     showToolTip: false
   }),
+  components: {
+    CreateTransferBidDialog: () =>
+      import("@/views/admin/CreateTransferBidDialog")
+  },
   methods: {
     transferList: function() {
       TransferListingService.insertTransferListing(
@@ -107,9 +100,6 @@ export default {
       ).then(result => {
         this.redirectToD11Team(result.d11TeamId);
       });
-    },
-    transferBid: function() {
-      console.log("Transfer bid");
     },
     transferBidRemove: function() {
       console.log("Transfer bid remove");

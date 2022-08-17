@@ -40,6 +40,8 @@
             v-if="administrator() && playerSeasonStat"
           />
           <player-transfer-buttons
+            :player="playerSeasonStat.player"
+            :playerSeasonStat="playerSeasonStat"
             :playerTransferStatus="playerTransferStatus"
           />
 
