@@ -183,8 +183,12 @@ export default {
       );
     },
     getTransferListings: function() {
+      let transferDayId = this.$route.params.id;
+      if (transferDayId === "current") {
+        transferDayId = this.currentTransferDay().id;
+      }
       TransferListingService.findTransferListingsByTransferDayId(
-        this.$route.params.id,
+        transferDayId,
         this.page - 1
       ).then(result => (this.transferListings = result));
     }

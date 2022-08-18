@@ -41,10 +41,10 @@ const navigationGroups = {
         }
       },
       {
-        text: "Current Transfer Window",
+        text: "Current Transfer Day",
         icon: "mdi-transit-transfer",
         route: {
-          name: "transferWindow",
+          name: "transferDay",
           params: { id: "current", tab: "transfers" }
         }
       },
