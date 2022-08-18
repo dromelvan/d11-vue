@@ -178,7 +178,7 @@
               <lazy-player-season-stat-list
                 :context="'Player'"
                 :playerSeasonStats="playerSeasonStats"
-                view="team"
+                view="players"
                 @findPlayerSeasonStats="getPlayerSeasonStats"
               />
 

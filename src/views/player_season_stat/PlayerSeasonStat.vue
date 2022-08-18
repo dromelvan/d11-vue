@@ -24,7 +24,9 @@
         <!-- Player image ---------------->
         <div
           class="image"
-          v-if="isView(['team', 'd11Team', 'transferListing']) && smAndUp"
+          v-if="
+            isView(['team', 'players', 'd11Team', 'transferListing']) && smAndUp
+          "
         >
           <player-image
             :size="'tiny'"
@@ -34,7 +36,7 @@
         <!-- Player name ----------------->
         <div
           class="player"
-          v-if="isView(['team', 'd11Team', 'transferListing'])"
+          v-if="isView(['team', 'players', 'd11Team', 'transferListing'])"
         >
           <template v-if="playerSeasonStat.player.name.length <= maxNameLength">
             {{ playerSeasonStat.player.name }}
@@ -44,6 +46,10 @@
         <!-- Ranking ----------------------->
         <div class="ranking after-main-item">
           {{ playerSeasonStat.ranking }}
+        </div>
+        <!-- Position ----------------------->
+        <div class="position">
+          {{ playerSeasonStat.position.code }}
         </div>
         <!-- Team -------------------------->
         <div class="team-image-container" v-if="isView(['transferListing'])">
@@ -157,7 +163,7 @@
       <!-- D11 Team -------------------->
       <div
         class="d11-team"
-        v-if="isView(['team', 'player', 'transferListing'])"
+        v-if="isView(['team', 'players', 'player', 'transferListing'])"
       >
         <template v-if="!playerSeasonStat.d11Team.dummy && mdAndUp">
           <d11-team-image size="tiny" :id="playerSeasonStat.d11Team.id" />
@@ -297,6 +303,10 @@ export default {
   .fee {
     text-align: right !important;
     min-width: 2.3em;
+  }
+
+  .position {
+    width: 2rem;
   }
 
   .ranking,

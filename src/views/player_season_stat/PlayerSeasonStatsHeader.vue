@@ -31,7 +31,18 @@
             <span v-bind="attrs" v-on="on">#</span>
           </template>
           <span>
-            The position of the player in the player season stats list
+            The ranking of the player in the player season stats list
+          </span>
+        </v-tooltip>
+      </div>
+      <!-- Position ------------------->
+      <div class="position">
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <span v-bind="attrs" v-on="on">P.</span>
+          </template>
+          <span>
+            Player position
           </span>
         </v-tooltip>
       </div>
@@ -143,7 +154,10 @@
     </div>
 
     <!-- D11 team ------------------>
-    <div class="d11-team" v-if="isView(['team', 'player', 'transferListing'])">
+    <div
+      class="d11-team"
+      v-if="isView(['team', 'players', 'player', 'transferListing'])"
+    >
       <v-tooltip top>
         <template v-slot:activator="{ on, attrs }">
           <span v-bind="attrs" v-on="on" v-if="mdAndUp">D11 Team</span>
@@ -188,6 +202,10 @@ export default {
 .own-goals,
 .goal-assists {
   width: 3rem;
+}
+
+.position {
+  width: 2rem;
 }
 
 .fee {
