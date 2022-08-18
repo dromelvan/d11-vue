@@ -87,6 +87,9 @@ export default {
     },
     logout: function() {
       AuthenticationService.logout();
+      this.$router.push({
+        name: "home"
+      });
     }
   },
 

@@ -134,6 +134,9 @@ export default {
         Promise.allSettled([login, timer]).then(() => {
           if (!this.failed) {
             this.visible = false;
+            this.$router.push({
+              name: "home"
+            });
           } else {
             this.step = 1;
           }
