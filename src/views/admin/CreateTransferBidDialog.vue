@@ -11,7 +11,7 @@
         v-on="on"
       >
         <v-icon dark>
-          mdi-currency-gbp
+          mdi-currency-eur
         </v-icon>
       </v-btn>
     </template>

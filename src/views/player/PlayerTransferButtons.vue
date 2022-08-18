@@ -71,6 +71,7 @@
 
 <script>
 import TransferListingService from "@/services/transferListing.service";
+import TransferBidService from "@/services/transferBid.service";
 
 export default {
   name: "PlayerTransferButtons",
@@ -102,7 +103,17 @@ export default {
       });
     },
     transferBidRemove: function() {
-      console.log("Transfer bid remove");
+      TransferBidService.deleteTransferBid(
+        this.playerTransferStatus.transferBidId
+      ).then(result => {
+        this.$router.push({
+          name: "transferDay",
+          params: {
+            id: result.transferDayId,
+            tab: "transfer-bids"
+          }
+        });
+      });
     },
     redirectToD11Team: function(d11TeamId) {
       this.$router.push({

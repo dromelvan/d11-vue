@@ -29,6 +29,19 @@ const TransferBidService = {
     } finally {
       D11BootApi.clearBearerToken();
     }
+  },
+  async deleteTransferBid(transferBidId) {
+    try {
+      D11BootApi.setBearerToken();
+      const response = transferBidApi.deleteTransferBid({
+        transferBidId: transferBidId
+      });
+      return Promise.resolve(response);
+    } catch (error) {
+      return Promise.reject(error);
+    } finally {
+      D11BootApi.clearBearerToken();
+    }
   }
 };
 
