@@ -169,12 +169,82 @@
           </v-tab>
           <v-tabs-items :value="tab">
             <v-tab-item value="stats" v-if="season">
-              <v-pagination
-                v-model="page"
-                :length="Math.ceil(season.playerSeasonStatCount / 25)"
-                :total-visible="15"
-              />
+              <div class="top-pagination">
+                <v-pagination
+                  v-model="page"
+                  :length="Math.ceil(season.playerSeasonStatCount / 25)"
+                  :total-visible="totalVisible"
+                />
 
+                <!-- Filter menu -------------------------------------------------------------------->
+                <v-menu bottom left offset-y :close-on-content-click="false">
+                  <template v-slot:activator="{ on: menu, attrs }">
+                    <v-tooltip top>
+                      <template v-slot:activator="{ on: tooltip }">
+                        <v-btn
+                          class="filter-btn"
+                          style="background-color: rgba(0,0,0,0) !important; min-width: unset !important"
+                          elevation="0"
+                          v-bind="attrs"
+                          v-on="{ ...tooltip, ...menu }"
+                        >
+                          <v-icon dark>
+                            mdi-cog
+                          </v-icon>
+                        </v-btn>
+                      </template>
+                      <span>Filter player stat list</span>
+                    </v-tooltip>
+                  </template>
+
+                  <v-list class="filter-list" dense>
+                    <v-subheader>AVAILABILITY</v-subheader>
+                    <v-list-item>
+                      <v-list-item-content>
+                        <v-list-item-title>
+                          <v-checkbox
+                            v-model="filter.unavailable"
+                            label="Unavailable"
+                            :ripple="false"
+                            hide-details
+                          />
+                        </v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item>
+                      <v-list-item-content>
+                        <v-list-item-title>
+                          <v-checkbox
+                            v-model="filter.available"
+                            label="Available"
+                            :ripple="false"
+                            hide-details
+                          />
+                        </v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                    <v-subheader>POSITION</v-subheader>
+                    <v-list-item
+                      v-for="position in this.positions"
+                      :key="position.id"
+                    >
+                      <v-list-item-content>
+                        <v-list-item-title>
+                          <v-checkbox
+                            v-model="filter.positionIds"
+                            :value="position.id"
+                            :label="position.name"
+                            :ripple="false"
+                            hide-details
+                          />
+                        </v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+              </div>
+
+              <!-- Player season stat list -------------------------------------------------------->
               <lazy-player-season-stat-list
                 :context="'Player'"
                 :playerSeasonStats="playerSeasonStats"
@@ -182,10 +252,11 @@
                 @findPlayerSeasonStats="getPlayerSeasonStats"
               />
 
+              <!-- Bottom pagination -------------------------------------------------------------->
               <v-pagination
                 v-model="page"
                 :length="Math.ceil(season.playerSeasonStatCount / 25)"
-                :total-visible="15"
+                :total-visible="13"
               />
             </v-tab-item>
           </v-tabs-items>
@@ -198,6 +269,7 @@
 <script>
 import SeasonService from "@/services/season.service";
 import PlayerSeasonStatService from "@/services/playerSeasonStat.service";
+import PositionService from "@/services/position.service";
 
 export default {
   name: "PlayerSeasonStats",
@@ -206,7 +278,13 @@ export default {
     seasonSummary: null,
     page: 1,
     playerSeasonStats: null,
-    tab: "stats"
+    tab: "stats",
+    positions: [],
+    filter: {
+      available: true,
+      unavailable: true,
+      positionIds: []
+    }
   }),
   components: {
     D11Header: () => import("@/components/header/D11Header"),
@@ -216,6 +294,15 @@ export default {
     ContentSection: () => import("@/components/ContentSection"),
     LazyPlayerSeasonStatList: () =>
       import("@/views/player_season_stat/LazyPlayerSeasonStatList")
+  },
+  computed: {
+    totalVisible: function() {
+      if (this.xs) {
+        return 3;
+      } else {
+        return 13;
+      }
+    }
   },
   methods: {
     loadData: function() {
@@ -227,6 +314,11 @@ export default {
         (this.season = result.season),
           (this.seasonSummary = result.seasonSummary);
       });
+      PositionService.getPositions().then(result => {
+        result.pop();
+        this.positions = result;
+        this.filter.positionIds = result.map(position => position.id);
+      });
     },
     getPlayerSeasonStats: function() {
       let seasonId =
@@ -235,7 +327,8 @@ export default {
           : this.$route.params.seasonId;
       PlayerSeasonStatService.getPlayerSeasonStatsBySeasonIdAndPage(
         seasonId,
-        this.page - 1
+        this.page - 1,
+        this.filter
       ).then(result => (this.playerSeasonStats = result));
     }
   },
@@ -252,12 +345,48 @@ export default {
     page() {
       this.playerSeasonStats = null;
       this.getPlayerSeasonStats();
+    },
+    filter: {
+      handler() {
+        this.playerSeasonStats = null;
+        this.getPlayerSeasonStats();
+      },
+      deep: true
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+.top-pagination {
+  .filter-btn {
+    position: absolute;
+    right: 12px;
+    top: 0px;
+    width: 50px;
+  }
+}
+
+.v-application-xs {
+  .top-pagination {
+    .filter-btn {
+      position: absolute;
+      right: 0px;
+      top: 0px;
+    }
+  }
+
+  .v-btn__content {
+    align-items: right;
+  }
+}
+
+.filter-list {
+  .v-input--selection-controls {
+    margin-top: unset;
+  }
+}
+
 .player-image.large {
   min-width: 200px;
 }
@@ -295,6 +424,19 @@ export default {
 
   .runner-up + .runner-up {
     margin-top: $d11-large-spacer;
+  }
+}
+
+.v-menu__content {
+  .v-list--dense .v-subheader {
+    color: rgba(0, 0, 0, 0.87);
+    line-height: 2.2em;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 0px;
+    margin-left: $d11-spacer;
+    height: 30px;
   }
 }
 </style>

@@ -33,11 +33,12 @@ const PlayerSeasonStatService = {
       return Promise.reject(error);
     }
   },
-  async getPlayerSeasonStatsBySeasonIdAndPage(seasonId, page) {
+  async getPlayerSeasonStatsBySeasonIdAndPage(seasonId, page, opts) {
     try {
       let response = new D11BootApi.PlayerSeasonStatApi().findPlayerSeasonStatBySeasonId(
         seasonId,
-        page
+        page,
+        opts
       );
       return Promise.resolve(response);
     } catch (error) {
