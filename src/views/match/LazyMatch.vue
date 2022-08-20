@@ -232,7 +232,59 @@
           </div>
         </template>
       </v-list-item-title>
-      <template v-if="smAndUp && matchLogMessages">
+      <!-- Goals ---------------------------------------------------------------->
+      <v-list-item-title
+        class="goals"
+        v-if="smAndUp && match && match.goals.length > 0 && showGoals"
+      >
+        <template v-if="['team'].includes(view)">
+          <div class="match-date" v-if="['team'].includes(view)">
+            &nbsp;
+          </div>
+          <div class="kickoff">
+            &nbsp;
+          </div>
+          <div class="match-week">
+            &nbsp;
+          </div>
+        </template>
+        <template v-else>
+          <div class="kickoff">
+            &nbsp;
+          </div>
+          <div class="match-week" v-if="isView(['current'])">
+            &nbsp;
+          </div>
+        </template>
+
+        <div class="home-team-goals">
+          <goal
+            v-for="goal in match.goals.filter(goal => {
+              return goal.team.id == match.homeTeam.id;
+            })"
+            :key="goal.id"
+            :goal="goal"
+            :homeTeamGoal="true"
+            class="goal-light"
+          />
+        </div>
+        <div class="score">&nbsp;</div>
+        <div class="away-team-goals">
+          <goal
+            v-for="goal in match.goals.filter(goal => {
+              return goal.team.id == match.awayTeam.id;
+            })"
+            :key="goal.id"
+            :goal="goal"
+            :homeTeamGoal="false"
+            class="goal-light"
+          />
+        </div>
+
+        <div class="elapsed">&nbsp;</div>
+      </v-list-item-title>
+
+      <template v-if="administrator() && smAndUp && matchLogMessages">
         <v-list-item-title
           v-for="(matchLogMessage, index) in matchLogMessages"
           :key="index"
@@ -249,12 +301,14 @@ export default {
   name: "LazyMatch",
   data: () => ({
     match: null,
-    visible: false
+    visible: false,
+    showGoals: false // Remove this if we want to start showing goals
   }),
   components: {
     TeamImage: () => import("@/components/image/TeamImage"),
     Elapsed: () => import("@/components/Elapsed"),
-    ResultChange: () => import("@/components/ResultChange")
+    ResultChange: () => import("@/components/ResultChange"),
+    Goal: () => import("@/components/match_event/Goal")
   },
   methods: {
     loadData: function() {
@@ -287,9 +341,6 @@ export default {
   watch: {
     visible: function() {
       this.loadData();
-    },
-    matchId: function() {
-      console.log("dskjflskfjslk");
     }
   }
 };
@@ -302,12 +353,21 @@ export default {
 }
 
 .match {
+  margin: 7px 0px 7px 0px;
+}
+
+.goals {
+  margin-bottom: 5px;
+}
+
+.match,
+.goals {
   .match-date {
     min-width: 5.8em;
     text-align: left !important;
   }
   .kickoff {
-    min-width: 3.8em;
+    min-width: 5.8em;
   }
 
   .elapsed {
@@ -328,17 +388,21 @@ export default {
       font-size: 0.6em;
     }
   }
-  .team {
+  .team,
+  .home-team-goals,
+  .away-team-goals {
     min-width: 16.5em;
   }
-  .team.home {
+  .team.home,
+  .home-team-goals {
     margin-left: auto;
-    text-align: right;
+    text-align: right !important;
   }
 
-  .team.away {
+  .team.away,
+  .away-team-goals {
     margin-right: auto;
-    text-align: left;
+    text-align: left !important;
   }
 
   .result-change,
@@ -353,6 +417,19 @@ export default {
 
   .score {
     min-width: 2em;
+  }
+
+  .home-team-goals,
+  .away-team-goals {
+    margin-bottom: auto;
+  }
+
+  .home-team-goals {
+    padding-right: 13px;
+  }
+
+  .away-team-goals {
+    padding-left: 13px;
   }
 }
 
