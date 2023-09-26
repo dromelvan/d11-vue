@@ -31,8 +31,17 @@
           </v-list-item-title>
         </v-list-item>
 
+        <v-list-item v-if="!loggedIn() || loggingIn">
+          <v-list-item-icon>
+            <v-icon>mdi-account-plus</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>
+            <signup-dialog @logging-in="onLoggingIn" />
+          </v-list-item-title>
+        </v-list-item>
+
         <v-list-item
-          v-if="activeD11Team() && currentSeason()"
+          v-if="activeD11Team() && currentSeason() && activeD11Team().id > 0"
           router
           :to="{
             name: 'd11Team',
@@ -78,7 +87,8 @@ export default {
     loggingIn: false
   }),
   components: {
-    LoginDialog: () => import("@/views/authentication/LoginDialog")
+    LoginDialog: () => import("@/views/authentication/LoginDialog"),
+    SignupDialog: () => import("@/views/authentication/SignupDialog")
   },
   methods: {
     onLoggingIn: function(value) {

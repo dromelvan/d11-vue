@@ -43,6 +43,10 @@
 
       <v-spacer></v-spacer>
 
+      <signup-dialog
+        @logging-in="onLoggingIn"
+        v-if="!loggedIn() || loggingIn"
+      />
       <login-dialog @logging-in="onLoggingIn" v-if="!loggedIn() || loggingIn" />
 
       <v-menu
@@ -55,7 +59,11 @@
         <template v-slot:activator="{ on }">
           <v-btn v-on="on" :ripple="false" text dark>
             <template v-if="!administrator()">
-              <d11-team-image size="tiny" :id="activeD11Team().id" />
+              <d11-team-image
+                size="tiny"
+                :id="activeD11Team().id"
+                v-if="activeD11Team().id > 0"
+              />
               {{ activeD11Team().name }}
             </template>
             <template v-else>
@@ -65,7 +73,7 @@
         </template>
         <v-list>
           <v-list-item
-            v-if="!administrator()"
+            v-if="!administrator() && activeD11Team().id > 0"
             router
             :ripple="false"
             :to="{
@@ -106,6 +114,7 @@ export default {
   name: "AppBarMdAndUp",
   components: {
     LoginDialog: () => import("@/views/authentication/LoginDialog"),
+    SignupDialog: () => import("@/views/authentication/SignupDialog"),
     CreatePlayerDialog: () => import("@/views/admin/CreatePlayerDialog"),
     D11TeamImage: () => import("@/components/image/D11TeamImage"),
     SearchField: () => import("@/components/app_bar/SearchField")

@@ -14,6 +14,20 @@ const AuthenticationService = {
       return Promise.reject(error);
     }
   },
+  async signUp(userRegistration) {
+    try {
+      console.log(userRegistration);
+      const response = await new D11BootApi.UserApi().createUser({
+        name: userRegistration.name,
+        email: userRegistration.email,
+        password: userRegistration.password,
+        repeatedPassword: userRegistration.confirmPassword
+      });
+      return Promise.resolve(response);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  },
   logout() {
     store.dispatch("logout");
   }
