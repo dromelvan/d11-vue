@@ -1,12 +1,13 @@
 <template>
   <v-dialog :fullscreen="xs" max-width="350" v-model="visible">
-    <template v-slot:activator="{ on, attrs }">
-      <a class="menu-link" v-bind="attrs" v-on="on">Sign Up</a>
+    <template v-for="(_, slot) of $scopedSlots" v-slot:[slot]="scope">
+      <slot :name="slot" v-bind="scope" :open="open" />
     </template>
+
     <v-card v-if="visible">
       <v-card-title>
         <div class="dialog-title-container">
-          <div class="dialog-title">Sign Up</div>
+          <div class="dialog-title">Change Password</div>
           <v-icon class="close-icon" @click="visible = false" small
             >mdi-close</v-icon
           >
@@ -24,32 +25,7 @@
           <v-card-text>
             <form v-on:submit.prevent="submit">
               <v-text-field
-                label="Name*"
-                name="name"
-                id="name"
-                v-model="userRegistration.name"
-                @input="
-                  $v.userRegistration.name.$touch();
-                  failed = false;
-                "
-                :error-messages="nameErrors"
-                outlined
-                autofocus
-              />
-              <v-text-field
-                label="Email*"
-                name="email"
-                id="email"
-                v-model="userRegistration.email"
-                @input="
-                  $v.userRegistration.email.$touch();
-                  failed = false;
-                "
-                :error-messages="emailErrors"
-                outlined
-              />
-              <v-text-field
-                label="Password*"
+                label="New Password*"
                 name="password"
                 id="password"
                 v-model="userRegistration.password"
@@ -60,9 +36,10 @@
                 :error-messages="passwordErrors"
                 :type="'password'"
                 outlined
+                autofocus
               />
               <v-text-field
-                label="Confirm Password*"
+                label="Confirm New Password*"
                 name="confirmPassword"
                 id="confirmPassword"
                 v-model="userRegistration.confirmPassword"
@@ -75,13 +52,15 @@
                 outlined
               />
 
-              <v-btn dark class="dialog-btn" type="submit">Sign Up</v-btn>
+              <v-btn dark class="dialog-btn" type="submit"
+                >Change Password</v-btn
+              >
             </form>
           </v-card-text>
         </v-window-item>
         <v-window-item :value="2">
-          <v-card-text class="signing-up">
-            Signing up...
+          <v-card-text class="changing-password">
+            Changing password...
             <loading-indicator class="centered" />
           </v-card-text>
         </v-window-item>
@@ -92,11 +71,11 @@
 
 <script>
 import { validationMixin } from "vuelidate";
-import { required, email, sameAs } from "vuelidate/lib/validators";
+import { required, sameAs } from "vuelidate/lib/validators";
 import AuthenticationService from "@/services/authentication.service";
 
 export default {
-  name: "SignupDialog",
+  name: "ChangePasswordDialog",
   mixins: [validationMixin],
   components: {
     LoadingIndicator: () => import("@/components/LoadingIndicator")
@@ -106,8 +85,6 @@ export default {
       visible: false,
       step: 1,
       userRegistration: {
-        name: null,
-        email: null,
         password: null,
         confirmPassword: null
       },
@@ -116,8 +93,6 @@ export default {
   },
   validations: {
     userRegistration: {
-      name: { required },
-      email: { required, email },
       password: { required },
       confirmPassword: {
         required,
@@ -128,22 +103,6 @@ export default {
     }
   },
   computed: {
-    nameErrors() {
-      const errors = [];
-      if (!this.$v.userRegistration.name.$dirty) return errors;
-      !this.$v.userRegistration.name.required &&
-        errors.push("Name is required");
-      return errors;
-    },
-    emailErrors() {
-      const errors = [];
-      if (!this.$v.userRegistration.email.$dirty) return errors;
-      !this.$v.userRegistration.email.email &&
-        errors.push("E-mail must be valid");
-      !this.$v.userRegistration.email.required &&
-        errors.push("E-mail is required");
-      return errors;
-    },
     passwordErrors() {
       const errors = [];
       if (!this.$v.userRegistration.password.$dirty) return errors;
@@ -168,20 +127,19 @@ export default {
         this.step = 2;
         this.failed = false;
 
-        var signedUp = AuthenticationService.signUp(
+        var passwordChanged = AuthenticationService.changePassword(
           this.userRegistration
         ).catch(() => {
           this.failed = true;
         });
 
-        // It just feels a bit better if we show the "signing up" notification for at least a few seconds.
         var timer = new Promise(resolve => {
           setTimeout(() => {
             resolve();
           }, 2000);
         });
 
-        Promise.allSettled([signedUp, timer]).then(() => {
+        Promise.allSettled([passwordChanged, timer]).then(() => {
           if (!this.failed) {
             this.visible = false;
             this.$router.push({
@@ -192,6 +150,9 @@ export default {
           }
         });
       }
+    },
+    open() {
+      this.visible = true;
     }
   },
   watch: {
@@ -203,8 +164,6 @@ export default {
         this.$emit("logging-in", false);
         this.$v.$reset();
         this.step = 1;
-        this.userRegistration.name = null;
-        this.userRegistration.email = null;
         this.userRegistration.password = null;
         this.userRegistration.confirmPassword = null;
         this.failed = true;
@@ -251,7 +210,7 @@ export default {
     width: 100%;
   }
 
-  .signing-up {
+  .changing-password {
     text-align: center;
   }
 

@@ -90,6 +90,13 @@
               Sign Out
             </v-list-item-title>
           </v-list-item>
+          <change-password-dialog>
+            <template v-slot:activator="{ open }">
+              <v-list-item class="link" @click="openDialog(open)">
+                <v-list-item-title>Change Password</v-list-item-title>
+              </v-list-item>
+            </template>
+          </change-password-dialog>
 
           <create-player-dialog v-if="administrator()">
             <template v-slot:activator="{ open }">
@@ -115,6 +122,8 @@ export default {
   components: {
     LoginDialog: () => import("@/views/authentication/LoginDialog"),
     SignupDialog: () => import("@/views/authentication/SignupDialog"),
+    ChangePasswordDialog: () =>
+      import("@/views/authentication/ChangePasswordDialog"),
     CreatePlayerDialog: () => import("@/views/admin/CreatePlayerDialog"),
     D11TeamImage: () => import("@/components/image/D11TeamImage"),
     SearchField: () => import("@/components/app_bar/SearchField")

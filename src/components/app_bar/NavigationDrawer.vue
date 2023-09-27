@@ -41,7 +41,7 @@
         </v-list-item>
 
         <v-list-item
-          v-if="activeD11Team() && currentSeason() && activeD11Team().id > 0"
+          v-if="activeD11Team() && currentSeason() && activeD11Team().id > 1"
           router
           :to="{
             name: 'd11Team',
@@ -55,6 +55,16 @@
             {{ activeD11Team().name }}
           </v-list-item-title>
         </v-list-item>
+        <change-password-dialog v-if="loggedIn()">
+          <template v-slot:activator="{ open }">
+            <v-list-item class="link" @click="openDialog(open)">
+              <v-list-item-icon>
+                <v-icon>mdi-account-edit</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>Change Password</v-list-item-title>
+            </v-list-item>
+          </template>
+        </change-password-dialog>
 
         <v-list-item
           v-if="loggedIn()"
@@ -88,7 +98,9 @@ export default {
   }),
   components: {
     LoginDialog: () => import("@/views/authentication/LoginDialog"),
-    SignupDialog: () => import("@/views/authentication/SignupDialog")
+    SignupDialog: () => import("@/views/authentication/SignupDialog"),
+    ChangePasswordDialog: () =>
+      import("@/views/authentication/ChangePasswordDialog")
   },
   methods: {
     onLoggingIn: function(value) {
@@ -100,6 +112,9 @@ export default {
       this.$router.push({
         name: "home"
       });
+    },
+    openDialog: function(method) {
+      setTimeout(() => method());
     }
   },
 

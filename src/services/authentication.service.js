@@ -16,10 +16,21 @@ const AuthenticationService = {
   },
   async signUp(userRegistration) {
     try {
-      console.log(userRegistration);
       const response = await new D11BootApi.UserApi().createUser({
         name: userRegistration.name,
         email: userRegistration.email,
+        password: userRegistration.password,
+        repeatedPassword: userRegistration.confirmPassword
+      });
+      return Promise.resolve(response);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  },
+  async changePassword(userRegistration) {
+    try {
+      D11BootApi.setBearerToken();
+      const response = await new D11BootApi.UserApi().updatePassword({
         password: userRegistration.password,
         repeatedPassword: userRegistration.confirmPassword
       });
