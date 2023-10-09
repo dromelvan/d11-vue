@@ -355,8 +355,9 @@
       <h2>The transfer system</h2>
       <ul>
         <li>
-          The transfer windows will open at regular intervals during the season.
-          The exact date will be announced closer to the actual date.
+          The transfer windows will open after the 8th, 16th, 24th and 32nd
+          match week of the season. The exact date will be announced closer to
+          the actual date.
         </li>
         <li>
           At any time before the transfer window opens owners will be able to
