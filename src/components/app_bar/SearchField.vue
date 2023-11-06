@@ -17,7 +17,7 @@
       <template v-slot:item="data">
         <template>
           <v-list-item-avatar>
-            <player-image :fileName="data.item.photoFileName" />
+            <player-image :id="data.item.id" />
           </v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-title class="player-name" v-html="data.item.name">
@@ -87,7 +87,6 @@ export default {
             name: player.name,
             id: player.id,
             team: player.teamId === 1 ? "" : player.teamName,
-            photoFileName: player.photoFileName,
             route: {
               name: "player",
               params: { id: player.id, seasonId: this.currentSeason().id }

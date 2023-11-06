@@ -45,9 +45,7 @@
           <div class="player-image" v-if="seasonSummary">
             <player-image
               :size="'large'"
-              :fileName="
-                seasonSummary.top3PlayerSeasonStats[0].player.photoFileName
-              "
+              :id="seasonSummary.top3PlayerSeasonStats[0].player.id"
             />
           </div>
           <div class="player-season-stats" v-if="season && seasonSummary">

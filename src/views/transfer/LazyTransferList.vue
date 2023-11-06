@@ -46,10 +46,7 @@
             <v-list-item-title class="transfer">
               <!-- Player image ---------------->
               <div class="image" v-if="smAndUp">
-                <player-image
-                  :size="'tiny'"
-                  :fileName="transfer.player.photoFileName"
-                />
+                <player-image :size="'tiny'" :id="transfer.player.id" />
               </div>
               <!-- Player name ----------------->
               <div class="player">

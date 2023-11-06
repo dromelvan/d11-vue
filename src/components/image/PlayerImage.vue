@@ -1,20 +1,17 @@
 <template>
-  <d11-image :type="'player'" :fileName="fileName" :size="size" />
+  <external-d11-image :type="'player'" :id="id" :size="size" />
 </template>
 
 <script>
 export default {
   name: "PlayerImage",
   components: {
-    D11Image: () => import("@/components/image/D11Image")
+    ExternalD11Image: () => import("@/components/image/ExternalD11Image")
   },
-  data: () => ({
-    baseURL: process.env.BASE_URL
-  }),
   props: {
-    fileName: {
-      type: String,
-      default: "missing.png"
+    id: {
+      type: Number,
+      default: 0
     },
     size: {
       type: String,

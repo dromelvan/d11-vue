@@ -32,10 +32,7 @@
             <v-container class="h1-container">
               <div class="avatar-container">
                 <v-avatar size="62">
-                  <player-image
-                    :size="'small'"
-                    :fileName="player.photoFileName"
-                  />
+                  <player-image :size="'small'" :id="player.id" />
                 </v-avatar>
               </div>
 

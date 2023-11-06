@@ -1,12 +1,12 @@
 <template>
-  <d11-image :type="'team'" :fileName="id + '.png'" :size="size" />
+  <external-d11-image :type="'team'" :id="id" :size="size" />
 </template>
 
 <script>
 export default {
   name: "TeamImage",
   components: {
-    D11Image: () => import("@/components/image/D11Image")
+    ExternalD11Image: () => import("@/components/image/ExternalD11Image")
   },
   props: {
     id: {

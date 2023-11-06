@@ -63,7 +63,7 @@
         </div>
         <div class="horizontal">
           <div class="player-image" v-if="smAndUp">
-            <player-image :size="'large'" :fileName="player.photoFileName" />
+            <player-image :size="'large'" :id="player.id" />
           </div>
 
           <div class="player-season-stats" v-if="playerSeasonStat">

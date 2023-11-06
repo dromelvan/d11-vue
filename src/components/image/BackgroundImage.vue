@@ -2,19 +2,19 @@
   <picture class="background-picture">
     <source
       media="(min-width: 1248px)"
-      :srcset="'/images/' + type + '/lg/' + id + '.jpg'"
+      :srcset="baseURL + type + '/lg/' + id + '.jpg'"
     />
     <source
       media="(min-width: 960px)"
-      :srcset="'/images/' + type + '/md/' + id + '.jpg'"
+      :srcset="baseURL + type + '/md/' + id + '.jpg'"
     />
     <source
       media="(min-width: 600px)"
-      :srcset="'/images/' + type + '/sm/' + id + '.jpg'"
+      :srcset="baseURL + type + '/sm/' + id + '.jpg'"
     />
     <img
       class="background-img"
-      :src="'/images/' + type + '/xs/' + id + '.jpg'"
+      :src="baseURL + type + '/xs/' + id + '.jpg'"
       :alt="alt"
     />
   </picture>
@@ -23,6 +23,9 @@
 <script>
 export default {
   name: "BackgroundPicture",
+  data: () => ({
+    baseURL: process.env.VUE_APP_IMAGE_BASE_URL
+  }),
   props: {
     type: String,
     id: Number,

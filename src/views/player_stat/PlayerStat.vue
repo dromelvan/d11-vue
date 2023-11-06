@@ -46,10 +46,7 @@
           class="image"
           v-if="['match', 'd11Match'].includes(view) && smAndUp"
         >
-          <player-image
-            :size="'tiny'"
-            :fileName="playerStat.player.photoFileName"
-          />
+          <player-image :size="'tiny'" :id="playerStat.player.id" />
         </div>
         <!-- Player name ----------------->
         <div class="player" v-if="['match', 'd11Match'].includes(view)">

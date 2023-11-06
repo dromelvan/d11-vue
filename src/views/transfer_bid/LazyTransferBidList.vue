@@ -82,10 +82,7 @@
             <v-list-item-title class="transfer-bid">
               <!-- Player image ---------------->
               <div class="image" v-if="smAndUp">
-                <player-image
-                  :size="'tiny'"
-                  :fileName="transferBid.player.photoFileName"
-                />
+                <player-image :size="'tiny'" :id="transferBid.player.id" />
               </div>
               <!-- Player name ----------------->
               <div class="player main-item">

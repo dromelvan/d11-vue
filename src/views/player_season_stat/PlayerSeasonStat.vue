@@ -28,10 +28,7 @@
             isView(['team', 'players', 'd11Team', 'transferListing']) && smAndUp
           "
         >
-          <player-image
-            :size="'tiny'"
-            :fileName="playerSeasonStat.player.photoFileName"
-          />
+          <player-image :size="'tiny'" :id="playerSeasonStat.player.id" />
         </div>
         <!-- Player name ----------------->
         <div
