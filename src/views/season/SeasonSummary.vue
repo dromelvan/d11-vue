@@ -142,10 +142,7 @@
                 <v-card-text>
                   <player-image
                     size="medium"
-                    :fileName="
-                      seasonSummary.top3PlayerSeasonStats[0].player
-                        .photoFileName
-                    "
+                    :id="seasonSummary.top3PlayerSeasonStats[0].player.id"
                   />
                 </v-card-text>
                 <v-card-text>
@@ -227,10 +224,7 @@
               <v-card-text v-for="index in [1, 2]" :key="'pss.' + index">
                 <player-image
                   size="tiny"
-                  :fileName="
-                    seasonSummary.top3PlayerSeasonStats[index].player
-                      .photoFileName
-                  "
+                  :id="seasonSummary.top3PlayerSeasonStats[index].player.id"
                 />
                 {{ seasonSummary.top3PlayerSeasonStats[index].player.name }}
                 <span class="number">
