@@ -3,9 +3,9 @@ import D11BootApi from "./d11BootApi";
 const MatchWeekService = {
   async findMatchWeekById(matchWeekId) {
     try {
-      const response = new D11BootApi.MatchWeekApi().findMatchWeekById(
-        matchWeekId
-      );
+      let matchWeekApi = new D11BootApi.MatchWeekApi();
+      D11BootApi.setApiBasePath();
+      const response = matchWeekApi.findMatchWeekById(matchWeekId);
       return Promise.resolve(response);
     } catch (error) {
       return Promise.reject(error);
@@ -13,7 +13,9 @@ const MatchWeekService = {
   },
   async findCurrentMatchWeek() {
     try {
-      const response = new D11BootApi.MatchWeekApi().findCurrentMatchWeek();
+      let matchWeekApi = new D11BootApi.MatchWeekApi();
+      D11BootApi.setApiBasePath();
+      const response = matchWeekApi.findCurrentMatchWeek();
       return Promise.resolve(response);
     } catch (error) {
       return Promise.reject(error);

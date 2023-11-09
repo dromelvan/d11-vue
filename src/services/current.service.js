@@ -3,7 +3,9 @@ import D11BootApi from "./d11BootApi";
 const CurrentService = {
   async currentSeason() {
     try {
-      const response = new D11BootApi.SeasonApi().findCurrentSeason();
+      let seasonApi = new D11BootApi.SeasonApi();
+      D11BootApi.setApiBasePath();
+      const response = seasonApi.findCurrentSeason();
       return Promise.resolve(response);
     } catch (error) {
       return Promise.reject(error);
@@ -11,7 +13,9 @@ const CurrentService = {
   },
   async currentTransferWindow() {
     try {
-      const response = new D11BootApi.TransferWindowApi().findCurrentTransferWindow();
+      let transferWindowApi = new D11BootApi.TransferWindowApi();
+      D11BootApi.setApiBasePath();
+      const response = transferWindowApi.findCurrentTransferWindow();
       return Promise.resolve(response);
     } catch (error) {
       return Promise.reject(error);
@@ -19,7 +23,9 @@ const CurrentService = {
   },
   async currentTransferDay() {
     try {
-      const response = new D11BootApi.TransferDayApi().findCurrentTransferDay();
+      let transferDayApi = new D11BootApi.TransferDayApi();
+      D11BootApi.setApiBasePath();
+      const response = transferDayApi.findCurrentTransferDay();
       return Promise.resolve(response);
     } catch (error) {
       return Promise.reject(error);

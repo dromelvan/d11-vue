@@ -1,10 +1,11 @@
 import D11BootApi from "./d11BootApi";
 
-const transferListingApi = new D11BootApi.TransferListingApi();
-
 const TransferListingService = {
   async findTransferListingsByTransferDayId(transferDayId, page) {
     try {
+      let transferListingApi = new D11BootApi.TransferListingApi();
+      D11BootApi.setApiBasePath();
+
       const response = transferListingApi.findTransferListingByTransferDayId(
         transferDayId,
         page
@@ -16,6 +17,8 @@ const TransferListingService = {
   },
   async insertTransferListing(playerId) {
     try {
+      let transferListingApi = new D11BootApi.TransferListingApi();
+      D11BootApi.setApiBasePath();
       D11BootApi.setBearerToken();
       const response = transferListingApi.insertTransferListing({
         playerId: playerId
@@ -29,6 +32,8 @@ const TransferListingService = {
   },
   async deleteTransferListing(playerId) {
     try {
+      let transferListingApi = new D11BootApi.TransferListingApi();
+      D11BootApi.setApiBasePath();
       D11BootApi.setBearerToken();
       const response = transferListingApi.deleteTransferListing({
         playerId: playerId

@@ -3,7 +3,9 @@ import D11BootApi from "./d11BootApi";
 const TeamService = {
   async getTeams() {
     try {
-      const response = new D11BootApi.TeamApi().findAllTeams();
+      let teamApi = new D11BootApi.TeamApi();
+      D11BootApi.setApiBasePath();
+      const response = teamApi.findAllTeams();
       return Promise.resolve(response);
     } catch (error) {
       return Promise.reject(error);
@@ -11,13 +13,19 @@ const TeamService = {
   },
   async getTeamSeasonData(teamId, seasonId) {
     try {
-      let teamPromise = new D11BootApi.TeamApi().findTeamById(teamId);
-      let seasonPromise = new D11BootApi.SeasonApi().findSeasonById(seasonId);
-      let teamSeasonStatPromise = new D11BootApi.TeamSeasonStatApi().findTeamSeasonStatByTeamIdAndSeasonId(
+      let teamApi = new D11BootApi.TeamApi();
+      let seasonApi = new D11BootApi.SeasonApi();
+      let teamSeasonStatApi = new D11BootApi.TeamSeasonStatApi();
+      let matchApi = new D11BootApi.MatchApi();
+      D11BootApi.setApiBasePath();
+
+      let teamPromise = teamApi.findTeamById(teamId);
+      let seasonPromise = seasonApi.findSeasonById(seasonId);
+      let teamSeasonStatPromise = teamSeasonStatApi.findTeamSeasonStatByTeamIdAndSeasonId(
         teamId,
         seasonId
       );
-      let matchPromise = new D11BootApi.MatchApi().findMatchByTeamIdAndSeasonId(
+      let matchPromise = matchApi.findMatchByTeamIdAndSeasonId(
         teamId,
         seasonId
       );

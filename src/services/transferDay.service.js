@@ -1,10 +1,10 @@
 import D11BootApi from "./d11BootApi";
 
-const transferDayApi = new D11BootApi.TransferDayApi();
-
 const TransferDayService = {
   async findTransferDaysByTransferWindowId(transferWindowId) {
     try {
+      let transferDayApi = new D11BootApi.TransferDayApi();
+      D11BootApi.setApiBasePath();
       const response = transferDayApi.findTransferDayByTransferWindowId(
         transferWindowId
       );
@@ -15,6 +15,8 @@ const TransferDayService = {
   },
   async findTransferDayById(transferDayId) {
     try {
+      let transferDayApi = new D11BootApi.TransferDayApi();
+      D11BootApi.setApiBasePath();
       const response = transferDayApi.findTransferDayById(transferDayId);
       return Promise.resolve(response);
     } catch (error) {
@@ -23,6 +25,8 @@ const TransferDayService = {
   },
   async updateTransferDay(transferDay) {
     try {
+      let transferDayApi = new D11BootApi.TransferDayApi();
+      D11BootApi.setApiBasePath();
       D11BootApi.setBearerToken();
       let response = transferDayApi.updateTransferDay(transferDay);
       D11BootApi.clearBearerToken();

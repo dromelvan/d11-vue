@@ -3,14 +3,19 @@ import D11BootApi from "./d11BootApi";
 const PlayerService = {
   async getPlayerSeasonData(playerId, seasonId) {
     try {
-      let playerPromise = new D11BootApi.PlayerApi().findPlayerById(playerId);
-      let seasonPromise = new D11BootApi.SeasonApi().findSeasonById(seasonId);
-      let playerSeasonStatPromise = new D11BootApi.PlayerSeasonStatApi().findPlayerSeasonStatByPlayerIdAndSeasonId(
+      let playerApi = new D11BootApi.PlayerApi();
+      let seasonApi = new D11BootApi.SeasonApi();
+      let playerSeasonStatApi = new D11BootApi.PlayerSeasonStatApi();
+      D11BootApi.setApiBasePath();
+
+      let playerPromise = playerApi.findPlayerById(playerId);
+      let seasonPromise = seasonApi.findSeasonById(seasonId);
+      let playerSeasonStatPromise = playerSeasonStatApi.findPlayerSeasonStatByPlayerIdAndSeasonId(
         playerId,
         seasonId
       );
       D11BootApi.setBearerToken();
-      let playerTransferStatusPromise = new D11BootApi.PlayerApi().findPlayerTransferStatusById(
+      let playerTransferStatusPromise = playerApi.findPlayerTransferStatusById(
         playerId
       );
       let combinedPromise = await Promise.allSettled([
@@ -32,7 +37,9 @@ const PlayerService = {
   },
   async getPlayerMatchStats(playerId, seasonId) {
     try {
-      let response = new D11BootApi.PlayerMatchStatApi().findPlayerMatchStatByPlayerIdAndSeasonId(
+      let playerMatchStatApi = new D11BootApi.PlayerMatchStatApi();
+      D11BootApi.setApiBasePath();
+      let response = playerMatchStatApi.findPlayerMatchStatByPlayerIdAndSeasonId(
         playerId,
         seasonId
       );
@@ -44,6 +51,7 @@ const PlayerService = {
   async insertPlayer(player) {
     try {
       let playerApi = new D11BootApi.PlayerApi();
+      D11BootApi.setApiBasePath();
       D11BootApi.setBearerToken();
       let response = playerApi.insertPlayer(player);
       D11BootApi.clearBearerToken();
@@ -55,6 +63,7 @@ const PlayerService = {
   async updatePlayer(player) {
     try {
       let playerApi = new D11BootApi.PlayerApi();
+      D11BootApi.setApiBasePath();
       D11BootApi.setBearerToken();
       let response = playerApi.updatePlayer(player);
       D11BootApi.clearBearerToken();

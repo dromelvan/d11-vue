@@ -3,7 +3,9 @@ import D11BootApi from "./d11BootApi";
 const SeasonService = {
   async getSeason(seasonId) {
     try {
-      const response = new D11BootApi.SeasonApi().findSeasonById(seasonId);
+      let seasonApi = new D11BootApi.SeasonApi();
+      D11BootApi.setApiBasePath();
+      const response = seasonApi.findSeasonById(seasonId);
       return Promise.resolve(response);
     } catch (error) {
       return Promise.reject(error);
@@ -11,9 +13,9 @@ const SeasonService = {
   },
   async getSeasonSummaryByIdd(seasonId) {
     try {
-      const response = new D11BootApi.SeasonApi().findSeasonSummaryById(
-        seasonId
-      );
+      let seasonApi = new D11BootApi.SeasonApi();
+      D11BootApi.setApiBasePath();
+      const response = seasonApi.findSeasonSummaryById(seasonId);
       return Promise.resolve(response);
     } catch (error) {
       return Promise.reject(error);
@@ -21,10 +23,10 @@ const SeasonService = {
   },
   async getSeasonData(seasonId) {
     try {
-      let seasonPromise = new D11BootApi.SeasonApi().findSeasonById(seasonId);
-      let seasonSummaryPromise = new D11BootApi.SeasonApi().findSeasonSummaryById(
-        seasonId
-      );
+      let seasonApi = new D11BootApi.SeasonApi();
+      D11BootApi.setApiBasePath();
+      let seasonPromise = seasonApi.findSeasonById(seasonId);
+      let seasonSummaryPromise = seasonApi.findSeasonSummaryById(seasonId);
 
       let combinedPromise = await Promise.allSettled([
         seasonPromise,

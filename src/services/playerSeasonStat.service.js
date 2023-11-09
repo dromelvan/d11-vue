@@ -3,7 +3,9 @@ import D11BootApi from "./d11BootApi";
 const PlayerSeasonStatService = {
   async getPlayerSeasonStatsByPlayerId(playerId) {
     try {
-      let response = new D11BootApi.PlayerSeasonStatApi().findPlayerSeasonStatByPlayerId(
+      let playerSeasonStatApi = new D11BootApi.PlayerSeasonStatApi();
+      D11BootApi.setApiBasePath();
+      let response = playerSeasonStatApi.findPlayerSeasonStatByPlayerId(
         playerId
       );
       return Promise.resolve(response);
@@ -13,7 +15,9 @@ const PlayerSeasonStatService = {
   },
   async getPlayerSeasonStatsByTeamIdAndSeasonId(teamId, seasonId) {
     try {
-      let response = new D11BootApi.PlayerSeasonStatApi().findPlayerSeasonStatByTeamIdAndSeasonId(
+      let playerSeasonStatApi = new D11BootApi.PlayerSeasonStatApi();
+      D11BootApi.setApiBasePath();
+      let response = playerSeasonStatApi.findPlayerSeasonStatByTeamIdAndSeasonId(
         teamId,
         seasonId
       );
@@ -24,7 +28,9 @@ const PlayerSeasonStatService = {
   },
   async getPlayerSeasonStatByD11TeamIdAndSeasonId(d11TeamId, seasonId) {
     try {
-      let response = new D11BootApi.PlayerSeasonStatApi().findPlayerSeasonStatByD11TeamIdAndSeasonId(
+      let playerSeasonStatApi = new D11BootApi.PlayerSeasonStatApi();
+      D11BootApi.setApiBasePath();
+      let response = playerSeasonStatApi.findPlayerSeasonStatByD11TeamIdAndSeasonId(
         d11TeamId,
         seasonId
       );
@@ -35,7 +41,9 @@ const PlayerSeasonStatService = {
   },
   async getPlayerSeasonStatsBySeasonIdAndPage(seasonId, page, opts) {
     try {
-      let response = new D11BootApi.PlayerSeasonStatApi().findPlayerSeasonStatBySeasonId(
+      let playerSeasonStatApi = new D11BootApi.PlayerSeasonStatApi();
+      D11BootApi.setApiBasePath();
+      let response = playerSeasonStatApi.findPlayerSeasonStatBySeasonId(
         seasonId,
         page,
         opts
@@ -47,7 +55,9 @@ const PlayerSeasonStatService = {
   },
   async getAvailablePlayerSeasonStatBySeasonId(seasonId) {
     try {
-      let response = new D11BootApi.PlayerSeasonStatApi().findAvailablePlayerSeasonStatBySeasonId(
+      let playerSeasonStatApi = new D11BootApi.PlayerSeasonStatApi();
+      D11BootApi.setApiBasePath();
+      let response = playerSeasonStatApi.findAvailablePlayerSeasonStatBySeasonId(
         seasonId
       );
       return Promise.resolve(response);

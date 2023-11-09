@@ -1,10 +1,10 @@
 import D11BootApi from "./d11BootApi";
 
-const transferBidApi = new D11BootApi.TransferBidApi();
-
 const TransferBidService = {
   async findTransferBidsByTransferDayId(transferDayId) {
     try {
+      let transferBidApi = new D11BootApi.TransferBidApi();
+      D11BootApi.setApiBasePath();
       D11BootApi.setBearerToken();
       const response = transferBidApi.findTransferBidByTransferDayId(
         transferDayId
@@ -18,6 +18,8 @@ const TransferBidService = {
   },
   async insertTransferBid(playerId, fee) {
     try {
+      let transferBidApi = new D11BootApi.TransferBidApi();
+      D11BootApi.setApiBasePath();
       D11BootApi.setBearerToken();
       const response = transferBidApi.insertTransferBid({
         playerId: playerId,
@@ -32,6 +34,8 @@ const TransferBidService = {
   },
   async deleteTransferBid(transferBidId) {
     try {
+      let transferBidApi = new D11BootApi.TransferBidApi();
+      D11BootApi.setApiBasePath();
       D11BootApi.setBearerToken();
       const response = transferBidApi.deleteTransferBid({
         transferBidId: transferBidId

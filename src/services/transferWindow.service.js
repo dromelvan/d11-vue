@@ -1,11 +1,11 @@
 import D11BootApi from "./d11BootApi";
 
-const transferWindowApi = new D11BootApi.TransferWindowApi();
-const transferDayApi = new D11BootApi.TransferDayApi();
-
 const TransferWindowService = {
   async findTransferWindowsBySeasonId(seasonId) {
     try {
+      let transferWindowApi = new D11BootApi.TransferWindowApi();
+      D11BootApi.setApiBasePath();
+
       const response = transferWindowApi.findTransferWindowBySeasonId(seasonId);
       return Promise.resolve(response);
     } catch (error) {
@@ -14,6 +14,9 @@ const TransferWindowService = {
   },
   async findTransferWindowById(transferWindowId) {
     try {
+      let transferWindowApi = new D11BootApi.TransferWindowApi();
+      D11BootApi.setApiBasePath();
+
       const response = transferWindowApi.findTransferWindowById(
         transferWindowId
       );
@@ -24,6 +27,10 @@ const TransferWindowService = {
   },
   async getTransferWindowData(transferWindowId) {
     try {
+      let transferWindowApi = new D11BootApi.TransferWindowApi();
+      let transferDayApi = new D11BootApi.TransferDayApi();
+      D11BootApi.setApiBasePath();
+
       let transferWindowPromise = transferWindowApi.findTransferWindowById(
         transferWindowId
       );

@@ -4,9 +4,9 @@ import store from "@/store/index";
 const AuthenticationService = {
   async login(credentials) {
     try {
-      const response = await new D11BootApi.AuthenticationApi().authenticate(
-        credentials
-      );
+      let authenticationApi = new D11BootApi.AuthenticationApi();
+      D11BootApi.setApiBasePath();
+      const response = await authenticationApi.authenticate(credentials);
       store.dispatch("login", response);
       return Promise.resolve(response);
     } catch (error) {
@@ -16,7 +16,9 @@ const AuthenticationService = {
   },
   async signUp(userRegistration) {
     try {
-      const response = await new D11BootApi.UserApi().createUser({
+      let userApi = new D11BootApi.UserApi();
+      D11BootApi.setApiBasePath();
+      const response = await userApi.createUser({
         name: userRegistration.name,
         email: userRegistration.email,
         password: userRegistration.password,
@@ -29,8 +31,10 @@ const AuthenticationService = {
   },
   async changePassword(userRegistration) {
     try {
+      let userApi = new D11BootApi.UserApi();
+      D11BootApi.setApiBasePath();
       D11BootApi.setBearerToken();
-      const response = await new D11BootApi.UserApi().updatePassword({
+      const response = await userApi.updatePassword({
         password: userRegistration.password,
         repeatedPassword: userRegistration.confirmPassword
       });
