@@ -30,10 +30,22 @@ npm run test:e2e
 npm run lint
 ```
 
-### Docker
+### Deploy
 
+npm run build
+
+Local:
+
+docker container stop d11-vue
+docker container rm d11-vue
+docker image rm d11/d11-vue
 docker build -t d11/d11-vue .
-docker image save -o d11-vue.tar d11/d11-vue
+docker run -d --name d11-vue -p 8081:80 --restart unless-stopped d11/d11-vue
+
+Production:
+
+deploy dist to server
+./d11-vue_deploy.sh
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).

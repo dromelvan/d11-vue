@@ -1,21 +1,19 @@
-# NOTE: Edit the package.json file before doing Docker builds and change the serve, build and lint scripts
-# Build stage
-FROM node:lts-alpine as build-stage
+# Stage 1: Use a lightweight Node.js image for copying files
+FROM node:14-alpine AS copyFiles
 WORKDIR /app
-COPY package*.json ./
-COPY lib/d11-boot-api-*.tgz /app/lib/
-# This Python thing is needed now for some reason
-RUN apk add --update python3 make g++ && rm -rf /var/cache/apk/*
-RUN npm install
-COPY . .
-RUN npm run build
 
-# Production stage
-# x86
-# FROM nginx:stable-alpine as production-stage
-# m1
-FROM arm64v8/nginx as production-stage
-COPY --from=build-stage /app/dist /usr/share/nginx/html
+# Copy the pre-built artifacts into the container
+COPY dist/ .
+
+# Stage 2: Serve the Vue.js application using Nginx
+FROM nginx:alpine AS production
+WORKDIR /usr/share/nginx/html
+
+# Copy conf file to enable client side routing
 COPY ./docker /
+
+# Copy the pre-built artifacts from the previous stage
+COPY --from=copyFiles /app .
+
+# Expose the port that Nginx will run on
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
